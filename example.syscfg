@@ -17,6 +17,11 @@ const gpio4           = gpio.addInstance();
 const gpio5           = gpio.addInstance();
 const gpio6           = gpio.addInstance();
 const gpio7           = gpio.addInstance();
+const gpio8           = gpio.addInstance();
+const gpio9           = gpio.addInstance();
+const gpio10          = gpio.addInstance();
+const gpio11          = gpio.addInstance();
+const gpio12          = gpio.addInstance();
 const debug_log       = scripting.addModule("/kernel/dpl/debug_log");
 const dpl_cfg         = scripting.addModule("/kernel/dpl/dpl_cfg");
 const mpu_armv7       = scripting.addModule("/kernel/dpl/mpu_armv7", {}, false);
@@ -47,6 +52,11 @@ const section11       = section.addInstance();
 const section12       = section.addInstance();
 const gpio_int_xbar   = scripting.addModule("/xbar/gpio_int_xbar/gpio_int_xbar", {}, false);
 const gpio_int_xbar1  = gpio_int_xbar.addInstance();
+const gpio_int_xbar2  = gpio_int_xbar.addInstance();
+const gpio_int_xbar3  = gpio_int_xbar.addInstance();
+const gpio_int_xbar4  = gpio_int_xbar.addInstance();
+const gpio_int_xbar5  = gpio_int_xbar.addInstance();
+const gpio_int_xbar6  = gpio_int_xbar.addInstance();
 
 /**
  * Write custom configuration values to the imported modules.
@@ -79,6 +89,31 @@ gpio6.GPIO_n.$assign = "PR0_PRU0_GPIO2";
 gpio7.$name          = "GPIO99";
 gpio7.pinDir         = "OUTPUT";
 gpio7.GPIO_n.$assign = "PR0_PRU0_GPIO11";
+
+gpio8.$name          = "GPIO46";
+gpio8.trigType       = "FALL_EDGE";
+gpio8.enableIntr     = true;
+gpio8.GPIO_n.$assign = "EPWM1_B";
+
+gpio9.$name          = "GPIO91";
+gpio9.trigType       = "FALL_EDGE";
+gpio9.enableIntr     = true;
+gpio9.GPIO_n.$assign = "PR0_PRU0_GPIO6";
+
+gpio10.$name          = "GPIO103";
+gpio10.trigType       = "FALL_EDGE";
+gpio10.enableIntr     = true;
+gpio10.GPIO_n.$assign = "PR0_PRU1_GPIO5";
+
+gpio11.$name          = "GPIO97";
+gpio11.enableIntr     = true;
+gpio11.trigType       = "FALL_EDGE";
+gpio11.GPIO_n.$assign = "PR0_PRU0_GPIO16";
+
+gpio12.$name          = "GPIO101";
+gpio12.trigType       = "FALL_EDGE";
+gpio12.enableIntr     = true;
+gpio12.GPIO_n.$assign = "PR0_PRU0_GPIO13";
 
 debug_log.enableUartLog            = true;
 debug_log.uartLog.$name            = "CONFIG_UART0";
@@ -308,6 +343,26 @@ section12.output_section.create(1);
 section12.output_section[0].$name     = ".bss.sipc_secure_host_queue_mem";
 section12.output_section[0].alignment = 0;
 
-gpio_int_xbar1.$name      = "CONFIG_GPIO_INT_XBAR0";
 gpio_int_xbar1.xbarOutput = "GPIO_INT_XBAR_GPIO_MUX_44";
 gpio_int_xbar1.instance   = "GPIO_INT_XBAR_VIM_MODULE0_0";
+gpio_int_xbar1.$name      = "GPIO44_INT_XBAR";
+
+gpio_int_xbar2.xbarOutput = "GPIO_INT_XBAR_GPIO_MUX_46";
+gpio_int_xbar2.instance   = "GPIO_INT_XBAR_VIM_MODULE0_1";
+gpio_int_xbar2.$name      = "GPIO46_INT_XBAR";
+
+gpio_int_xbar3.$name      = "GPIO91_INT_XBAR";
+gpio_int_xbar3.xbarOutput = "GPIO_INT_XBAR_GPIO_MUX_91";
+gpio_int_xbar3.instance   = "GPIO_INT_XBAR_VIM_MODULE0_2";
+
+gpio_int_xbar4.$name      = "GPIO103_INT_XBAR";
+gpio_int_xbar4.xbarOutput = "GPIO_INT_XBAR_GPIO_MUX_103";
+gpio_int_xbar4.instance   = "GPIO_INT_XBAR_VIM_MODULE0_3";
+
+gpio_int_xbar5.$name      = "GPIO97_INT_XBAR";
+gpio_int_xbar5.xbarOutput = "GPIO_INT_XBAR_GPIO_MUX_97";
+gpio_int_xbar5.instance   = "GPIO_INT_XBAR_VIM_MODULE1_0";
+
+gpio_int_xbar6.$name      = "GPIO101_INT_XBAR";
+gpio_int_xbar6.xbarOutput = "GPIO_INT_XBAR_GPIO_MUX_101";
+gpio_int_xbar6.instance   = "GPIO_INT_XBAR_VIM_MODULE1_1";

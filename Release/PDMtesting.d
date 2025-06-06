@@ -1,6 +1,6 @@
 # FIXED
 
-empty.o: ../empty.c \
+PDMtesting.o: ../PDMtesting.c \
  C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/kernel/dpl/DebugP.h \
  C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/kernel/dpl/ClockP.h \
  C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/kernel/dpl/SystemP.h \
@@ -108,7 +108,8 @@ empty.o: ../empty.c \
  C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/kernel/dpl/CycleCounterP.h \
  syscfg/ti_drivers_open_close.h \
  syscfg/ti_board_open_close.h \
- syscfg/ti_board_config.h
+ syscfg/ti_board_config.h \
+ ../board.h
 C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/kernel/dpl/DebugP.h:
 C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/kernel/dpl/ClockP.h:
 C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/kernel/dpl/SystemP.h:
@@ -217,3 +218,4 @@ C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263p
 syscfg/ti_drivers_open_close.h:
 syscfg/ti_board_open_close.h:
 syscfg/ti_board_config.h:
+../board.h:

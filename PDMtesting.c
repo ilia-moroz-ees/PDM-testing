@@ -10,32 +10,16 @@
 #include "ti_drivers_config.h"
 #include "ti_drivers_open_close.h"
 #include "ti_board_open_close.h"
+#include "board.h"
 
-#define GPIO44_INT_NUM  CSLR_R5FSS0_CORE0_INTR_GPIO_INTRXBAR_OUT_14
-#define GPIO46_INT_NUM  
-#define GPIO91_INT_NUM
-#define GPIO103_INT_NUM
-#define GPIO97_INT_NUM
-#define GPIO101_INT_NUM
-
-static void GPIO_bankIsrFxn(void *args);
-void init_gpio();
-void init_interrupts();
-
-volatile int test = 0;
-
-void empty_main(void *args)
+void PDM_testing(void *args)
 {
-
-    
 
     Drivers_open();
     Board_driversOpen();
 
     init_gpio();
-    init_interrupts();
-
-    
+    init_interrupts(&intr_objects);
 
     while(true)
     {
@@ -49,12 +33,15 @@ void empty_main(void *args)
 
 static void GPIO_bankIsrFxn(void *args)
 {
-    uint32_t bankNum =  GPIO_GET_BANK_INDEX(GPIO44_PIN);
-    uint32_t intrStatus, pinMask = GPIO_GET_BANK_BIT_MASK(GPIO44_PIN);
+    // Passing a struct with pin information
+    if (!args) return; // Check for null pointer
+    Pin_parameters *pin_parameters = (Pin_parameters*)args;
+    uint32_t bankNum =  GPIO_GET_BANK_INDEX(pin_parameters->pin);
+    uint32_t intrStatus, pinMask = GPIO_GET_BANK_BIT_MASK(pin_parameters->pin);
 
     /* Get and clear bank interrupt status */
-    intrStatus = GPIO_getBankIntrStatus(GPIO44_BASE_ADDR, bankNum);
-    GPIO_clearBankIntrStatus(GPIO44_BASE_ADDR, bankNum, intrStatus);
+    intrStatus = GPIO_getBankIntrStatus(pin_parameters->base_address, bankNum);
+    GPIO_clearBankIntrStatus(pin_parameters->base_address, bankNum, intrStatus);
 
     /* Per pin interrupt handling */
     if(intrStatus & pinMask)
@@ -84,16 +71,17 @@ void init_gpio()
     DebugP_log("GPIO99 configured as output\r\n");
 }
 
-void init_interrupts()
+void init_interrupts(Intr_objects *objects)
 {
     HwiP_Params hwiPrms;
-    HwiP_Object gGpioHwiObject;
     HwiP_Params_init(&hwiPrms);
+    int32_t retVal;
     /* Register pin interrupt */
-    
+
     hwiPrms.intNum = GPIO44_INT_NUM; //GPIO44
     hwiPrms.callback = &GPIO_bankIsrFxn;
+    hwiPrms.args = &pins.gpio44;
     hwiPrms.isPulse = FALSE;
-    int32_t retVal = HwiP_construct(&gGpioHwiObject, &hwiPrms);
+    retVal = HwiP_construct(&objects->Gpio44HwiObject, &hwiPrms);
     DebugP_assert(retVal == SystemP_SUCCESS);
 }

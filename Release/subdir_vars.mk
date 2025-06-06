@@ -9,7 +9,7 @@ SYSCFG_SRCS += \
 ../example.syscfg 
 
 C_SRCS += \
-../empty.c \
+../PDMtesting.c \
 ./syscfg/ti_dpl_config.c \
 ./syscfg/ti_drivers_config.c \
 ./syscfg/ti_drivers_open_close.c \
@@ -46,7 +46,7 @@ GEN_MISC_DIRS += \
 ./syscfg 
 
 C_DEPS += \
-./empty.d \
+./PDMtesting.d \
 ./syscfg/ti_dpl_config.d \
 ./syscfg/ti_drivers_config.d \
 ./syscfg/ti_drivers_open_close.d \
@@ -62,7 +62,7 @@ C_DEPS += \
 ./main.d 
 
 OBJS += \
-./empty.o \
+./PDMtesting.o \
 ./syscfg/ti_dpl_config.o \
 ./syscfg/ti_drivers_config.o \
 ./syscfg/ti_drivers_open_close.o \
@@ -94,7 +94,7 @@ GEN_MISC_DIRS__QUOTED += \
 "syscfg" 
 
 OBJS__QUOTED += \
-"empty.o" \
+"PDMtesting.o" \
 "syscfg\ti_dpl_config.o" \
 "syscfg\ti_drivers_config.o" \
 "syscfg\ti_drivers_open_close.o" \
@@ -123,7 +123,7 @@ GEN_MISC_FILES__QUOTED += \
 "syscfg\ti_sdl_config.h" 
 
 C_DEPS__QUOTED += \
-"empty.d" \
+"PDMtesting.d" \
 "syscfg\ti_dpl_config.d" \
 "syscfg\ti_drivers_config.d" \
 "syscfg\ti_drivers_open_close.d" \
@@ -154,7 +154,7 @@ GEN_FILES__QUOTED += \
 "syscfg\ti_sdl_config.c" 
 
 C_SRCS__QUOTED += \
-"../empty.c" \
+"../PDMtesting.c" \
 "./syscfg/ti_dpl_config.c" \
 "./syscfg/ti_drivers_config.c" \
 "./syscfg/ti_drivers_open_close.c" \
