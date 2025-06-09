@@ -97,7 +97,65 @@ static Pinmux_PerCfg_t gPinMuxMainDomainCfg[] = {
         PIN_MCAN2_TX,
         ( PIN_MODE(7) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW | PIN_GPIO_R5SS0_0 )
     },
+                /* GPIO127 -> SDFM0_D2 (C13) */
+    {
+        PIN_SDFM0_D2,
+        ( PIN_MODE(7) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW | PIN_GPIO_R5SS0_0 )
+    },
+                /* GPIO126 -> SDFM0_CLK2 (B15) */
+    {
+        PIN_SDFM0_CLK2,
+        ( PIN_MODE(7) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW | PIN_GPIO_R5SS0_0 )
+    },
+                /* GPIO11 -> SPI0_CS0 (C11) */
+    {
+        PIN_SPI0_CS0,
+        ( PIN_MODE(7) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW | PIN_GPIO_R5SS0_0 )
+    },
+                /* GPIO15 -> SPI1_CS0 (C9) */
+    {
+        PIN_SPI1_CS0,
+        ( PIN_MODE(7) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW | PIN_GPIO_R5SS0_0 )
+    },
 
+            /* SPI0 pin config */
+    /* SPI0_CLK -> SPI0_CLK (A11) */
+    {
+        PIN_SPI0_CLK,
+        ( PIN_MODE(0) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW )
+    },
+    /* SPI0 pin config */
+    /* SPI0_D0 -> SPI0_D0 (C10) */
+    {
+        PIN_SPI0_D0,
+        ( PIN_MODE(0) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW )
+    },
+    /* SPI0 pin config */
+    /* SPI0_D1 -> SPI0_D1 (B11) */
+    {
+        PIN_SPI0_D1,
+        ( PIN_MODE(0) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW )
+    },
+            /* SPI1 pin config */
+    /* SPI1_CLK -> SPI1_CLK (A10) */
+    {
+        PIN_SPI1_CLK,
+        ( PIN_MODE(0) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW )
+    },
+    /* SPI1 pin config */
+    /* SPI1_D0 -> SPI1_D0 (B10) */
+    {
+        PIN_SPI1_D0,
+        ( PIN_MODE(0) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW )
+    },
+    /* SPI1 pin config */
+    /* SPI1_D1 -> SPI1_D1 (D9) */
+    {
+        PIN_SPI1_D1,
+        ( PIN_MODE(0) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW )
+    },
+
+                
             /* UART0 pin config */
     /* UART0_RXD -> UART0_RXD (A7) */
     {

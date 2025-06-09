@@ -123,6 +123,30 @@ void GPIO_init()
     GPIO_pinWriteLow(baseAddr, GPIO136_PIN);
 
     GPIO_setDirMode(baseAddr, GPIO136_PIN, GPIO136_DIR);
+    /* Instance 12 */
+    /* Get address after translation translate */
+    baseAddr = (uint32_t) AddrTranslateP_getLocalAddr(GPIO127_BASE_ADDR);
+    GPIO_pinWriteLow(baseAddr, GPIO127_PIN);
+
+    GPIO_setDirMode(baseAddr, GPIO127_PIN, GPIO127_DIR);
+    /* Instance 13 */
+    /* Get address after translation translate */
+    baseAddr = (uint32_t) AddrTranslateP_getLocalAddr(GPIO126_BASE_ADDR);
+    GPIO_pinWriteLow(baseAddr, GPIO126_PIN);
+
+    GPIO_setDirMode(baseAddr, GPIO126_PIN, GPIO126_DIR);
+    /* Instance 14 */
+    /* Get address after translation translate */
+    baseAddr = (uint32_t) AddrTranslateP_getLocalAddr(SPI0_CS_BASE_ADDR);
+    GPIO_pinWriteLow(baseAddr, SPI0_CS_PIN);
+
+    GPIO_setDirMode(baseAddr, SPI0_CS_PIN, SPI0_CS_DIR);
+    /* Instance 15 */
+    /* Get address after translation translate */
+    baseAddr = (uint32_t) AddrTranslateP_getLocalAddr(SPI1_CS_BASE_ADDR);
+    GPIO_pinWriteLow(baseAddr, SPI1_CS_PIN);
+
+    GPIO_setDirMode(baseAddr, SPI1_CS_PIN, SPI1_CS_DIR);
 }
 
 
@@ -162,6 +186,141 @@ void GPIO_deinit()
     GPIO_setTrigType(baseAddr, GPIO52_PIN, GPIO_TRIG_TYPE_NONE);
     GPIO_clearIntrStatus(baseAddr, GPIO52_PIN);
 }
+
+/*
+ * MCSPI
+ */
+#include "ti_drivers_open_close.h"
+
+uint32_t gMcspiNumCh[2] =
+{
+    SPI0_NUM_CH,
+    SPI1_NUM_CH,
+};
+
+/* MCSPI atrributes */
+static MCSPI_Attrs gMcspiAttrs[CONFIG_MCSPI_NUM_INSTANCES] =
+{
+    {
+        .baseAddr           = CSL_MCSPI0_U_BASE,
+        .inputClkFreq       = 50000000U,
+        .intrNum            = CSLR_R5FSS0_CORE0_INTR_MCSPI0_INTR,
+        .operMode           = MCSPI_OPER_MODE_INTERRUPT,
+        .intrPriority       = 4U,
+        .chMode             = MCSPI_CH_MODE_SINGLE,
+        .pinMode            = MCSPI_PINMODE_4PIN,
+        .initDelay          = MCSPI_INITDLY_0,
+        .multiWordAccess    = FALSE,
+    },
+    {
+        .baseAddr           = CSL_MCSPI1_U_BASE,
+        .inputClkFreq       = 50000000U,
+        .intrNum            = CSLR_R5FSS0_CORE0_INTR_MCSPI1_INTR,
+        .operMode           = MCSPI_OPER_MODE_INTERRUPT,
+        .intrPriority       = 4U,
+        .chMode             = MCSPI_CH_MODE_SINGLE,
+        .pinMode            = MCSPI_PINMODE_4PIN,
+        .initDelay          = MCSPI_INITDLY_0,
+        .multiWordAccess    = FALSE,
+    },
+};
+/* MCSPI objects - initialized by the driver */
+static MCSPI_Object gMcspiObjects[CONFIG_MCSPI_NUM_INSTANCES];
+/* MCSPI driver configuration */
+MCSPI_Config gMcspiConfig[CONFIG_MCSPI_NUM_INSTANCES] =
+{
+    {
+        &gMcspiAttrs[SPI0],
+        &gMcspiObjects[SPI0],
+    },
+    {
+        &gMcspiAttrs[SPI1],
+        &gMcspiObjects[SPI1],
+    },
+};
+
+uint32_t gMcspiConfigNum = CONFIG_MCSPI_NUM_INSTANCES;
+
+#include <drivers/edma.h>
+#include <drivers/mcspi/v0/lld/dma/mcspi_dma.h>
+#include <drivers/mcspi/v0/lld/dma/edma/mcspi_dma_edma.h>
+MCSPI_DmaConfig gMcspiDmaConfig =
+{
+    .fxns        = NULL,
+    .mcspiDmaArgs = (void *)NULL,
+};
+
+McspiDma_EdmaArgs gMcspiEdmaArgs =
+{
+    .drvHandle        = NULL,
+};
+
+MCSPI_DmaHandle gMcspiDmaHandle[] =
+{
+};
+
+uint32_t gMcspiDmaConfigNum = CONFIG_MCSPI_NUM_DMA_INSTANCES;
+
+/*
+ * EDMA
+ */
+/* EDMA atrributes */
+static EDMA_Attrs gEdmaAttrs[CONFIG_EDMA_NUM_INSTANCES] =
+{
+    {
+
+        .baseAddr           = CSL_TPCC0_U_BASE,
+        .compIntrNumber     = CSLR_R5FSS0_CORE0_INTR_TPCC0_INT_0,
+        .intrPriority       = 15U,
+        .errIntrNumber      = CSLR_R5FSS0_CORE0_INTR_TPCC0_ERRAGGR,
+        .errIntrPriority    = 15U,
+        .intrAggEnableAddr  = CSL_MSS_CTRL_U_BASE + CSL_MSS_CTRL_TPCC0_INTAGG_MASK,
+        .intrAggEnableMask  = 0x1FF & (~(2U << 0)),
+        .intrAggStatusAddr  = CSL_MSS_CTRL_U_BASE + CSL_MSS_CTRL_TPCC0_INTAGG_STATUS,
+        .intrAggClearMask   = (2U << 0),
+        .errIntrAggEnableAddr  = CSL_MSS_CTRL_U_BASE + CSL_MSS_CTRL_TPCC0_ERRAGG_MASK,
+        .errIntrAggEnableMask  = 0xFFFFFFFF & (~(0x707001F)),
+        .errIntrAggStatusAddr  = CSL_MSS_CTRL_U_BASE + CSL_MSS_CTRL_TPCC0_ERRAGG_STATUS,
+        .errIntrAggRawStatusAddr  = CSL_MSS_CTRL_U_BASE + CSL_MSS_CTRL_TPCC0_ERRAGG_STATUS_RAW,
+        .initPrms           =
+        {
+            .regionId     = 0,
+            .queNum       = 0,
+            .initParamSet = FALSE,
+            .ownResource    =
+            {
+                .qdmaCh      = 0x03U,
+                .dmaCh[0]    = 0xFFFFFFFFU,
+                .dmaCh[1]    = 0x000000FFU,
+                .tcc[0]      = 0xFFFFFFFFU,
+                .tcc[1]      = 0x000000FFU,
+                .paramSet[0] = 0xFFFFFFFFU,
+                .paramSet[1] = 0xFFFFFFFFU,
+                .paramSet[2] = 0xFFFFFFFFU,
+                .paramSet[3] = 0xFFFFFFFFU,
+                .paramSet[4] = 0xFFFFFFFFU,
+                .paramSet[5] = 0xFFFFFFFFU,
+                .paramSet[6] = 0xFFFFFFFFU,
+                .paramSet[7] = 0x000007FFU,
+            },
+            .reservedDmaCh[0]    = 0x00000000U,
+            .reservedDmaCh[1]    = 0x00000000U,
+        },
+    },
+};
+
+/* EDMA objects - initialized by the driver */
+static EDMA_Object gEdmaObjects[CONFIG_EDMA_NUM_INSTANCES];
+/* EDMA driver configuration */
+EDMA_Config gEdmaConfig[CONFIG_EDMA_NUM_INSTANCES] =
+{
+    {
+        &gEdmaAttrs[CONFIG_EDMA0],
+        &gEdmaObjects[CONFIG_EDMA0],
+    },
+};
+
+uint32_t gEdmaConfigNum = CONFIG_EDMA_NUM_INSTANCES;
 
 /*
  * UART
@@ -232,12 +391,16 @@ void System_init(void)
     Pinmux_init();
     /* finally we initialize all peripheral drivers */
     GPIO_init();
+    MCSPI_init();
+    EDMA_init();
     Drivers_uartInit();
 }
 
 void System_deinit(void)
 {
     GPIO_deinit();
+    MCSPI_deinit();
+    EDMA_deinit();
     UART_deinit();
     PowerClock_deinit();
 

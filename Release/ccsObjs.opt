@@ -1,4 +1,6 @@
+"./ADS_adc.o"
 "./PDMtesting.o"
+"./board.o"
 "./syscfg/ti_dpl_config.o"
 "./syscfg/ti_drivers_config.o"
 "./syscfg/ti_drivers_open_close.o"

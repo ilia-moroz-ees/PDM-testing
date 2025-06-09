@@ -22,6 +22,13 @@ const gpio9           = gpio.addInstance();
 const gpio10          = gpio.addInstance();
 const gpio11          = gpio.addInstance();
 const gpio12          = gpio.addInstance();
+const gpio13          = gpio.addInstance();
+const gpio14          = gpio.addInstance();
+const gpio15          = gpio.addInstance();
+const gpio16          = gpio.addInstance();
+const mcspi           = scripting.addModule("/drivers/mcspi/mcspi", {}, false);
+const mcspi1          = mcspi.addInstance();
+const mcspi2          = mcspi.addInstance();
 const debug_log       = scripting.addModule("/kernel/dpl/debug_log");
 const dpl_cfg         = scripting.addModule("/kernel/dpl/dpl_cfg");
 const mpu_armv7       = scripting.addModule("/kernel/dpl/mpu_armv7", {}, false);
@@ -111,6 +118,43 @@ gpio11.GPIO_n.$assign = "SDFM0_D0";
 gpio12.pinDir         = "OUTPUT";
 gpio12.$name          = "GPIO136";
 gpio12.GPIO_n.$assign = "MCAN2_TX";
+
+gpio13.pinDir         = "OUTPUT";
+gpio13.$name          = "GPIO127";
+gpio13.GPIO_n.$assign = "SDFM0_D2";
+
+gpio14.$name          = "GPIO126";
+gpio14.pinDir         = "OUTPUT";
+gpio14.GPIO_n.$assign = "SDFM0_CLK2";
+
+gpio15.$name          = "SPI0_CS";
+gpio15.pinDir         = "OUTPUT";
+gpio15.GPIO_n.$assign = "SPI0_CS0";
+
+gpio16.$name          = "SPI1_CS";
+gpio16.pinDir         = "OUTPUT";
+gpio16.GPIO_n.$assign = "SPI1_CS0";
+
+mcspi1.$name                     = "SPI0";
+mcspi1.mcspiChannel[0].$name     = "CONFIG_MCSPI_CH0";
+mcspi1.mcspiChannel[0].CSn.$used = false;
+mcspi1.child.$name               = "drivers_mcspi_v1_mcspi_v1_template0";
+
+mcspi2.$name                     = "SPI1";
+mcspi2.SPI.$assign               = "SPI1";
+mcspi2.mcspiChannel[0].$name     = "CONFIG_MCSPI_CH1";
+mcspi2.mcspiChannel[0].CSn.$used = false;
+mcspi2.child.$name               = "drivers_mcspi_v1_mcspi_v1_template1";
+
+const edma                  = scripting.addModule("/drivers/edma/edma", {}, false);
+const edma1                 = edma.addInstance({}, false);
+edma1.$name                 = "CONFIG_EDMA0";
+mcspi1.edmaDriver           = edma1;
+mcspi2.edmaDriver           = edma1;
+edma1.edmaRmDmaCh[0].$name  = "CONFIG_EDMA_RM0";
+edma1.edmaRmQdmaCh[0].$name = "CONFIG_EDMA_RM1";
+edma1.edmaRmTcc[0].$name    = "CONFIG_EDMA_RM2";
+edma1.edmaRmParam[0].$name  = "CONFIG_EDMA_RM3";
 
 debug_log.enableUartLog            = true;
 debug_log.uartLog.$name            = "CONFIG_UART0";
@@ -347,3 +391,16 @@ gpio_int_xbar1.$name      = "GPIO0_BANK_2_INT_XBAR";
 gpio_int_xbar2.$name      = "GPIO0_BANK3_INT_XBAR";
 gpio_int_xbar2.xbarOutput = "GPIO_INT_XBAR_GPIO_0_BANK_INTR_3";
 gpio_int_xbar2.instance   = "GPIO_INT_XBAR_VIM_MODULE0_1";
+
+/**
+ * Pinmux solution for unlocked pins/peripherals. This ensures that minor changes to the automatic solver in a future
+ * version of the tool will not impact the pinmux you originally saw.  These lines can be completely deleted in order to
+ * re-solve from scratch.
+ */
+mcspi1.SPI.$suggestSolution     = "SPI0";
+mcspi1.SPI.CLK.$suggestSolution = "SPI0_CLK";
+mcspi1.SPI.D0.$suggestSolution  = "SPI0_D0";
+mcspi1.SPI.D1.$suggestSolution  = "SPI0_D1";
+mcspi2.SPI.CLK.$suggestSolution = "SPI1_CLK";
+mcspi2.SPI.D0.$suggestSolution  = "SPI1_D0";
+mcspi2.SPI.D1.$suggestSolution  = "SPI1_D1";

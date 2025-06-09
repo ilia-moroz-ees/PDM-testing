@@ -1,3 +1,6 @@
+#ifndef BOARD_H
+#define BOARD_H
+
 #include <stdio.h>
 #include <kernel/dpl/AddrTranslateP.h>
 #include <kernel/dpl/HwiP.h>
@@ -11,6 +14,8 @@
 #define GPIO46_INT_NUM CSLR_R5FSS0_CORE0_INTR_GPIO_INTRXBAR_OUT_14
 #define GPIO51_INT_NUM CSLR_R5FSS0_CORE0_INTR_GPIO_INTRXBAR_OUT_15
 #define GPIO52_INT_NUM CSLR_R5FSS0_CORE0_INTR_GPIO_INTRXBAR_OUT_15
+
+#define GPIO_MODULE_0_BASE_ADDRESS GPIO43_BASE_ADDR
 
 typedef struct
 {
@@ -40,20 +45,16 @@ typedef struct
     Pin_parameters gpio52;
 } Pins;
 
-Pins intr_pins = {
-    {GPIO43_PIN, GPIO43_BASE_ADDR, GPIO43_DIR, GPIO43_INT_NUM},
-    {GPIO44_PIN, GPIO44_BASE_ADDR, GPIO44_DIR, GPIO44_INT_NUM},
-    {GPIO45_PIN, GPIO45_BASE_ADDR, GPIO45_DIR, GPIO45_INT_NUM},
-    {GPIO46_PIN, GPIO46_BASE_ADDR, GPIO46_DIR, GPIO46_INT_NUM},
-    {GPIO51_PIN, GPIO51_BASE_ADDR, GPIO51_DIR, GPIO51_INT_NUM},
-    {GPIO52_PIN, GPIO52_BASE_ADDR, GPIO52_DIR, GPIO52_INT_NUM}
-};
+extern Pins intr_pins;
 
-static void GPIO_bankIsrFxn(void *args);
-void init_gpio();
-void init_global_interrupts(Intr_objects *objects);
-void init_interrupt(HwiP_Object *intr_object, Pin_parameters *pin);
+extern void GPIO_bankIsrFxn(void *args);
+extern void init_gpio();
+extern void init_global_interrupts(Intr_objects *objects);
+extern void init_interrupt(HwiP_Object *intr_object, Pin_parameters *pin);
+extern void digitalWrite(uint32_t base_address, uint32_t pin, bool value);
 
-volatile int test = 0;
+extern volatile int test;
 
-Intr_objects intr_objects;
+extern Intr_objects intr_objects;
+
+#endif

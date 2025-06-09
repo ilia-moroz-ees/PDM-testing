@@ -39,13 +39,205 @@
 
 void Drivers_open(void)
 {
+    Drivers_edmaOpen();
+    Drivers_mcspiOpen();
     Drivers_gpioIntXbarOpen();
     Drivers_uartOpen();
 }
 
 void Drivers_close(void)
 {
+    Drivers_mcspiClose();
     Drivers_uartClose();
+    Drivers_edmaClose();
+}
+
+/*
+ * MCSPI
+ */
+/* MCSPI Driver handles */
+MCSPI_Handle gMcspiHandle[CONFIG_MCSPI_NUM_INSTANCES];
+/* MCSPI Driver Open Parameters */
+MCSPI_OpenParams gMcspiOpenParams[CONFIG_MCSPI_NUM_INSTANCES] =
+{
+    {
+        .transferMode           = MCSPI_TRANSFER_MODE_BLOCKING,
+        .transferTimeout        = SystemP_WAIT_FOREVER,
+        .transferCallbackFxn    = NULL,
+        .msMode                 = MCSPI_MS_MODE_CONTROLLER,
+        .mcspiDmaIndex = -1,
+    },
+    {
+        .transferMode           = MCSPI_TRANSFER_MODE_BLOCKING,
+        .transferTimeout        = SystemP_WAIT_FOREVER,
+        .transferCallbackFxn    = NULL,
+        .msMode                 = MCSPI_MS_MODE_CONTROLLER,
+        .mcspiDmaIndex = -1,
+    },
+};
+/* MCSPI Driver Channel Configurations */
+MCSPI_ChConfig gSpi0ChCfg[SPI0_NUM_CH] =
+{
+    {
+        .chNum              = MCSPI_CHANNEL_0,
+        .frameFormat        = MCSPI_FF_POL0_PHA0,
+        .bitRate            = 1000000,
+        .csPolarity         = MCSPI_CS_POL_LOW,
+        .trMode             = MCSPI_TR_MODE_TX_RX,
+        .inputSelect        = MCSPI_IS_D1,
+        .dpe0               = MCSPI_DPE_ENABLE,
+        .dpe1               = MCSPI_DPE_DISABLE,
+        .slvCsSelect        = MCSPI_SLV_CS_SELECT_0,
+        .startBitEnable     = FALSE,
+        .startBitPolarity   = MCSPI_SB_POL_LOW,
+        .csIdleTime         = MCSPI_TCS0_0_CLK,
+        .turboEnable        = FALSE,
+        .defaultTxData      = 0x0U,
+        .txFifoTrigLvl      = 16U,
+        .rxFifoTrigLvl      = 16U,
+    },
+};
+MCSPI_ChConfig gSpi1ChCfg[SPI1_NUM_CH] =
+{
+    {
+        .chNum              = MCSPI_CHANNEL_0,
+        .frameFormat        = MCSPI_FF_POL0_PHA0,
+        .bitRate            = 1000000,
+        .csPolarity         = MCSPI_CS_POL_LOW,
+        .trMode             = MCSPI_TR_MODE_TX_RX,
+        .inputSelect        = MCSPI_IS_D1,
+        .dpe0               = MCSPI_DPE_ENABLE,
+        .dpe1               = MCSPI_DPE_DISABLE,
+        .slvCsSelect        = MCSPI_SLV_CS_SELECT_0,
+        .startBitEnable     = FALSE,
+        .startBitPolarity   = MCSPI_SB_POL_LOW,
+        .csIdleTime         = MCSPI_TCS0_0_CLK,
+        .turboEnable        = FALSE,
+        .defaultTxData      = 0x0U,
+        .txFifoTrigLvl      = 16U,
+        .rxFifoTrigLvl      = 16U,
+    },
+};
+
+MCSPI_ChConfig *gConfigMcspiChCfg[2] =
+{
+    gSpi0ChCfg,
+    gSpi1ChCfg,
+};
+
+
+
+MCSPI_DmaChConfig gMcspiDmaChConfig[2] =
+{
+    NULL,
+    NULL,
+};
+
+void Drivers_mcspiOpen(void)
+{
+    uint32_t instCnt;
+    int32_t  status = SystemP_SUCCESS;
+
+    for(instCnt = 0U; instCnt < CONFIG_MCSPI_NUM_INSTANCES; instCnt++)
+    {
+        gMcspiHandle[instCnt] = NULL;   /* Init to NULL so that we can exit gracefully */
+    }
+
+    /* Open all instances */
+    for(instCnt = 0U; instCnt < CONFIG_MCSPI_NUM_INSTANCES; instCnt++)
+    {
+        gMcspiHandle[instCnt] = MCSPI_open(instCnt, &gMcspiOpenParams[instCnt]);
+        if(NULL == gMcspiHandle[instCnt])
+        {
+            DebugP_logError("MCSPI open failed for instance %d !!!\r\n", instCnt);
+            status = SystemP_FAILURE;
+            break;
+        }
+    }
+
+    if(SystemP_FAILURE == status)
+    {
+        Drivers_mcspiClose();   /* Exit gracefully */
+    }
+
+    return;
+}
+
+void Drivers_mcspiClose(void)
+{
+    uint32_t instCnt;
+    /* Close all instances that are open */
+    for(instCnt = 0U; instCnt < CONFIG_MCSPI_NUM_INSTANCES; instCnt++)
+    {
+        if(gMcspiHandle[instCnt] != NULL)
+        {
+            MCSPI_close(gMcspiHandle[instCnt]);
+            gMcspiHandle[instCnt] = NULL;
+        }
+    }
+    return;
+}
+
+/*
+ * EDMA
+ */
+/* EDMA Driver handles */
+EDMA_Handle gEdmaHandle[CONFIG_EDMA_NUM_INSTANCES];
+
+/* EDMA Driver Open Parameters */
+EDMA_Params gEdmaParams[CONFIG_EDMA_NUM_INSTANCES] =
+{
+    {
+        .intrEnable = TRUE,
+        .errIntrEnable = FALSE,
+    },
+};
+
+void Drivers_edmaOpen(void)
+{
+    uint32_t instCnt;
+    int32_t  status = SystemP_SUCCESS;
+
+    for(instCnt = 0U; instCnt < CONFIG_EDMA_NUM_INSTANCES; instCnt++)
+    {
+        gEdmaHandle[instCnt] = NULL;   /* Init to NULL so that we can exit gracefully */
+    }
+
+    /* Open all instances */
+    for(instCnt = 0U; instCnt < CONFIG_EDMA_NUM_INSTANCES; instCnt++)
+    {
+        gEdmaHandle[instCnt] = EDMA_open(instCnt, &gEdmaParams[instCnt]);
+        if(NULL == gEdmaHandle[instCnt])
+        {
+            DebugP_logError("EDMA open failed for instance %d !!!\r\n", instCnt);
+            status = SystemP_FAILURE;
+            break;
+        }
+    }
+
+    if(SystemP_FAILURE == status)
+    {
+        Drivers_edmaClose();   /* Exit gracefully */
+    }
+
+    return;
+}
+
+void Drivers_edmaClose(void)
+{
+    uint32_t instCnt;
+
+    /* Close all instances that are open */
+    for(instCnt = 0U; instCnt < CONFIG_EDMA_NUM_INSTANCES; instCnt++)
+    {
+        if(gEdmaHandle[instCnt] != NULL)
+        {
+            EDMA_close(gEdmaHandle[instCnt]);
+            gEdmaHandle[instCnt] = NULL;
+        }
+    }
+
+    return;
 }
 
 void Drivers_gpioIntXbarOpen()
@@ -67,12 +259,6 @@ UART_Handle gUartHandle[CONFIG_UART_NUM_INSTANCES];
 #include <drivers/uart/v0/lld/dma/uart_dma.h>
 #include <kernel/dpl/ClockP.h>
 #include <drivers/edma.h>
-/* EDMA driver confiurations */
-EDMA_Config gEdmaConfig[] =
-{
-};
-
-uint32_t gEdmaConfigNum = 0;
 
 UART_DmaChConfig gUartDmaChConfig[CONFIG_UART_NUM_INSTANCES] =
 {
