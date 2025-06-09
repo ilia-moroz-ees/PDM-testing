@@ -12,18 +12,24 @@
 #include "ti_board_open_close.h"
 #include "board.h"
 
+void digitalWrite(uint32_t base_address, uint32_t pin, bool value);
+
 void PDM_testing(void *args)
 {
+
+    static bool signal;
 
     Drivers_open();
     Board_driversOpen();
 
     init_gpio();
-    init_interrupts(&intr_objects);
+    init_global_interrupts(&intr_objects);
 
     while(true)
     {
         DebugP_log("Running...%d\r\n", test);
+        digitalWrite(GPIO136_BASE_ADDR, GPIO136_PIN, signal);
+        signal = !signal;
         ClockP_sleep(1);
     }
 
@@ -36,8 +42,8 @@ static void GPIO_bankIsrFxn(void *args)
     // Passing a struct with pin information
     if (!args) return; // Check for null pointer
     Pin_parameters *pin_parameters = (Pin_parameters*)args;
-    uint32_t bankNum =  GPIO_GET_BANK_INDEX(pin_parameters->pin);
-    uint32_t intrStatus, pinMask = GPIO_GET_BANK_BIT_MASK(pin_parameters->pin);
+    uint32_t bankNum =  GPIO_GET_BANK_INDEX(pin_parameters->pin_num);
+    uint32_t intrStatus, pinMask = GPIO_GET_BANK_BIT_MASK(pin_parameters->pin_num);
 
     /* Get and clear bank interrupt status */
     intrStatus = GPIO_getBankIntrStatus(pin_parameters->base_address, bankNum);
@@ -52,36 +58,70 @@ static void GPIO_bankIsrFxn(void *args)
 
 void init_gpio()
 {
-    GPIO_setDirMode(GPIO43_BASE_ADDR, GPIO43_PIN, GPIO43_DIR);
-    DebugP_log("GPIO43 configured as output\r\n");
 
-    GPIO_setDirMode(GPIO45_BASE_ADDR, GPIO45_PIN, GPIO45_DIR);
-    DebugP_log("GPIO45 configured as output\r\n");
+    GPIO_setDirMode(GPIO24_BASE_ADDR, GPIO24_PIN, GPIO24_DIR);
+    DebugP_log("GPIO24 configured as output\r\n");
 
-    GPIO_setDirMode(GPIO89_BASE_ADDR, GPIO89_PIN, GPIO89_DIR);
-    DebugP_log("GPIO89 configured as output\r\n");
+    GPIO_setDirMode(GPIO23_BASE_ADDR, GPIO23_PIN, GPIO23_DIR);
+    DebugP_log("GPIO23 configured as output\r\n");
 
-    GPIO_setDirMode(GPIO93_BASE_ADDR, GPIO93_PIN, GPIO93_DIR);
-    DebugP_log("GPIO93 configured as output\r\n");
+    GPIO_setDirMode(GPIO53_BASE_ADDR, GPIO53_PIN, GPIO53_DIR);
+    DebugP_log("GPIO53 configured as output\r\n");
 
-    GPIO_setDirMode(GPIO95_BASE_ADDR, GPIO95_PIN, GPIO95_DIR);
-    DebugP_log("GPIO95 configured as output\r\n");
+    GPIO_setDirMode(GPIO54_BASE_ADDR, GPIO54_PIN, GPIO54_DIR);
+    DebugP_log("GPIO54 configured as output\r\n");
 
-    GPIO_setDirMode(GPIO99_BASE_ADDR, GPIO99_PIN, GPIO99_DIR);
-    DebugP_log("GPIO99 configured as output\r\n");
+    GPIO_setDirMode(GPIO123_BASE_ADDR, GPIO123_PIN, GPIO123_DIR);
+    DebugP_log("GPIO123 configured as output\r\n");
+
+    GPIO_setDirMode(GPIO136_BASE_ADDR, GPIO136_PIN, GPIO136_DIR);
+    DebugP_log("GPIO136 configured as output\r\n");
+
 }
 
-void init_interrupts(Intr_objects *objects)
+void init_global_interrupts(Intr_objects *objects)
+{
+    init_interrupt(&objects->Gpio43HwiObject, &intr_pins.gpio43);
+    DebugP_log("Initialized gpio43 interrupt\r\n");
+
+    init_interrupt(&objects->Gpio44HwiObject, &intr_pins.gpio44);
+    DebugP_log("Initialized gpio44 interrupt\r\n");
+
+    init_interrupt(&objects->Gpio45HwiObject, &intr_pins.gpio45);
+    DebugP_log("Initialized gpio45 interrupt\r\n");
+
+    init_interrupt(&objects->Gpio46HwiObject, &intr_pins.gpio46);
+    DebugP_log("Initialized gpio46 interrupt\r\n");
+
+    init_interrupt(&objects->Gpio51HwiObject, &intr_pins.gpio51);
+    DebugP_log("Initialized gpio51 interrupt\r\n");
+
+    init_interrupt(&objects->Gpio52HwiObject, &intr_pins.gpio52);
+    DebugP_log("Initialized gpio52 interrupt\r\n");
+}
+
+void init_interrupt(HwiP_Object *intr_object, Pin_parameters *pin)
 {
     HwiP_Params hwiPrms;
     HwiP_Params_init(&hwiPrms);
     int32_t retVal;
-    /* Register pin interrupt */
 
-    hwiPrms.intNum = GPIO44_INT_NUM; //GPIO44
+    hwiPrms.intNum = pin->int_num;
     hwiPrms.callback = &GPIO_bankIsrFxn;
-    hwiPrms.args = &pins.gpio44;
+    hwiPrms.args = pin;
     hwiPrms.isPulse = FALSE;
-    retVal = HwiP_construct(&objects->Gpio44HwiObject, &hwiPrms);
+    retVal = HwiP_construct(intr_object, &hwiPrms);
     DebugP_assert(retVal == SystemP_SUCCESS);
+}
+
+void digitalWrite(uint32_t base_address, uint32_t pin, bool value)
+{
+    if (value)
+    {
+        GPIO_pinWriteHigh(base_address, pin);
+    }
+    else
+    {
+        GPIO_pinWriteLow(base_address, pin);
+    }
 }

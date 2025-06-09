@@ -37,14 +37,14 @@
 #include <drivers/pinmux.h>
 
 static Pinmux_PerCfg_t gPinMuxMainDomainCfg[] = {
-                /* GPIO44 -> EPWM0_B (B1) */
-    {
-        PIN_EPWM0_B,
-        ( PIN_MODE(7) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW | PIN_GPIO_R5SS0_0 )
-    },
                 /* GPIO43 -> EPWM0_A (B2) */
     {
         PIN_EPWM0_A,
+        ( PIN_MODE(7) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW | PIN_GPIO_R5SS0_0 )
+    },
+                /* GPIO44 -> EPWM0_B (B1) */
+    {
+        PIN_EPWM0_B,
         ( PIN_MODE(7) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW | PIN_GPIO_R5SS0_0 )
     },
                 /* GPIO45 -> EPWM1_A (D3) */
@@ -52,49 +52,49 @@ static Pinmux_PerCfg_t gPinMuxMainDomainCfg[] = {
         PIN_EPWM1_A,
         ( PIN_MODE(7) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW | PIN_GPIO_R5SS0_0 )
     },
-                /* GPIO89 -> PR0_PRU0_GPIO10 (G18) */
-    {
-        PIN_PR0_PRU0_GPIO10,
-        ( PIN_MODE(7) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW | PIN_GPIO_R5SS0_0 )
-    },
-                /* GPIO93 -> PR0_PRU0_GPIO0 (K17) */
-    {
-        PIN_PR0_PRU0_GPIO0,
-        ( PIN_MODE(7) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW | PIN_GPIO_R5SS0_0 )
-    },
-                /* GPIO95 -> PR0_PRU0_GPIO2 (J18) */
-    {
-        PIN_PR0_PRU0_GPIO2,
-        ( PIN_MODE(7) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW | PIN_GPIO_R5SS0_0 )
-    },
-                /* GPIO99 -> PR0_PRU0_GPIO11 (M16) */
-    {
-        PIN_PR0_PRU0_GPIO11,
-        ( PIN_MODE(7) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW | PIN_GPIO_R5SS0_0 )
-    },
                 /* GPIO46 -> EPWM1_B (D2) */
     {
         PIN_EPWM1_B,
         ( PIN_MODE(7) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW | PIN_GPIO_R5SS0_0 )
     },
-                /* GPIO91 -> PR0_PRU0_GPIO6 (K15) */
+                /* GPIO51 -> EPWM4_A (D1) */
     {
-        PIN_PR0_PRU0_GPIO6,
+        PIN_EPWM4_A,
         ( PIN_MODE(7) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW | PIN_GPIO_R5SS0_0 )
     },
-                /* GPIO103 -> PR0_PRU1_GPIO5 (F15) */
+                /* GPIO52 -> EPWM4_B (E4) */
     {
-        PIN_PR0_PRU1_GPIO5,
+        PIN_EPWM4_B,
         ( PIN_MODE(7) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW | PIN_GPIO_R5SS0_0 )
     },
-                /* GPIO97 -> PR0_PRU0_GPIO16 (H18) */
+                /* GPIO53 -> EPWM5_A (F2) */
     {
-        PIN_PR0_PRU0_GPIO16,
+        PIN_EPWM5_A,
         ( PIN_MODE(7) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW | PIN_GPIO_R5SS0_0 )
     },
-                /* GPIO101 -> PR0_PRU0_GPIO13 (H17) */
+                /* GPIO54 -> EPWM5_B (G2) */
     {
-        PIN_PR0_PRU0_GPIO13,
+        PIN_EPWM5_B,
+        ( PIN_MODE(7) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW | PIN_GPIO_R5SS0_0 )
+    },
+                /* GPIO24 -> I2C1_SDA (C8) */
+    {
+        PIN_I2C1_SDA,
+        ( PIN_MODE(7) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW | PIN_GPIO_R5SS0_0 )
+    },
+                /* GPIO23 -> I2C1_SCL (D7) */
+    {
+        PIN_I2C1_SCL,
+        ( PIN_MODE(7) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW | PIN_GPIO_R5SS0_0 )
+    },
+                /* GPIO123 -> SDFM0_D0 (D14) */
+    {
+        PIN_SDFM0_D0,
+        ( PIN_MODE(7) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW | PIN_GPIO_R5SS0_0 )
+    },
+                /* GPIO136 -> MCAN2_TX (B12) */
+    {
+        PIN_MCAN2_TX,
         ( PIN_MODE(7) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW | PIN_GPIO_R5SS0_0 )
     },
 

@@ -53,67 +53,64 @@ const section12       = section.addInstance();
 const gpio_int_xbar   = scripting.addModule("/xbar/gpio_int_xbar/gpio_int_xbar", {}, false);
 const gpio_int_xbar1  = gpio_int_xbar.addInstance();
 const gpio_int_xbar2  = gpio_int_xbar.addInstance();
-const gpio_int_xbar3  = gpio_int_xbar.addInstance();
-const gpio_int_xbar4  = gpio_int_xbar.addInstance();
-const gpio_int_xbar5  = gpio_int_xbar.addInstance();
-const gpio_int_xbar6  = gpio_int_xbar.addInstance();
 
 /**
  * Write custom configuration values to the imported modules.
  */
-gpio1.$name          = "GPIO44";
-gpio1.enableIntr     = true;
+gpio1.$name          = "GPIO43";
 gpio1.trigType       = "FALL_EDGE";
-gpio1.GPIO_n.$assign = "EPWM0_B";
+gpio1.enableIntr     = true;
+gpio1.GPIO_n.$assign = "EPWM0_A";
 
-gpio2.$name          = "GPIO43";
-gpio2.pinDir         = "OUTPUT";
-gpio2.GPIO_n.$assign = "EPWM0_A";
+gpio2.$name          = "GPIO44";
+gpio2.defaultValue   = "1";
+gpio2.trigType       = "FALL_EDGE";
+gpio2.enableIntr     = true;
+gpio2.GPIO_n.$assign = "EPWM0_B";
 
 gpio3.$name          = "GPIO45";
-gpio3.pinDir         = "OUTPUT";
+gpio3.trigType       = "FALL_EDGE";
+gpio3.enableIntr     = true;
 gpio3.GPIO_n.$assign = "EPWM1_A";
 
-gpio4.$name          = "GPIO89";
-gpio4.pinDir         = "OUTPUT";
-gpio4.GPIO_n.$assign = "PR0_PRU0_GPIO10";
+gpio4.$name          = "GPIO46";
+gpio4.trigType       = "FALL_EDGE";
+gpio4.enableIntr     = true;
+gpio4.GPIO_n.$assign = "EPWM1_B";
 
-gpio5.$name          = "GPIO93";
-gpio5.pinDir         = "OUTPUT";
-gpio5.GPIO_n.$assign = "PR0_PRU0_GPIO0";
+gpio5.$name          = "GPIO51";
+gpio5.enableIntr     = true;
+gpio5.trigType       = "FALL_EDGE";
+gpio5.GPIO_n.$assign = "EPWM4_A";
 
-gpio6.$name          = "GPIO95";
-gpio6.pinDir         = "OUTPUT";
-gpio6.GPIO_n.$assign = "PR0_PRU0_GPIO2";
+gpio6.$name          = "GPIO52";
+gpio6.enableIntr     = true;
+gpio6.trigType       = "FALL_EDGE";
+gpio6.GPIO_n.$assign = "EPWM4_B";
 
-gpio7.$name          = "GPIO99";
+gpio7.$name          = "GPIO53";
 gpio7.pinDir         = "OUTPUT";
-gpio7.GPIO_n.$assign = "PR0_PRU0_GPIO11";
+gpio7.GPIO_n.$assign = "EPWM5_A";
 
-gpio8.$name          = "GPIO46";
-gpio8.trigType       = "FALL_EDGE";
-gpio8.enableIntr     = true;
-gpio8.GPIO_n.$assign = "EPWM1_B";
+gpio8.$name          = "GPIO54";
+gpio8.pinDir         = "OUTPUT";
+gpio8.GPIO_n.$assign = "EPWM5_B";
 
-gpio9.$name          = "GPIO91";
-gpio9.trigType       = "FALL_EDGE";
-gpio9.enableIntr     = true;
-gpio9.GPIO_n.$assign = "PR0_PRU0_GPIO6";
+gpio9.$name          = "GPIO24";
+gpio9.pinDir         = "OUTPUT";
+gpio9.GPIO_n.$assign = "I2C1_SDA";
 
-gpio10.$name          = "GPIO103";
-gpio10.trigType       = "FALL_EDGE";
-gpio10.enableIntr     = true;
-gpio10.GPIO_n.$assign = "PR0_PRU1_GPIO5";
+gpio10.$name          = "GPIO23";
+gpio10.pinDir         = "OUTPUT";
+gpio10.GPIO_n.$assign = "I2C1_SCL";
 
-gpio11.$name          = "GPIO97";
-gpio11.enableIntr     = true;
-gpio11.trigType       = "FALL_EDGE";
-gpio11.GPIO_n.$assign = "PR0_PRU0_GPIO16";
+gpio11.$name          = "GPIO123";
+gpio11.pinDir         = "OUTPUT";
+gpio11.GPIO_n.$assign = "SDFM0_D0";
 
-gpio12.$name          = "GPIO101";
-gpio12.trigType       = "FALL_EDGE";
-gpio12.enableIntr     = true;
-gpio12.GPIO_n.$assign = "PR0_PRU0_GPIO13";
+gpio12.pinDir         = "OUTPUT";
+gpio12.$name          = "GPIO136";
+gpio12.GPIO_n.$assign = "MCAN2_TX";
 
 debug_log.enableUartLog            = true;
 debug_log.uartLog.$name            = "CONFIG_UART0";
@@ -343,26 +340,10 @@ section12.output_section.create(1);
 section12.output_section[0].$name     = ".bss.sipc_secure_host_queue_mem";
 section12.output_section[0].alignment = 0;
 
-gpio_int_xbar1.xbarOutput = "GPIO_INT_XBAR_GPIO_MUX_44";
 gpio_int_xbar1.instance   = "GPIO_INT_XBAR_VIM_MODULE0_0";
-gpio_int_xbar1.$name      = "GPIO44_INT_XBAR";
+gpio_int_xbar1.xbarOutput = "GPIO_INT_XBAR_GPIO_0_BANK_INTR_2";
+gpio_int_xbar1.$name      = "GPIO0_BANK_2_INT_XBAR";
 
-gpio_int_xbar2.xbarOutput = "GPIO_INT_XBAR_GPIO_MUX_46";
+gpio_int_xbar2.$name      = "GPIO0_BANK3_INT_XBAR";
+gpio_int_xbar2.xbarOutput = "GPIO_INT_XBAR_GPIO_0_BANK_INTR_3";
 gpio_int_xbar2.instance   = "GPIO_INT_XBAR_VIM_MODULE0_1";
-gpio_int_xbar2.$name      = "GPIO46_INT_XBAR";
-
-gpio_int_xbar3.$name      = "GPIO91_INT_XBAR";
-gpio_int_xbar3.xbarOutput = "GPIO_INT_XBAR_GPIO_MUX_91";
-gpio_int_xbar3.instance   = "GPIO_INT_XBAR_VIM_MODULE0_2";
-
-gpio_int_xbar4.$name      = "GPIO103_INT_XBAR";
-gpio_int_xbar4.xbarOutput = "GPIO_INT_XBAR_GPIO_MUX_103";
-gpio_int_xbar4.instance   = "GPIO_INT_XBAR_VIM_MODULE0_3";
-
-gpio_int_xbar5.$name      = "GPIO97_INT_XBAR";
-gpio_int_xbar5.xbarOutput = "GPIO_INT_XBAR_GPIO_MUX_97";
-gpio_int_xbar5.instance   = "GPIO_INT_XBAR_VIM_MODULE1_0";
-
-gpio_int_xbar6.$name      = "GPIO101_INT_XBAR";
-gpio_int_xbar6.xbarOutput = "GPIO_INT_XBAR_GPIO_MUX_101";
-gpio_int_xbar6.instance   = "GPIO_INT_XBAR_VIM_MODULE1_1";
