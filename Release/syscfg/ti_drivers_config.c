@@ -390,6 +390,7 @@ void System_init(void)
     /* Now we can do pinmux */
     Pinmux_init();
     /* finally we initialize all peripheral drivers */
+
     GPIO_init();
     MCSPI_init();
     EDMA_init();

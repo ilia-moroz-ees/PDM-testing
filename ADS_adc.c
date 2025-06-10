@@ -42,15 +42,13 @@ uint16_t SPI_ReadWrite(ADS_ADC *adc, uint16_t data) {
   return rxData & 0x0FFF; // Getting the value from the package
 }
 
-uint16_t readADC(ADS_ADC *adc, uint8_t channel) {
+uint16_t read_ext_ADC(ADS_ADC *adc, uint8_t channel) {
   uint16_t command = ADS7953_CMD(channel);
 
-  SPI_ReadWrite(adc, 24); // Since response comes only in the third package,
+  SPI_ReadWrite(adc, command); // Since response comes only in the third package,
                           // doing 2 empty reads
-
-  SPI_ReadWrite(adc, 24);
-
-  return SPI_ReadWrite(adc, 24); // here reading actual data
+  SPI_ReadWrite(adc, command);
+  return SPI_ReadWrite(adc, command); // here reading actual data
 }
 
 float adc_to_voltage(uint16_t raw_adc) {
@@ -71,33 +69,4 @@ float adc_to_current_ch1(uint16_t voltage) {
 //   *ch1 = adc_to_current_ch1(readADC(adc, 1));
 //   *gpio44_value = GPIO_pinRead(GPIO44_BASE_ADDR, GPIO44_PIN);
 //   *gpio46_value = GPIO_pinRead(GPIO46_BASE_ADDR, GPIO46_PIN);
-// }
-
-// Pass [amps] as ch0 and ch1 here
-// bool check_test_values(float ch0, float ch1, bool gpio44_value,
-//                        bool gpio46_value, float ch0_expected_value,
-//                        float ch1_expected_value, bool gpio44_expected_value,
-//                        bool gpio46_expected_value) {
-
-//   if (fabs(ch1 - ch1_expected_value) > DISCREPANCY) {
-//     DebugP_log("Unexpected value in ADC_CH1\r\n");
-//     return false;
-//   }
-
-//   if (fabs(ch0 - ch0_expected_value) > DISCREPANCY) {
-//     DebugP_log("Unexpected value in ADC_CH0\r\n");
-//     return false;
-//   }
-
-//   if (gpio44_value != gpio44_expected_value) {
-//     DebugP_log("Unexpected value in GPIO44\r\n");
-//     return false;
-//   }
-
-//   if (gpio46_value != gpio46_expected_value) {
-//     DebugP_log("Unexpected value in GPIO46\r\n");
-//     return false;
-//   }
-
-//   return true;
 // }

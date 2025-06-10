@@ -32,19 +32,13 @@ typedef struct
 
 } ADS_ADC;
 
-extern uint16_t readADC(ADS_ADC *adc, uint8_t channel);
+extern uint16_t read_ext_ADC(ADS_ADC *adc, uint8_t channel);
 extern float adc_to_voltage(uint16_t raw_adc);
 extern float adc_to_current_ch0(uint16_t raw_adc);
 extern float adc_to_current_ch1(uint16_t raw_adc);
 extern void read_values(float *ch0, float *ch1, bool *gpio44_value, bool *gpio46_value);
 extern uint16_t SPI_ReadWrite(ADS_ADC *adc, uint16_t data);
 
-extern void test_high_side_switches();
-extern bool check_test_values(float ch0, float ch1, bool gpio44_value,
-                              bool gpio46_value, float ch0_expected_value,
-                              float ch1_expected_value,
-                              bool gpio44_expected_value,
-                              bool gpio46_expected_value);
 
 
 #endif

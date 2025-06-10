@@ -40,6 +40,37 @@
 void Drivers_open(void)
 {
     Drivers_edmaOpen();
+    {
+        /* ADC */
+
+        /* ADC Reference and Monitor Configurations */
+        {
+            /* Internal Reference Buffer 0, 
+               corresponds to ADC instance 1 is enabled */
+            SOC_enableAdcInternalReference(1, TRUE);
+            /* Delay after the buffers have been enabled */
+            ClockP_usleep(800);
+
+            /* Monitor control is enabled for refernece monitor 1 */
+            SOC_enableAdcReferenceMonitor(1, TRUE);
+
+            /* Wait for  ClockP_sleep */
+            ClockP_usleep(1);
+        
+            /* Assert the monitor status for monitor 1 */
+            DebugP_assert(SOC_getAdcReferenceStatus(1) == true);
+        }
+        /* ADC - DAC Loop Back Configurations */
+        {
+            SOC_enableAdcDacLoopback(FALSE);
+        }
+        /* Global Force Configurations */
+        {
+            SOC_enableAdcGlobalForce(1, FALSE);
+        }
+    }
+
+    Drivers_adcOpen();
     Drivers_mcspiOpen();
     Drivers_gpioIntXbarOpen();
     Drivers_uartOpen();
@@ -50,6 +81,261 @@ void Drivers_close(void)
     Drivers_mcspiClose();
     Drivers_uartClose();
     Drivers_edmaClose();
+}
+
+void Drivers_adcOpen()
+{
+	/* ADC1 initialization */
+
+	/* Configures the analog-to-digital converter module prescaler. */
+	ADC_setPrescaler(ADC1_BASE_ADDR, ADC_CLK_DIV_4_0);
+	/* Configures the analog-to-digital converter resolution and signal mode. */
+	ADC_setMode(ADC1_BASE_ADDR, ADC_RESOLUTION_12BIT, ADC_MODE_SINGLE_ENDED);
+	/* Sets the priority mode of the SOCs. */
+	ADC_setSOCPriority(ADC1_BASE_ADDR, ADC_PRI_ALL_ROUND_ROBIN);
+
+	/* Start of Conversion 0 Configuration */
+	/* Configures a start-of-conversion (SOC) in the ADC. */
+	ADC_setupSOC(ADC1_BASE_ADDR, 0, ADC_TRIGGER_SW_ONLY, ADC_CH_ADCIN0, 16);
+	/* Configures the interrupt SOC trigger of an SOC. */
+	ADC_setInterruptSOCTrigger(ADC1_BASE_ADDR, 0, ADC_INT_SOC_TRIGGER_NONE);
+
+	/* Start of Conversion 1 Configuration */
+	/* Configures a start-of-conversion (SOC) in the ADC. */
+	ADC_setupSOC(ADC1_BASE_ADDR, 1, ADC_TRIGGER_SW_ONLY, ADC_CH_ADCIN0, 16);
+	/* Configures the interrupt SOC trigger of an SOC. */
+	ADC_setInterruptSOCTrigger(ADC1_BASE_ADDR, 1, ADC_INT_SOC_TRIGGER_NONE);
+
+	/* Start of Conversion 2 Configuration */
+	/* Configures a start-of-conversion (SOC) in the ADC. */
+	ADC_setupSOC(ADC1_BASE_ADDR, 2, ADC_TRIGGER_SW_ONLY, ADC_CH_ADCIN2, 16);
+	/* Configures the interrupt SOC trigger of an SOC. */
+	ADC_setInterruptSOCTrigger(ADC1_BASE_ADDR, 2, ADC_INT_SOC_TRIGGER_NONE);
+
+	/* Start of Conversion 3 Configuration */
+	/* Configures a start-of-conversion (SOC) in the ADC. */
+	ADC_setupSOC(ADC1_BASE_ADDR, 3, ADC_TRIGGER_SW_ONLY, ADC_CH_ADCIN3, 16);
+	/* Configures the interrupt SOC trigger of an SOC. */
+	ADC_setInterruptSOCTrigger(ADC1_BASE_ADDR, 3, ADC_INT_SOC_TRIGGER_NONE);
+
+	/* Start of Conversion 4 Configuration */
+	/* Configures a start-of-conversion (SOC) in the ADC. */
+	ADC_setupSOC(ADC1_BASE_ADDR, 4, ADC_TRIGGER_SW_ONLY, ADC_CH_ADCIN4, 16);
+	/* Configures the interrupt SOC trigger of an SOC. */
+	ADC_setInterruptSOCTrigger(ADC1_BASE_ADDR, 4, ADC_INT_SOC_TRIGGER_NONE);
+
+	/* Start of Conversion 5 Configuration */
+	/* Configures a start-of-conversion (SOC) in the ADC. */
+	ADC_setupSOC(ADC1_BASE_ADDR, 5, ADC_TRIGGER_SW_ONLY, ADC_CH_ADCIN5, 16);
+	/* Configures the interrupt SOC trigger of an SOC. */
+	ADC_setInterruptSOCTrigger(ADC1_BASE_ADDR, 5, ADC_INT_SOC_TRIGGER_NONE);
+
+	/* Start of Conversion 6 Configuration */
+	/* Configures a start-of-conversion (SOC) in the ADC. */
+	ADC_setupSOC(ADC1_BASE_ADDR, 6, ADC_TRIGGER_SW_ONLY, ADC_CH_ADCIN0, 16);
+	/* Configures the interrupt SOC trigger of an SOC. */
+	ADC_setInterruptSOCTrigger(ADC1_BASE_ADDR, 6, ADC_INT_SOC_TRIGGER_NONE);
+
+	/* Start of Conversion 7 Configuration */
+	/* Configures a start-of-conversion (SOC) in the ADC. */
+	ADC_setupSOC(ADC1_BASE_ADDR, 7, ADC_TRIGGER_SW_ONLY, ADC_CH_ADCIN0, 16);
+	/* Configures the interrupt SOC trigger of an SOC. */
+	ADC_setInterruptSOCTrigger(ADC1_BASE_ADDR, 7, ADC_INT_SOC_TRIGGER_NONE);
+
+	/* Start of Conversion 8 Configuration */
+	/* Configures a start-of-conversion (SOC) in the ADC. */
+	ADC_setupSOC(ADC1_BASE_ADDR, 8, ADC_TRIGGER_SW_ONLY, ADC_CH_ADCIN0, 16);
+	/* Configures the interrupt SOC trigger of an SOC. */
+	ADC_setInterruptSOCTrigger(ADC1_BASE_ADDR, 8, ADC_INT_SOC_TRIGGER_NONE);
+
+	/* Start of Conversion 9 Configuration */
+	/* Configures a start-of-conversion (SOC) in the ADC. */
+	ADC_setupSOC(ADC1_BASE_ADDR, 9, ADC_TRIGGER_SW_ONLY, ADC_CH_ADCIN0, 16);
+	/* Configures the interrupt SOC trigger of an SOC. */
+	ADC_setInterruptSOCTrigger(ADC1_BASE_ADDR, 9, ADC_INT_SOC_TRIGGER_NONE);
+
+	/* Start of Conversion 10 Configuration */
+	/* Configures a start-of-conversion (SOC) in the ADC. */
+	ADC_setupSOC(ADC1_BASE_ADDR, 10, ADC_TRIGGER_SW_ONLY, ADC_CH_ADCIN0, 16);
+	/* Configures the interrupt SOC trigger of an SOC. */
+	ADC_setInterruptSOCTrigger(ADC1_BASE_ADDR, 10, ADC_INT_SOC_TRIGGER_NONE);
+
+	/* Start of Conversion 11 Configuration */
+	/* Configures a start-of-conversion (SOC) in the ADC. */
+	ADC_setupSOC(ADC1_BASE_ADDR, 11, ADC_TRIGGER_SW_ONLY, ADC_CH_ADCIN0, 16);
+	/* Configures the interrupt SOC trigger of an SOC. */
+	ADC_setInterruptSOCTrigger(ADC1_BASE_ADDR, 11, ADC_INT_SOC_TRIGGER_NONE);
+
+	/* Start of Conversion 12 Configuration */
+	/* Configures a start-of-conversion (SOC) in the ADC. */
+	ADC_setupSOC(ADC1_BASE_ADDR, 12, ADC_TRIGGER_SW_ONLY, ADC_CH_ADCIN0, 16);
+	/* Configures the interrupt SOC trigger of an SOC. */
+	ADC_setInterruptSOCTrigger(ADC1_BASE_ADDR, 12, ADC_INT_SOC_TRIGGER_NONE);
+
+	/* Start of Conversion 13 Configuration */
+	/* Configures a start-of-conversion (SOC) in the ADC. */
+	ADC_setupSOC(ADC1_BASE_ADDR, 13, ADC_TRIGGER_SW_ONLY, ADC_CH_ADCIN0, 16);
+	/* Configures the interrupt SOC trigger of an SOC. */
+	ADC_setInterruptSOCTrigger(ADC1_BASE_ADDR, 13, ADC_INT_SOC_TRIGGER_NONE);
+
+	/* Start of Conversion 14 Configuration */
+	/* Configures a start-of-conversion (SOC) in the ADC. */
+	ADC_setupSOC(ADC1_BASE_ADDR, 14, ADC_TRIGGER_SW_ONLY, ADC_CH_ADCIN0, 16);
+	/* Configures the interrupt SOC trigger of an SOC. */
+	ADC_setInterruptSOCTrigger(ADC1_BASE_ADDR, 14, ADC_INT_SOC_TRIGGER_NONE);
+
+	/* Start of Conversion 15 Configuration */
+	/* Configures a start-of-conversion (SOC) in the ADC. */
+	ADC_setupSOC(ADC1_BASE_ADDR, 15, ADC_TRIGGER_SW_ONLY, ADC_CH_ADCIN0, 16);
+	/* Configures the interrupt SOC trigger of an SOC. */
+	ADC_setInterruptSOCTrigger(ADC1_BASE_ADDR, 15, ADC_INT_SOC_TRIGGER_NONE);
+
+	/* Powers up the analog-to-digital converter core. */
+	ADC_enableConverter(ADC1_BASE_ADDR);
+    /* Delay for ADC to power up. */
+    ClockP_usleep(500);
+	/* Sets the timing of the end-of-conversion pulse */
+	ADC_setInterruptPulseMode(ADC1_BASE_ADDR, ADC_PULSE_END_OF_ACQ_WIN);
+    //
+    // Sets the timing of early interrupt generation.
+    //
+    ADC_setInterruptCycleOffset(ADC1_BASE_ADDR, 0U);
+    //
+    // Enable alternate timings for DMA trigger
+    //
+	ADC_enableAltDMATiming(ADC1_BASE_ADDR);
+
+
+	/* ADC Interrupt 1 Configuration */
+	/* Enables an ADC interrupt source. */
+	ADC_enableInterrupt(ADC1_BASE_ADDR, 0);
+	/* Sets the source EOC for an analog-to-digital converter interrupt. */
+	ADC_setInterruptSource(ADC1_BASE_ADDR, 0, ADC_SOC_NUMBER2);
+	/* Disables continuous mode for an ADC interrupt. */
+	ADC_disableContinuousMode(ADC1_BASE_ADDR, 0);
+
+	/* ADC Interrupt 2 Configuration */
+	/* Enables an ADC interrupt source. */
+	ADC_enableInterrupt(ADC1_BASE_ADDR, 1);
+	/* Sets the source EOC for an analog-to-digital converter interrupt. */
+	ADC_setInterruptSource(ADC1_BASE_ADDR, 1, ADC_SOC_NUMBER3);
+	/* Disables continuous mode for an ADC interrupt. */
+	ADC_disableContinuousMode(ADC1_BASE_ADDR, 1);
+
+	/* ADC Interrupt 3 Configuration */
+	/* Enables an ADC interrupt source. */
+	ADC_enableInterrupt(ADC1_BASE_ADDR, 2);
+	/* Sets the source EOC for an analog-to-digital converter interrupt. */
+	ADC_setInterruptSource(ADC1_BASE_ADDR, 2, ADC_SOC_NUMBER4);
+	/* Disables continuous mode for an ADC interrupt. */
+	ADC_disableContinuousMode(ADC1_BASE_ADDR, 2);
+
+	/* ADC Interrupt 4 Configuration */
+	/* Enables an ADC interrupt source. */
+	ADC_enableInterrupt(ADC1_BASE_ADDR, 3);
+	/* Sets the source EOC for an analog-to-digital converter interrupt. */
+	ADC_setInterruptSource(ADC1_BASE_ADDR, 3, ADC_SOC_NUMBER5);
+	/* Disables continuous mode for an ADC interrupt. */
+	ADC_disableContinuousMode(ADC1_BASE_ADDR, 3);
+
+
+
+	/* Post Processing Block 1 Configuration */
+	/* Configures a post-processing block (PPB) in the ADC. */
+	ADC_setupPPB(ADC1_BASE_ADDR, 0, ADC_SOC_NUMBER0);
+	/* Disables individual ADC PPB event sources. */
+	ADC_disablePPBEvent(ADC1_BASE_ADDR, 0, (ADC_EVT_TRIPHI | ADC_EVT_TRIPLO | ADC_EVT_ZERO));
+	/* Disables individual ADC PPB event interrupt sources. */
+	ADC_disablePPBEventInterrupt(ADC1_BASE_ADDR, 0, (ADC_EVT_TRIPHI | ADC_EVT_TRIPLO | ADC_EVT_ZERO));
+	/* Sets the post processing block offset correction. */
+	ADC_setPPBCalibrationOffset(ADC1_BASE_ADDR, 0, 0);
+	/* Sets the post processing block reference offset. */
+	ADC_setPPBReferenceOffset(ADC1_BASE_ADDR, 0, 0);
+	/* Disables two's complement capability in the PPB. */
+	ADC_disablePPBTwosComplement(ADC1_BASE_ADDR, 0);
+	/* Sets the windowed trip limits for a PPB. */
+	ADC_setPPBTripLimits(ADC1_BASE_ADDR, 0, 0, 0);
+    /* Disables cycle by cycle clear of ADC PPB event flags. */
+    ADC_disablePPBEventCBCClear(ADC1_BASE_ADDR, 0);
+	ADC_setPPBCountLimit(ADC1_BASE_ADDR, 0,0);
+	ADC_selectPPBSyncInput(ADC1_BASE_ADDR, 0,ADC_SYNCIN_DISABLE);
+	ADC_selectPPBCompareSource(ADC1_BASE_ADDR, 0,ADC_PPB_COMPSOURCE_RESULT);
+	ADC_setPPBShiftValue(ADC1_BASE_ADDR, 0,0);
+	ADC_disablePPBAbsoluteValue(ADC1_BASE_ADDR, 0);
+
+	/* Post Processing Block 2 Configuration */
+	/* Configures a post-processing block (PPB) in the ADC. */
+	ADC_setupPPB(ADC1_BASE_ADDR, 1, ADC_SOC_NUMBER0);
+	/* Disables individual ADC PPB event sources. */
+	ADC_disablePPBEvent(ADC1_BASE_ADDR, 1, (ADC_EVT_TRIPHI | ADC_EVT_TRIPLO | ADC_EVT_ZERO));
+	/* Disables individual ADC PPB event interrupt sources. */
+	ADC_disablePPBEventInterrupt(ADC1_BASE_ADDR, 1, (ADC_EVT_TRIPHI | ADC_EVT_TRIPLO | ADC_EVT_ZERO));
+	/* Sets the post processing block offset correction. */
+	ADC_setPPBCalibrationOffset(ADC1_BASE_ADDR, 1, 0);
+	/* Sets the post processing block reference offset. */
+	ADC_setPPBReferenceOffset(ADC1_BASE_ADDR, 1, 0);
+	/* Disables two's complement capability in the PPB. */
+	ADC_disablePPBTwosComplement(ADC1_BASE_ADDR, 1);
+	/* Sets the windowed trip limits for a PPB. */
+	ADC_setPPBTripLimits(ADC1_BASE_ADDR, 1, 0, 0);
+    /* Disables cycle by cycle clear of ADC PPB event flags. */
+    ADC_disablePPBEventCBCClear(ADC1_BASE_ADDR, 1);
+	ADC_setPPBCountLimit(ADC1_BASE_ADDR, 1,0);
+	ADC_selectPPBSyncInput(ADC1_BASE_ADDR, 1,ADC_SYNCIN_DISABLE);
+	ADC_selectPPBCompareSource(ADC1_BASE_ADDR, 1,ADC_PPB_COMPSOURCE_RESULT);
+	ADC_setPPBShiftValue(ADC1_BASE_ADDR, 1,0);
+	ADC_disablePPBAbsoluteValue(ADC1_BASE_ADDR, 1);
+
+	/* Post Processing Block 3 Configuration */
+	/* Configures a post-processing block (PPB) in the ADC. */
+	ADC_setupPPB(ADC1_BASE_ADDR, 2, ADC_SOC_NUMBER0);
+	/* Disables individual ADC PPB event sources. */
+	ADC_disablePPBEvent(ADC1_BASE_ADDR, 2, (ADC_EVT_TRIPHI | ADC_EVT_TRIPLO | ADC_EVT_ZERO));
+	/* Disables individual ADC PPB event interrupt sources. */
+	ADC_disablePPBEventInterrupt(ADC1_BASE_ADDR, 2, (ADC_EVT_TRIPHI | ADC_EVT_TRIPLO | ADC_EVT_ZERO));
+	/* Sets the post processing block offset correction. */
+	ADC_setPPBCalibrationOffset(ADC1_BASE_ADDR, 2, 0);
+	/* Sets the post processing block reference offset. */
+	ADC_setPPBReferenceOffset(ADC1_BASE_ADDR, 2, 0);
+	/* Disables two's complement capability in the PPB. */
+	ADC_disablePPBTwosComplement(ADC1_BASE_ADDR, 2);
+	/* Sets the windowed trip limits for a PPB. */
+	ADC_setPPBTripLimits(ADC1_BASE_ADDR, 2, 0, 0);
+    /* Disables cycle by cycle clear of ADC PPB event flags. */
+    ADC_disablePPBEventCBCClear(ADC1_BASE_ADDR, 2);
+	ADC_setPPBCountLimit(ADC1_BASE_ADDR, 2,0);
+	ADC_selectPPBSyncInput(ADC1_BASE_ADDR, 2,ADC_SYNCIN_DISABLE);
+	ADC_selectPPBCompareSource(ADC1_BASE_ADDR, 2,ADC_PPB_COMPSOURCE_RESULT);
+	ADC_setPPBShiftValue(ADC1_BASE_ADDR, 2,0);
+	ADC_disablePPBAbsoluteValue(ADC1_BASE_ADDR, 2);
+
+	/* Post Processing Block 4 Configuration */
+	/* Configures a post-processing block (PPB) in the ADC. */
+	ADC_setupPPB(ADC1_BASE_ADDR, 3, ADC_SOC_NUMBER0);
+	/* Disables individual ADC PPB event sources. */
+	ADC_disablePPBEvent(ADC1_BASE_ADDR, 3, (ADC_EVT_TRIPHI | ADC_EVT_TRIPLO | ADC_EVT_ZERO));
+	/* Disables individual ADC PPB event interrupt sources. */
+	ADC_disablePPBEventInterrupt(ADC1_BASE_ADDR, 3, (ADC_EVT_TRIPHI | ADC_EVT_TRIPLO | ADC_EVT_ZERO));
+	/* Sets the post processing block offset correction. */
+	ADC_setPPBCalibrationOffset(ADC1_BASE_ADDR, 3, 0);
+	/* Sets the post processing block reference offset. */
+	ADC_setPPBReferenceOffset(ADC1_BASE_ADDR, 3, 0);
+	/* Disables two's complement capability in the PPB. */
+	ADC_disablePPBTwosComplement(ADC1_BASE_ADDR, 3);
+	/* Sets the windowed trip limits for a PPB. */
+	ADC_setPPBTripLimits(ADC1_BASE_ADDR, 3, 0, 0);
+    /* Disables cycle by cycle clear of ADC PPB event flags. */
+    ADC_disablePPBEventCBCClear(ADC1_BASE_ADDR, 3);
+	ADC_setPPBCountLimit(ADC1_BASE_ADDR, 3,0);
+	ADC_selectPPBSyncInput(ADC1_BASE_ADDR, 3,ADC_SYNCIN_DISABLE);
+	ADC_selectPPBCompareSource(ADC1_BASE_ADDR, 3,ADC_PPB_COMPSOURCE_RESULT);
+	ADC_setPPBShiftValue(ADC1_BASE_ADDR, 3,0);
+	ADC_disablePPBAbsoluteValue(ADC1_BASE_ADDR, 3);
+
+	/* Set SOC burst mode. */
+	ADC_setBurstModeConfig(ADC1_BASE_ADDR, ADC_TRIGGER_SW_ONLY, 1);
+	/* Disables SOC burst mode. */
+	ADC_disableBurstMode(ADC1_BASE_ADDR);
 }
 
 /*

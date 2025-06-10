@@ -12,6 +12,7 @@
 #include "ti_board_open_close.h"
 #include "board.h"
 #include "ADS_adc.h"
+#include "int_adc.h"
 
 
 
@@ -24,6 +25,8 @@ void PDM_testing(void *args)
 
     init_gpio();
     init_global_interrupts(&intr_objects);
+    ADC_enableConverter(ADC1_BASE_ADDR);
+    ClockP_sleep(1);
 
     ADS_ADC adc0 = {
     .spi_handle = gMcspiHandle[SPI0],
@@ -51,8 +54,16 @@ void PDM_testing(void *args)
         digitalWrite(GPIO127_BASE_ADDR, GPIO127_PIN, signal);
         signal = !signal;
         ClockP_sleep(1);
-        DebugP_log("SPI1 = %d\r\n", readADC(&adc0, 0));
+        DebugP_log("ADC2 = %d\r\n", read_int_ADC(2));
+        DebugP_log("ADC3 = %d\r\n", read_int_ADC(3));
+        DebugP_log("ADC4 = %d\r\n", read_int_ADC(4));
+        DebugP_log("ADC5 = %d\r\n", read_int_ADC(5));
     }
+
+    ADC_disableInterrupt(ADC1_BASE_ADDR, ADC_INT_NUMBER1);
+    ADC_clearInterruptStatus(ADC1_BASE_ADDR, ADC_INT_NUMBER1);
+    /* Power down the ADC */
+    ADC_disableConverter(ADC1_BASE_ADDR);
 
     Board_driversClose();
     Drivers_close();

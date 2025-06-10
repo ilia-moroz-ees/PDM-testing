@@ -54,6 +54,17 @@ void System_init(void);
 void System_deinit(void);
 
 /*
+ * ADC
+ */
+#include <drivers/adc.h>
+#include <drivers/soc.h>
+
+/* ADC Instance Macros */
+#define ADC1_BASE_ADDR (CSL_CONTROLSS_ADC1_U_BASE)
+#define ADC1_RESULT_BASE_ADDR (CSL_CONTROLSS_ADC1_RESULT_U_BASE)
+#define CONFIG_ADC_NUM_INSTANCES (1U)
+
+/*
  * GPIO
  */
 #include <drivers/gpio.h>

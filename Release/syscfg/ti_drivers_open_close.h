@@ -50,6 +50,10 @@ extern "C" {
 void Drivers_open(void);
 void Drivers_close(void);
 
+#include <drivers/adc.h>
+#include <kernel/dpl/ClockP.h>
+
+void Drivers_adcOpen(void);
 /*
  * MCSPI
  */
