@@ -6,11 +6,13 @@ const float CURRENT_TOLERANCE = 0.1f;
 const TestCase test_cases[TESTS_NUMBER] = {
     {0, 0, 0, 0, 0},
     {1,0,0,1,0}
+    //TODO: finish this table
 };
 
 const TestResult test_results[TESTS_NUMBER] = {
     {{0, 1.8699}, {0, 1.8699}, {0, 1.8699}, {0, 0}, {0, 0}},
     {{4, 1.8699}, {0, 1.8699}, {0, 1.8699}, {4, 24}, {0, 0}}
+    //TODO: finish this table
 };
 
 void conduct_test(uint8_t test_number)
@@ -40,40 +42,22 @@ void conduct_test(uint8_t test_number)
     TestResult actual;
     
     // Measure ideal diodes
-    // actual.ideal_diode1.imon = adc_to_current_ch0(read_ext_ADC(&adc0, 0));
-    // actual.ideal_diode1.vfb = adc_to_voltage(read_int_ADC(2));
+    actual.ideal_diode1.imon = adc_to_current_LM74930(read_int_ADC(0));
+    actual.ideal_diode1.vfb = int_adc_to_voltage(read_int_ADC(1));
     
-    // actual.ideal_diode2.imon = adc_to_current_ch0(read_ext_ADC(&adc0, 1));
-    // actual.ideal_diode2.vfb = adc_to_voltage(read_int_ADC(3));
+    actual.ideal_diode2.imon = adc_to_current_LM74930(read_int_ADC(2));
+    actual.ideal_diode2.vfb = int_adc_to_voltage(read_int_ADC(3));
     
-    // actual.ideal_diode3.imon = adc_to_current_ch1(read_ext_ADC(&adc1, 0));
-    // actual.ideal_diode3.vfb = adc_to_voltage(read_int_ADC(4));
-    
-    // // Measure HSS MB
-    // actual.hss_mb.i_sns = adc_to_current_ch1(read_ext_ADC(&adc1, 1));
-    // actual.hss_mb.vout = adc_to_voltage(read_int_ADC(5));
-    
-    // // Measure TPS1HTC30
-    // actual.tps1htc30.i_sns = adc_to_current_ch0(read_ext_ADC(&adc0, 2));
-    // actual.tps1htc30.vout = adc_to_voltage(read_int_ADC(6));
-
-    //========================Temporary test =================================
-    actual.ideal_diode1.imon = 0;
-    actual.ideal_diode1.vfb = 0;
-    
-    actual.ideal_diode2.imon = 0;
-    actual.ideal_diode2.vfb = 0;
-    
-    actual.ideal_diode3.imon = 0;
-    actual.ideal_diode3.vfb = 0;
+    actual.ideal_diode3.imon = adc_to_current_LM74930(read_int_ADC(4));
+    actual.ideal_diode3.vfb = int_adc_to_voltage(read_int_ADC(5));
     
     // Measure HSS MB
-    actual.hss_mb.i_sns = 0;
-    actual.hss_mb.vout = 0;
+    actual.hss_mb.i_sns = adc_to_current_HSS_MB(read_ext_ADC(&ext_adc1, 0));
+    actual.hss_mb.vout = ext_adc_to_voltage(read_ext_ADC(&ext_adc1, 1));
     
     // Measure TPS1HTC30
-    actual.tps1htc30.i_sns = 0;
-    actual.tps1htc30.vout = 0;  
+    actual.tps1htc30.i_sns = adc_to_current_TPS(read_ext_ADC(&ext_adc0, 0));
+    actual.tps1htc30.vout = ext_adc_to_voltage(read_ext_ADC(&ext_adc0, 1));  
 
     bool test_passed = true;
     // Comparing test results

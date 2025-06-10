@@ -4,6 +4,11 @@ uint16_t logs_length = 0;
 
 void add_log(uint16_t event_type, uint16_t pin)
 {
+    if (logs_length >= MAX_LOG_ENTRY_NUMBER)
+    {
+        DebugP_logWarn("Log buffer overflow, clearing the buffer\r\n");
+        clear_logs();
+    }
     LogEntry new_log = {
         .timestamp = ClockP_getTimeUsec(),
         .event_id = logs_length,
@@ -87,6 +92,7 @@ void print_logs()
 void clear_logs()
 {
     logs_length = 0;
+    last_printed_index = 0;
 }
 
 void print_pending_logs()
