@@ -12,6 +12,14 @@
 #include <math.h>
 #include <stdio.h>
 
-extern uint16_t read_int_ADC(uint8_t adc_number);
+extern const float INT_ADC_VREF;          // Reference ADC Voltage
+extern const float INT_ADC_RESOLUTION;    // 12 bit resolution
+extern const float CURRENT_SCALE_LM74930;  // Voltage to Current Conversion factor LM74930
+
+uint16_t read_int_ADC(uint8_t adc_number);
+void disable_ADC();
+
+float int_adc_to_voltage(uint16_t raw_adc);
+float adc_to_current_LM74930(uint16_t raw_adc);
 
 #endif

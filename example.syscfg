@@ -81,6 +81,7 @@ adc1.interrupt1SOCSource = "ADC_SOC_NUMBER2";
 adc1.interrupt2SOCSource = "ADC_SOC_NUMBER3";
 adc1.interrupt3SOCSource = "ADC_SOC_NUMBER4";
 adc1.interrupt4SOCSource = "ADC_SOC_NUMBER5";
+adc1.soc1Channel         = "ADC_CH_ADCIN1";
 adc1.ADC.$assign         = "ADC1";
 adc1.ADC.AIN0.pu_pd      = "pd";
 adc1.ADC.AIN1.pu_pd      = "pd";

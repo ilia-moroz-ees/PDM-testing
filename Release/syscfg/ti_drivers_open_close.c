@@ -102,7 +102,7 @@ void Drivers_adcOpen()
 
 	/* Start of Conversion 1 Configuration */
 	/* Configures a start-of-conversion (SOC) in the ADC. */
-	ADC_setupSOC(ADC1_BASE_ADDR, 1, ADC_TRIGGER_SW_ONLY, ADC_CH_ADCIN0, 16);
+	ADC_setupSOC(ADC1_BASE_ADDR, 1, ADC_TRIGGER_SW_ONLY, ADC_CH_ADCIN1, 16);
 	/* Configures the interrupt SOC trigger of an SOC. */
 	ADC_setInterruptSOCTrigger(ADC1_BASE_ADDR, 1, ADC_INT_SOC_TRIGGER_NONE);
 

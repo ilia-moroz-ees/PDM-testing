@@ -6,14 +6,30 @@
   (0x1000 | ((channel & 0x0F)                                                  \
              << 7)) // MACRO for generating a command for ADC in Manual Mode
 
-const float VREF = 2.5f;           // Reference ADC Voltage
-const float ADC_RESOLUTION = 4095.0f; // 12 bit resolution
-const float CURRENT_SCALE_CH0 =
-    0.108f; // Voltage to Current Conversion factor CH0
-const float CURRENT_SCALE_CH1 =
-    0.383f; // Voltage to Current Conversion factor CH1
-const float DISCREPANCY = 0.1;
+const float EXT_ADC_VREF = 2.5f;           // Reference ADC Voltage
+const float EXT_ADC_RESOLUTION = 4095.0f; // 12 bit resolution
+const float CURRENT_SCALE_HSS_MB = 0.108f; // Voltage to Current Conversion factor HSS MB
+const float CURRENT_SCALE_TPS = 0.383f; // Voltage to Current Conversion factor TPS1HTC30EVM
 
+ADS_ADC ext_adc0 = {
+  .spi_handle = NULL,
+  .spi_instance = SPI0,
+  .channel = 0,
+  .cs_base = SPI0_CS_BASE_ADDR,
+  .cs_pin = SPI0_CS_PIN,
+  .resolution = EXT_ADC_RESOLUTION,
+  .vref = EXT_ADC_VREF
+}; // SPI0
+
+ADS_ADC ext_adc1 = {
+  .spi_handle = NULL,
+  .spi_instance = SPI1,
+  .channel = 0,
+  .cs_base = SPI1_CS_BASE_ADDR,
+  .cs_pin = SPI1_CS_PIN,
+  .resolution = EXT_ADC_RESOLUTION,
+  .vref = EXT_ADC_VREF
+}; // SPI1
 
 uint16_t SPI_ReadWrite(ADS_ADC *adc, uint16_t data) {
 //   adc->spi_handle = gMcspiHandle[adc->spi_instance];
@@ -46,27 +62,19 @@ uint16_t read_ext_ADC(ADS_ADC *adc, uint8_t channel) {
   uint16_t command = ADS7953_CMD(channel);
 
   SPI_ReadWrite(adc, command); // Since response comes only in the third package,
-                          // doing 2 empty reads
+                               // doing 2 empty reads
   SPI_ReadWrite(adc, command);
   return SPI_ReadWrite(adc, command); // here reading actual data
 }
 
-float adc_to_voltage(uint16_t raw_adc) {
-  return ((float)raw_adc / ADC_RESOLUTION) * VREF;
+float ext_adc_to_voltage(uint16_t raw_adc) {
+  return ((float)raw_adc / EXT_ADC_RESOLUTION) * EXT_ADC_VREF;
 }
 
-float adc_to_current_ch0(uint16_t voltage) {
-  return adc_to_voltage((float)voltage) / CURRENT_SCALE_CH0;
+float adc_to_current_HSS_MB(uint16_t raw_adc) {
+  return ext_adc_to_voltage((float)raw_adc) / CURRENT_SCALE_HSS_MB;
 }
 
-float adc_to_current_ch1(uint16_t voltage) {
-  return adc_to_voltage((float)voltage) / CURRENT_SCALE_CH1;
+float adc_to_current_TPS(uint16_t raw_adc) {
+  return ext_adc_to_voltage((float)raw_adc) / CURRENT_SCALE_TPS;
 }
-
-// void read_values(ADS_ADC *adc, float *ch0, float *ch1, bool *gpio44_value,
-//                  bool *gpio46_value) {
-//   *ch0 = adc_to_current_ch0(readADC(adc, 0));
-//   *ch1 = adc_to_current_ch1(readADC(adc, 1));
-//   *gpio44_value = GPIO_pinRead(GPIO44_BASE_ADDR, GPIO44_PIN);
-//   *gpio46_value = GPIO_pinRead(GPIO46_BASE_ADDR, GPIO46_PIN);
-// }

@@ -31,30 +31,16 @@ void PDM_testing(void *args)
     ADC_enableConverter(ADC1_BASE_ADDR);
     ClockP_sleep(1);
 
-    ADS_ADC ext_adc0 = {
-        .spi_handle = gMcspiHandle[SPI0],
-        .spi_instance = SPI0,
-        .channel = gSpi0ChCfg[0].chNum,
-        .cs_base = SPI0_CS_BASE_ADDR,
-        .cs_pin = SPI0_CS_PIN,
-        .resolution = ADC_RESOLUTION,
-        .vref = VREF
-    }; // SPI0
+    ext_adc0.spi_handle = gMcspiHandle[SPI0];
+    ext_adc0.channel = gSpi0ChCfg[0].chNum;
 
-    ADS_ADC ext_adc1 = {
-        .spi_handle = gMcspiHandle[SPI1],
-        .spi_instance = SPI1,
-        .channel = gSpi1ChCfg[0].chNum,
-        .cs_base = SPI1_CS_BASE_ADDR,
-        .cs_pin = SPI1_CS_PIN,
-        .resolution = ADC_RESOLUTION,
-        .vref = VREF
-    }; // SPI1
+    ext_adc1.spi_handle = gMcspiHandle[SPI1];
+    ext_adc1.channel = gSpi1ChCfg[0].chNum;
+    
 
 
     while(true)
     {
-
         DebugP_log("Enter test number: \r\n");
         DebugP_scanf("%d", &user_input_test_number);
         switch (user_input_test_number)
@@ -78,10 +64,7 @@ void PDM_testing(void *args)
         }
     }
 
-    ADC_disableInterrupt(ADC1_BASE_ADDR, ADC_INT_NUMBER1);
-    ADC_clearInterruptStatus(ADC1_BASE_ADDR, ADC_INT_NUMBER1);
-    /* Power down the ADC */
-    ADC_disableConverter(ADC1_BASE_ADDR);
+    disable_ADC();
 
     Board_driversClose();
     Drivers_close();

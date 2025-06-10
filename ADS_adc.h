@@ -14,11 +14,10 @@
 #include <math.h>
 #include <stdio.h>
 
-extern const float VREF;          // Reference ADC Voltage
-extern const float ADC_RESOLUTION; // 12 bit resolution
-extern const float CURRENT_SCALE_CH0; // Voltage to Current Conversion factor CH0
-extern const float CURRENT_SCALE_CH1; // Voltage to Current Conversion factor CH1
-extern const float DISCREPANCY;
+extern const float EXT_ADC_VREF;          // Reference ADC Voltage
+extern const float EXT_ADC_RESOLUTION;    // 12 bit resolution
+extern const float CURRENT_SCALE_HSS_MB;  // Voltage to Current Conversion factor HSS Motherboard
+extern const float CURRENT_SCALE_TPS;     // Voltage to Current Conversion factor TPS1HTC30EVM
 
 typedef struct
 {
@@ -32,13 +31,13 @@ typedef struct
 
 } ADS_ADC;
 
-extern uint16_t read_ext_ADC(ADS_ADC *adc, uint8_t channel);
-extern float adc_to_voltage(uint16_t raw_adc);
-extern float adc_to_current_ch0(uint16_t raw_adc);
-extern float adc_to_current_ch1(uint16_t raw_adc);
-extern void read_values(float *ch0, float *ch1, bool *gpio44_value, bool *gpio46_value);
-extern uint16_t SPI_ReadWrite(ADS_ADC *adc, uint16_t data);
+uint16_t read_ext_ADC(ADS_ADC *adc, uint8_t channel);
+float ext_adc_to_voltage(uint16_t raw_adc);
+float adc_to_current_HSS_MB(uint16_t raw_adc);
+float adc_to_current_TPS(uint16_t raw_adc);
+uint16_t SPI_ReadWrite(ADS_ADC *adc, uint16_t data);
 
-
+extern ADS_ADC ext_adc0;
+extern ADS_ADC ext_adc1;
 
 #endif
