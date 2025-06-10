@@ -25,6 +25,7 @@ C_SRCS += \
 ./syscfg/ti_enet_lwipif.c \
 ./syscfg/ti_sdl_config.c \
 ../int_adc.c \
+../logger.c \
 ../main.c 
 
 GEN_CMDS += \
@@ -65,6 +66,7 @@ C_DEPS += \
 ./syscfg/ti_enet_lwipif.d \
 ./syscfg/ti_sdl_config.d \
 ./int_adc.d \
+./logger.d \
 ./main.d 
 
 OBJS += \
@@ -84,6 +86,7 @@ OBJS += \
 ./syscfg/ti_enet_lwipif.o \
 ./syscfg/ti_sdl_config.o \
 ./int_adc.o \
+./logger.o \
 ./main.o 
 
 GEN_MISC_FILES += \
@@ -119,6 +122,7 @@ OBJS__QUOTED += \
 "syscfg\ti_enet_lwipif.o" \
 "syscfg\ti_sdl_config.o" \
 "int_adc.o" \
+"logger.o" \
 "main.o" 
 
 GEN_MISC_FILES__QUOTED += \
@@ -151,6 +155,7 @@ C_DEPS__QUOTED += \
 "syscfg\ti_enet_lwipif.d" \
 "syscfg\ti_sdl_config.d" \
 "int_adc.d" \
+"logger.d" \
 "main.d" 
 
 GEN_FILES__QUOTED += \
@@ -185,6 +190,7 @@ C_SRCS__QUOTED += \
 "./syscfg/ti_enet_lwipif.c" \
 "./syscfg/ti_sdl_config.c" \
 "../int_adc.c" \
+"../logger.c" \
 "../main.c" 
 
 SYSCFG_SRCS__QUOTED += \

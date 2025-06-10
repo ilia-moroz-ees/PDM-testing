@@ -13,7 +13,7 @@
 #include "board.h"
 #include "ADS_adc.h"
 #include "int_adc.h"
-
+#include "logger.h"
 
 
 void PDM_testing(void *args)
@@ -29,13 +29,13 @@ void PDM_testing(void *args)
     ClockP_sleep(1);
 
     ADS_ADC adc0 = {
-    .spi_handle = gMcspiHandle[SPI0],
-    .spi_instance = SPI0,
-    .channel = gSpi0ChCfg[0].chNum,
-    .cs_base = SPI0_CS_BASE_ADDR,
-    .cs_pin = SPI0_CS_PIN,
-    .resolution = ADC_RESOLUTION,
-    .vref = VREF
+        .spi_handle = gMcspiHandle[SPI0],
+        .spi_instance = SPI0,
+        .channel = gSpi0ChCfg[0].chNum,
+        .cs_base = SPI0_CS_BASE_ADDR,
+        .cs_pin = SPI0_CS_PIN,
+        .resolution = ADC_RESOLUTION,
+        .vref = VREF
     };
 
     ADS_ADC adc1 = {
@@ -48,16 +48,25 @@ void PDM_testing(void *args)
         .vref = VREF
     }; // SPI1
 
+    
+    add_log(FAULT, GPIO43);
+
+    add_log(PIN_HIGH, GPIO123);
+
+    add_log(PIN_LOW, GPIO126);
+
+    print_logs();
+
     while(true)
     {
-        DebugP_log("Running...%d\r\n", test);
-        digitalWrite(GPIO127_BASE_ADDR, GPIO127_PIN, signal);
-        signal = !signal;
-        ClockP_sleep(1);
-        DebugP_log("ADC2 = %d\r\n", read_int_ADC(2));
-        DebugP_log("ADC3 = %d\r\n", read_int_ADC(3));
-        DebugP_log("ADC4 = %d\r\n", read_int_ADC(4));
-        DebugP_log("ADC5 = %d\r\n", read_int_ADC(5));
+        // DebugP_log("Running...%d\r\n", test);
+        // digitalWrite(GPIO127_BASE_ADDR, GPIO127_PIN, signal);
+        // signal = !signal;
+        // ClockP_sleep(1);
+        // DebugP_log("ADC2 = %d\r\n", read_int_ADC(2));
+        // DebugP_log("ADC3 = %d\r\n", read_int_ADC(3));
+        // DebugP_log("ADC4 = %d\r\n", read_int_ADC(4));
+        // DebugP_log("ADC5 = %d\r\n", read_int_ADC(5));
     }
 
     ADC_disableInterrupt(ADC1_BASE_ADDR, ADC_INT_NUMBER1);
