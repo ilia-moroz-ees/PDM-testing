@@ -52,10 +52,13 @@ enum PIN
 
 LogEntry logs[MAX_LOG_ENTRY_NUMBER];
 extern uint16_t logs_length;
+static uint16_t last_printed_index = 0;
 
 void add_log(uint16_t event_type, uint16_t pin);
 void print_log(uint16_t log_number);
 void print_logs();
+void print_pending_logs();
+void clear_logs();
 
 
 #endif

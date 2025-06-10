@@ -26,24 +26,24 @@ void GPIO_bankIsrFxn(void *args)
     {
         case 2:
             if (intr_status & GPIO_GET_BANK_BIT_MASK(intr_pins.gpio43.pin_num)) {
-                test = 43;
+                add_log(FAULT, GPIO43);
             }
             if (intr_status & GPIO_GET_BANK_BIT_MASK(intr_pins.gpio44.pin_num)) {
-                test = 44;
+                add_log(FAULT, GPIO44);
             }
             if (intr_status & GPIO_GET_BANK_BIT_MASK(intr_pins.gpio45.pin_num)) {
-                test = 45;
+                add_log(FAULT, GPIO45);
             }
             if (intr_status & GPIO_GET_BANK_BIT_MASK(intr_pins.gpio46.pin_num)) {
-                test = 46;
+                add_log(FAULT, GPIO46);
             }
             break;
         case 3:
             if (intr_status & GPIO_GET_BANK_BIT_MASK(intr_pins.gpio51.pin_num)) {
-                test = 51;
+                add_log(FAULT, GPIO51);
             }
             if (intr_status & GPIO_GET_BANK_BIT_MASK(intr_pins.gpio52.pin_num)) {
-                test = 52;
+                add_log(FAULT, GPIO52);
             }
             break;
         default:
@@ -124,6 +124,33 @@ void init_interrupt(HwiP_Object *intr_object, Pin_parameters *pin)
 
 void digitalWrite(uint32_t base_address, uint32_t pin, bool value)
 {
+    switch (pin)
+    {
+        case GPIO53_PIN:
+            add_log(value ? PIN_HIGH : PIN_LOW, GPIO53);
+            break;
+        
+        case GPIO54_PIN:
+            add_log(value ? PIN_HIGH : PIN_LOW, GPIO54);
+            break;
+            
+        case GPIO123_PIN:
+            add_log(value ? PIN_HIGH : PIN_LOW, GPIO123);
+            break;
+            
+        case GPIO136_PIN:
+            add_log(value ? PIN_HIGH : PIN_LOW, GPIO136);
+            break;
+            
+        case GPIO126_PIN:
+            add_log(value ? PIN_HIGH : PIN_LOW, GPIO126);
+            break;
+            
+        case GPIO127_PIN:
+            add_log(value ? PIN_HIGH : PIN_LOW, GPIO127);
+            break;
+    }
+
     if (value)
     {
         GPIO_pinWriteHigh(base_address, pin);

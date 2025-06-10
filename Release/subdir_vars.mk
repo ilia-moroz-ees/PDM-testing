@@ -26,7 +26,8 @@ C_SRCS += \
 ./syscfg/ti_sdl_config.c \
 ../int_adc.c \
 ../logger.c \
-../main.c 
+../main.c \
+../testing.c 
 
 GEN_CMDS += \
 ./syscfg/linker.cmd 
@@ -67,7 +68,8 @@ C_DEPS += \
 ./syscfg/ti_sdl_config.d \
 ./int_adc.d \
 ./logger.d \
-./main.d 
+./main.d \
+./testing.d 
 
 OBJS += \
 ./ADS_adc.o \
@@ -87,7 +89,8 @@ OBJS += \
 ./syscfg/ti_sdl_config.o \
 ./int_adc.o \
 ./logger.o \
-./main.o 
+./main.o \
+./testing.o 
 
 GEN_MISC_FILES += \
 ./syscfg/ti_dpl_config.h \
@@ -123,7 +126,8 @@ OBJS__QUOTED += \
 "syscfg\ti_sdl_config.o" \
 "int_adc.o" \
 "logger.o" \
-"main.o" 
+"main.o" \
+"testing.o" 
 
 GEN_MISC_FILES__QUOTED += \
 "syscfg\ti_dpl_config.h" \
@@ -156,7 +160,8 @@ C_DEPS__QUOTED += \
 "syscfg\ti_sdl_config.d" \
 "int_adc.d" \
 "logger.d" \
-"main.d" 
+"main.d" \
+"testing.d" 
 
 GEN_FILES__QUOTED += \
 "syscfg\ti_dpl_config.c" \
@@ -191,7 +196,8 @@ C_SRCS__QUOTED += \
 "./syscfg/ti_sdl_config.c" \
 "../int_adc.c" \
 "../logger.c" \
-"../main.c" 
+"../main.c" \
+"../testing.c" 
 
 SYSCFG_SRCS__QUOTED += \
 "../example.syscfg" 

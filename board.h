@@ -7,6 +7,7 @@
 #include <drivers/hw_include/tistdtypes.h>
 #include <drivers/mcspi.h>
 #include "ti_drivers_config.h"
+#include "logger.h"
 
 #define GPIO43_INT_NUM CSLR_R5FSS0_CORE0_INTR_GPIO_INTRXBAR_OUT_14
 #define GPIO44_INT_NUM CSLR_R5FSS0_CORE0_INTR_GPIO_INTRXBAR_OUT_14

@@ -209,6 +209,9 @@ soc_ctrl_sdfm1.$name   = "soc_ctrl_sdfm0";
 soc_ctrl.soc_ctrl_sdfm = soc_ctrl_sdfm1;
 
 debug_log.enableUartLog            = true;
+debug_log.enableLogZoneInfo        = true;
+debug_log.enableSharedMemLogReader = true;
+debug_log.enableSharedMemLog       = true;
 debug_log.uartLog.$name            = "CONFIG_UART0";
 debug_log.uartLog.UART.$assign     = "UART0";
 debug_log.uartLog.UART.RXD.$assign = "UART0_RXD";

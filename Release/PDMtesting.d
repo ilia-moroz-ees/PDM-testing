@@ -116,7 +116,7 @@ PDMtesting.o: ../PDMtesting.c \
  C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/drivers/mcspi/v0/lld/dma/edma/mcspi_dma_edma.h \
  syscfg/ti_board_open_close.h \
  syscfg/ti_board_config.h \
- ../board.h ../ADS_adc.h ../int_adc.h ../logger.h
+ ../board.h ../logger.h ../ADS_adc.h ../int_adc.h ../testing.h
 C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/kernel/dpl/DebugP.h:
 C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/kernel/dpl/ClockP.h:
 C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/kernel/dpl/SystemP.h:
@@ -233,6 +233,7 @@ C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263p
 syscfg/ti_board_open_close.h:
 syscfg/ti_board_config.h:
 ../board.h:
+../logger.h:
 ../ADS_adc.h:
 ../int_adc.h:
-../logger.h:
+../testing.h:

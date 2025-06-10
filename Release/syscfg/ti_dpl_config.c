@@ -66,8 +66,19 @@ void putchar_(char character)
     putchar(character);
     /* Output to UART console */
     DebugP_uartLogWriterPutChar(character);
+    /* Shared memory reader is enabled on this core, in this case, logs go straight to
+     * to the enabled console (e.g CCS or UART), instead of shared memory
+     */
 }
 
+/* Shared memory log base address, logs of each CPUs are put one after other in the below region.
+ *
+ * IMPORTANT: Make sure of below,
+ * - The section defined below should be placed at the exact same location in memory for all the CPUs
+ * - The memory should be marked as non-cached for all the CPUs
+ * - The section should be marked as NOLOAD in all the CPUs linker command file
+ */
+DebugP_ShmLog gDebugShmLog[CSL_CORE_ID_MAX] __attribute__((aligned(128), section(".bss.log_shared_mem")));
 
 
 #define RODATA_CFG_SECTION __attribute__((section(".rodata.cfg")))
@@ -194,6 +205,12 @@ void Dpl_init(void)
     /* Debug log init */
     DebugP_logZoneEnable(DebugP_LOG_ZONE_ERROR);
     DebugP_logZoneEnable(DebugP_LOG_ZONE_WARN);
+    DebugP_logZoneEnable(DebugP_LOG_ZONE_INFO);
+    /* Shared memory reader is enabled on this core, in this case, logs go straight to
+     * to the enabled console (e.g CCS or UART), instead of shared memory
+     */
+    /* Initialize shared memory reader on this CPU */
+    DebugP_shmLogReaderInit(gDebugShmLog, CSL_CORE_ID_MAX);
     /* UART console to use for reading input */
     DebugP_uartSetDrvIndex(CONFIG_UART0);
 

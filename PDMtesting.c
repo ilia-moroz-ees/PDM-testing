@@ -14,11 +14,13 @@
 #include "ADS_adc.h"
 #include "int_adc.h"
 #include "logger.h"
+#include "testing.h"
 
+uint16_t log_counter = 0;
 
 void PDM_testing(void *args)
 {
-    static bool signal;
+    static uint8_t user_input_test_number;
 
     Drivers_open();
     Board_driversOpen();
@@ -36,7 +38,7 @@ void PDM_testing(void *args)
         .cs_pin = SPI0_CS_PIN,
         .resolution = ADC_RESOLUTION,
         .vref = VREF
-    };
+    }; // SPI0
 
     ADS_ADC adc1 = {
         .spi_handle = gMcspiHandle[SPI1],
@@ -48,25 +50,17 @@ void PDM_testing(void *args)
         .vref = VREF
     }; // SPI1
 
-    
-    add_log(FAULT, GPIO43);
 
-    add_log(PIN_HIGH, GPIO123);
-
-    add_log(PIN_LOW, GPIO126);
-
-    print_logs();
+    DebugP_uartSetDrvIndex(CONFIG_UART0);
+    // conduct_test(0);
+    // conduct_test(1);
 
     while(true)
     {
-        // DebugP_log("Running...%d\r\n", test);
-        // digitalWrite(GPIO127_BASE_ADDR, GPIO127_PIN, signal);
-        // signal = !signal;
-        // ClockP_sleep(1);
-        // DebugP_log("ADC2 = %d\r\n", read_int_ADC(2));
-        // DebugP_log("ADC3 = %d\r\n", read_int_ADC(3));
-        // DebugP_log("ADC4 = %d\r\n", read_int_ADC(4));
-        // DebugP_log("ADC5 = %d\r\n", read_int_ADC(5));
+
+        DebugP_scanf("%d", &user_input_test_number);
+        DebugP_log("%d", user_input_test_number + 1);
+
     }
 
     ADC_disableInterrupt(ADC1_BASE_ADDR, ADC_INT_NUMBER1);

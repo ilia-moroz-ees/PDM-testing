@@ -17,6 +17,11 @@ void add_log(uint16_t event_type, uint16_t pin)
 
 void print_log(uint16_t log_number)
 {
+    if (logs_length == 0)
+    {
+        return;
+    }
+
     if (log_number >= logs_length)
     {
         DebugP_log("Invalid log index: %d\r\n", log_number);
@@ -61,15 +66,42 @@ void print_log(uint16_t log_number)
                log.timestamp,
                pin_str,
                event_str,
-               (log.event_type == FAULT) ? "Triggered" : "Set to",
+               (log.event_type == FAULT) ? "Triggered" : "Set",
                fault_str);
     DebugP_log("----------------------------\r\n");
 }
 
 void print_logs()
 {
+    if (logs_length == 0)
+    {
+        return;
+    }
+
     for (uint16_t i = 0; i < logs_length; i++)
     {
         print_log(i);
     }
+}
+
+void clear_logs()
+{
+    logs_length = 0;
+}
+
+void print_pending_logs()
+{
+    if (last_printed_index >= logs_length) {
+        DebugP_log("No new logs available\r\n");
+        return;
+    }
+
+    DebugP_log("\r\n=== Pending Logs (%d new entries) ===\r\n", 
+              logs_length - last_printed_index);
+
+    for (uint16_t i = last_printed_index; i < logs_length; i++) {
+        print_log(i); 
+    }
+
+    last_printed_index = logs_length;
 }
