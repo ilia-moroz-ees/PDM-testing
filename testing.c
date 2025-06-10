@@ -17,7 +17,7 @@ void conduct_test(uint8_t test_number)
 {
     if (test_number >= TESTS_NUMBER)
     {
-        DebugP_logError("Invalid test number");
+        DebugP_logError("Invalid test number\r\n");
         return;
     }
 
