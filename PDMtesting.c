@@ -37,37 +37,30 @@ void PDM_testing(void *args)
     ext_adc1.spi_handle = gMcspiHandle[SPI1];
     ext_adc1.channel = gSpi1ChCfg[0].chNum;
     
-
-
     while(true)
     {
-        DebugP_log("ADC0 = %d\r\n", read_int_ADC(0));
-        DebugP_log("ADC1 = %d\r\n", read_int_ADC(1));
-        DebugP_log("ADC2 = %d\r\n", read_int_ADC(2));
-        DebugP_log("ADC3 = %d\r\n", read_int_ADC(3));
-        DebugP_log("ADC4 = %d\r\n", read_int_ADC(4));
-        DebugP_log("ADC5 = %d\r\n", read_int_ADC(5));
-        // DebugP_log("Enter test number: \r\n");
-        // DebugP_scanf("%d", &user_input_test_number);
-        // switch (user_input_test_number)
-        // {
-        //     case 990:
-        //         clear_logs();
-        //         DebugP_log("logs buffer cleared\r\n");
-        //         break;
+        DebugP_log("Enter test number: \r\n");
+        DebugP_scanf("%d", &user_input_test_number);
+        switch (user_input_test_number)
+        {
+            // A few commands to interact with logs
+            case 990:
+                clear_logs();
+                DebugP_log("logs buffer cleared\r\n");
+                break;
             
-        //     case 991:
-        //         print_logs();
-        //         break;
+            case 991:
+                print_logs();
+                break;
             
-        //     case 992:
-        //         DebugP_log("Current number of logs: %d/%d\r\n", logs_length, MAX_LOG_ENTRY_NUMBER);
-        //         break;
+            case 992:
+                DebugP_log("Current number of logs: %d/%d\r\n", logs_length, MAX_LOG_ENTRY_NUMBER);
+                break;
             
-        //     default:
-        //         conduct_test(user_input_test_number);
-        //         break;
-        // }
+            default:
+                conduct_test(user_input_test_number);
+                break;
+        }
     }
 
     disable_ADC();
