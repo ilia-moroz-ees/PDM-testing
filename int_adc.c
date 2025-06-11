@@ -11,9 +11,6 @@ const float CURRENT_SCALE_LM74930 = 0.432f;  // Voltage to Current Conversion fa
 
 uint16_t read_int_ADC(uint8_t adc_number) {
     ADC_clearInterruptStatus(ADC1_BASE_ADDR, ADC_INT_NUMBER1);
-    ADC_clearInterruptStatus(ADC1_BASE_ADDR, ADC_INT_NUMBER2);
-    ADC_clearInterruptStatus(ADC1_BASE_ADDR, ADC_INT_NUMBER3);
-    ADC_clearInterruptStatus(ADC1_BASE_ADDR, ADC_INT_NUMBER4);
 
     uint16_t conversion_result;
 
@@ -46,25 +43,27 @@ uint16_t read_int_ADC(uint8_t adc_number) {
             break;
 
         case 3:
-            //TODO: Attach all ADC channels to interrupt 1 (look at case 0-2)
+            ADC_setInterruptSource(ADC1_BASE_ADDR, ADC_INT_NUMBER1, ADC_SOC_NUMBER3);
             ADC_forceSOC(ADC1_BASE_ADDR, ADC_SOC_NUMBER3);
-            while (ADC_getInterruptStatus(ADC1_BASE_ADDR, ADC_INT_NUMBER2) == false) {
+            while (ADC_getInterruptStatus(ADC1_BASE_ADDR, ADC_INT_NUMBER1) == false) {
             /* Wait for the SOC conversion to complete */
             }
             conversion_result = ADC_readResult(ADC1_RESULT_BASE_ADDR, ADC_SOC_NUMBER3);
             break;
 
         case 4:
+            ADC_setInterruptSource(ADC1_BASE_ADDR, ADC_INT_NUMBER1, ADC_SOC_NUMBER4);
             ADC_forceSOC(ADC1_BASE_ADDR, ADC_SOC_NUMBER4);
-            while (ADC_getInterruptStatus(ADC1_BASE_ADDR, ADC_INT_NUMBER3) == false) {
+            while (ADC_getInterruptStatus(ADC1_BASE_ADDR, ADC_INT_NUMBER1) == false) {
             /* Wait for the SOC conversion to complete */
             }
             conversion_result = ADC_readResult(ADC1_RESULT_BASE_ADDR, ADC_SOC_NUMBER4);
             break;
 
         case 5:
+            ADC_setInterruptSource(ADC1_BASE_ADDR, ADC_INT_NUMBER1, ADC_SOC_NUMBER5);
             ADC_forceSOC(ADC1_BASE_ADDR, ADC_SOC_NUMBER5);
-            while (ADC_getInterruptStatus(ADC1_BASE_ADDR, ADC_INT_NUMBER4) == false) {
+            while (ADC_getInterruptStatus(ADC1_BASE_ADDR, ADC_INT_NUMBER1) == false) {
             /* Wait for the SOC conversion to complete */
             }
             conversion_result = ADC_readResult(ADC1_RESULT_BASE_ADDR, ADC_SOC_NUMBER5);
@@ -72,9 +71,6 @@ uint16_t read_int_ADC(uint8_t adc_number) {
     }
 
     ADC_clearInterruptStatus(ADC1_BASE_ADDR, ADC_INT_NUMBER1);
-    ADC_clearInterruptStatus(ADC1_BASE_ADDR, ADC_INT_NUMBER2);
-    ADC_clearInterruptStatus(ADC1_BASE_ADDR, ADC_INT_NUMBER3);
-    ADC_clearInterruptStatus(ADC1_BASE_ADDR, ADC_INT_NUMBER4);
 
     return conversion_result;
 }
@@ -84,12 +80,6 @@ void disable_ADC()
     // Disable interrupts
     ADC_disableInterrupt(ADC1_BASE_ADDR, ADC_INT_NUMBER1);
     ADC_clearInterruptStatus(ADC1_BASE_ADDR, ADC_INT_NUMBER1);
-    ADC_disableInterrupt(ADC1_BASE_ADDR, ADC_INT_NUMBER2);
-    ADC_clearInterruptStatus(ADC1_BASE_ADDR, ADC_INT_NUMBER2);
-    ADC_disableInterrupt(ADC1_BASE_ADDR, ADC_INT_NUMBER3);
-    ADC_clearInterruptStatus(ADC1_BASE_ADDR, ADC_INT_NUMBER3);
-    ADC_disableInterrupt(ADC1_BASE_ADDR, ADC_INT_NUMBER4);
-    ADC_clearInterruptStatus(ADC1_BASE_ADDR, ADC_INT_NUMBER4);
     /* Power down the ADC */
     ADC_disableConverter(ADC1_BASE_ADDR);
 }

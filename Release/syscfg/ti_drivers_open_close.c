@@ -215,24 +215,24 @@ void Drivers_adcOpen()
 	ADC_disableContinuousMode(ADC1_BASE_ADDR, 0);
 
 	/* ADC Interrupt 2 Configuration */
-	/* Enables an ADC interrupt source. */
-	ADC_enableInterrupt(ADC1_BASE_ADDR, 1);
+	/* Disables an ADC interrupt source. */
+	ADC_disableInterrupt(ADC1_BASE_ADDR, 1);
 	/* Sets the source EOC for an analog-to-digital converter interrupt. */
 	ADC_setInterruptSource(ADC1_BASE_ADDR, 1, ADC_SOC_NUMBER3);
 	/* Disables continuous mode for an ADC interrupt. */
 	ADC_disableContinuousMode(ADC1_BASE_ADDR, 1);
 
 	/* ADC Interrupt 3 Configuration */
-	/* Enables an ADC interrupt source. */
-	ADC_enableInterrupt(ADC1_BASE_ADDR, 2);
+	/* Disables an ADC interrupt source. */
+	ADC_disableInterrupt(ADC1_BASE_ADDR, 2);
 	/* Sets the source EOC for an analog-to-digital converter interrupt. */
 	ADC_setInterruptSource(ADC1_BASE_ADDR, 2, ADC_SOC_NUMBER4);
 	/* Disables continuous mode for an ADC interrupt. */
 	ADC_disableContinuousMode(ADC1_BASE_ADDR, 2);
 
 	/* ADC Interrupt 4 Configuration */
-	/* Enables an ADC interrupt source. */
-	ADC_enableInterrupt(ADC1_BASE_ADDR, 3);
+	/* Disables an ADC interrupt source. */
+	ADC_disableInterrupt(ADC1_BASE_ADDR, 3);
 	/* Sets the source EOC for an analog-to-digital converter interrupt. */
 	ADC_setInterruptSource(ADC1_BASE_ADDR, 3, ADC_SOC_NUMBER5);
 	/* Disables continuous mode for an ADC interrupt. */

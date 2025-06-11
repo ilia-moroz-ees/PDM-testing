@@ -4,15 +4,129 @@ const float VOLTAGE_TOLERANCE = 0.1f;
 const float CURRENT_TOLERANCE = 0.1f;
 
 const TestCase test_cases[TESTS_NUMBER] = {
+    // Reset, nothing enabled
     {0, 0, 0, 0, 0},
-    {1,0,0,1,0}
-    //TODO: finish this table
+    // Test ID #1
+    {1, 0, 0, 1, 0},
+    // Test ID #2
+    {0, 1, 0, 1, 0},
+    // Test ID #3
+    {0, 0, 1, 1, 0},
+    // Test Having 2 enabled in parallel
+    {1, 1, 0, 1, 0},
+    // Force #2 to take load
+    {1, 1, 0, 1, 0},
+    // Force #1 to take load
+    {1, 1, 0, 1, 0},
+    // Tests loss of a power source
+    {1, 1, 0, 1, 0},
+    // Clear UVLO Fault from ID 1
+    {0, 0, 0, 0, 0},
+    // Test HSS Motherboard
+    {1, 0, 0, 1, 0},
+    // Test TPS1HTC30EVM
+    {1, 0, 0, 0, 1},
+    // Combined loads -> overcurrent fault
+    {1, 0, 0, 1, 1},
+    // Reset fault
+    {0, 0, 0, 0, 0},
+    // 2 Diodes Online
+    {1, 1, 0, 0, 1},
+    // 2 Diodes Heavy Load
+    {1, 1, 0, 1, 1},
+    // Reset faults
+    {0, 0, 0, 0, 0},
+    // Normal Operation through TPS1HTC30
+    {1, 0, 0, 0, 1},
+    // Short through TPS1HTC30
+    {1, 0, 0, 0, 1},
+    // Reset fault
+    {0, 0, 0, 0, 0},
+    // Normal through HSS-Motherboard
+    {1, 0, 0, 1, 0},
+    // Short through HSS Motherboard
+    {1, 0, 0, 1, 0},
+    // Reset Faults
+    {0, 0, 0, 0, 0},
+    // HSS-Motherboard and TPS1HTC30 Both Loading 1 Ideal diode
+    {1, 0, 0, 1, 1},
+    // Short HSS Motherboard
+    {1, 0, 0, 1, 1},
+    // Reset Faults
+    {0, 0, 0, 0, 0},
+    // HSS-Motherboard and TPS1HTC30 Both Loading 1 Ideal diode
+    {1, 0, 0, 1, 1},
+    // Short TPS1HTC30
+    {1, 0, 0, 1, 1},
+    // Reset Faults
+    {0, 0, 0, 0, 0},
+    // Test HSS Motherboard
+    {1, 0, 0, 1, 0},
+    // Test TPS1HTC30EVM
+    {1, 0, 0, 0, 1}
 };
 
 const TestResult test_results[TESTS_NUMBER] = {
+    // Reset, nothing enabled
     {{0, 1.8699}, {0, 1.8699}, {0, 1.8699}, {0, 0}, {0, 0}},
-    {{4, 1.8699}, {0, 1.8699}, {0, 1.8699}, {4, 24}, {0, 0}}
-    //TODO: finish this table
+    // Test ID #1
+    {{4, 1.8699}, {0, 1.8699}, {0, 1.8699}, {4, 24}, {0, 0}},
+    // Test ID #2
+    {{0, 1.8699}, {4, 1.8699}, {0, 1.8699}, {4, 24}, {0, 0}},
+    // Test ID #3
+    {{0, 1.8699}, {0, 1.8699}, {4, 1.8699}, {4, 24}, {0, 0}},
+    // Test Having 2 enabled in parallel
+    {{2, 1.8699}, {2, 1.8699}, {0, 1.8699}, {4, 24}, {0, 0}},
+    // Force #2 to take load
+    {{0, 1.7141}, {4, 1.8699}, {0, 1.8699}, {4, 24}, {0, 0}},
+    // Force #1 to take load
+    {{4, 1.8699}, {0, 1.7141}, {0, 1.8699}, {4, 24}, {0, 0}},
+    // Tests loss of a power source
+    {{0, 0}, {4, 1.7141}, {0, 1.8699}, {4, 22}, {0, 0}},
+    // Clear UVLO Fault from ID 1
+    {{0, 1.8699}, {0, 1.8699}, {0, 1.8699}, {0, 0}, {0, 0}},
+    // Test HSS Motherboard
+    {{4, 1.8699}, {0, 1.8699}, {0, 1.8699}, {4, 24}, {0, 0}},
+    // Test TPS1HTC30EVM
+    {{4, 1.8699}, {0, 1.8699}, {0, 1.8699}, {0, 0}, {4, 24}},
+    // Combined loads -> overcurrent fault
+    {{8, 1.8699}, {0, 1.8699}, {0, 1.8699}, {4, 24}, {4, 24}},
+    // Reset fault
+    {{0, 1.8699}, {0, 1.8699}, {0, 1.8699}, {0, 0}, {0, 0}},
+    // 2 Diodes Online
+    {{2, 1.8699}, {2, 1.8699}, {0, 1.8699}, {0, 0}, {4, 24}},
+    // 2 Diodes Heavy Load
+    {{4, 1.8699}, {4, 1.8699}, {0, 1.8699}, {4, 24}, {4, 24}},
+    // Reset faults
+    {{0, 1.8699}, {0, 1.8699}, {0, 1.8699}, {0, 0}, {0, 0}},
+    // Normal Operation through TPS1HTC30
+    {{4, 1.8699}, {0, 1.8699}, {0, 1.8699}, {0, 0}, {4, 24}},
+    // Short through TPS1HTC30
+    {{10, 1.8699}, {0, 1.8699}, {0, 1.8699}, {0, 0}, {10, 24}},
+    // Reset fault
+    {{0, 1.8699}, {0, 1.8699}, {0, 1.8699}, {0, 0}, {0, 0}},
+    // Normal through HSS-Motherboard
+    {{4, 1.8699}, {0, 1.8699}, {0, 1.8699}, {4, 24}, {0, 0}},
+    // Short through HSS Motherboard
+    {{10, 1.8699}, {0, 1.8699}, {0, 1.8699}, {10, 24}, {0, 0}},
+    // Reset Faults
+    {{0, 1.8699}, {0, 1.8699}, {0, 1.8699}, {0, 0}, {0, 0}},
+    // HSS-Motherboard and TPS1HTC30 Both Loading 1 Ideal diode
+    {{4, 1.8699}, {0, 1.8699}, {0, 1.8699}, {1, 24}, {3, 24}},
+    // Short HSS Motherboard
+    {{13, 1.8699}, {0, 1.8699}, {0, 1.8699}, {10, 24}, {3, 24}},
+    // Reset Faults
+    {{0, 1.8699}, {0, 1.8699}, {0, 1.8699}, {0, 0}, {0, 0}},
+    // HSS-Motherboard and TPS1HTC30 Both Loading 1 Ideal diode
+    {{4, 1.8699}, {0, 1.8699}, {0, 1.8699}, {3, 24}, {1, 24}},
+    // Short TPS1HTC30
+    {{13, 1.8699}, {0, 1.8699}, {0, 1.8699}, {3, 24}, {10, 24}},
+    // Reset Faults
+    {{0, 1.8699}, {0, 1.8699}, {0, 1.8699}, {0, 0}, {0, 0}},
+    // Test HSS Motherboard
+    {{4, 1.8699}, {0, 1.8699}, {0, 1.8699}, {4, 24}, {0, 0}},
+    // Test TPS1HTC30EVM
+    {{4, 1.8699}, {0, 1.8699}, {0, 1.8699}, {0, 0}, {4, 24}}
 };
 
 void conduct_test(uint8_t test_number)
@@ -114,12 +228,13 @@ void conduct_test(uint8_t test_number)
         test_passed = false;
     }
 
-    if(fabs(actual.hss_mb.vout - expected.hss_mb.vout) > CURRENT_TOLERANCE)
-    {
-        DebugP_log("  HSS MB V_OUT: FAIL (Expected %.2fV, Got %.2fV)\r\n",
-                  expected.hss_mb.vout, actual.hss_mb.vout);
-        test_passed = false;
-    }
+    // Will be measured with multimeter
+    // if(fabs(actual.hss_mb.vout - expected.hss_mb.vout) > CURRENT_TOLERANCE)
+    // {
+    //     DebugP_log("  HSS MB V_OUT: FAIL (Expected %.2fV, Got %.2fV)\r\n",
+    //               expected.hss_mb.vout, actual.hss_mb.vout);
+    //     test_passed = false;
+    // }
 
     // TPS1HTC30
     if(fabs(actual.tps1htc30.i_sns - expected.tps1htc30.i_sns) > CURRENT_TOLERANCE)
@@ -129,12 +244,13 @@ void conduct_test(uint8_t test_number)
         test_passed = false;
     }
 
-    if(fabs(actual.tps1htc30.vout - expected.tps1htc30.vout) > CURRENT_TOLERANCE)
-    {
-        DebugP_log("  TPS1HTC30 V_OUT: FAIL (Expected %.2fV, Got %.2fV)\r\n",
-                  expected.tps1htc30.vout, actual.tps1htc30.vout);
-        test_passed = false;
-    }
+    // will be measured with multimeter
+    // if(fabs(actual.tps1htc30.vout - expected.tps1htc30.vout) > CURRENT_TOLERANCE)
+    // {
+    //     DebugP_log("  TPS1HTC30 V_OUT: FAIL (Expected %.2fV, Got %.2fV)\r\n",
+    //               expected.tps1htc30.vout, actual.tps1htc30.vout);
+    //     test_passed = false;
+    // }
 
     // Final test result
     if(test_passed)

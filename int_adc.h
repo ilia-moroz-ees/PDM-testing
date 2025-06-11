@@ -14,7 +14,7 @@
 
 extern const float INT_ADC_VREF;          // Reference ADC Voltage
 extern const float INT_ADC_RESOLUTION;    // 12 bit resolution
-extern const float CURRENT_SCALE_LM74930;  // Voltage to Current Conversion factor LM74930
+extern const float CURRENT_SCALE_LM74930; // Voltage to Current Conversion factor LM74930
 
 uint16_t read_int_ADC(uint8_t adc_number);
 void disable_ADC();

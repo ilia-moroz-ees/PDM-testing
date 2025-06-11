@@ -6,10 +6,10 @@
   (0x1000 | ((channel & 0x0F)                                                  \
              << 7)) // MACRO for generating a command for ADC in Manual Mode
 
-const float EXT_ADC_VREF = 2.5f;           // Reference ADC Voltage
-const float EXT_ADC_RESOLUTION = 4095.0f; // 12 bit resolution
-const float CURRENT_SCALE_HSS_MB = 0.108f; // Voltage to Current Conversion factor HSS MB
-const float CURRENT_SCALE_TPS = 0.383f; // Voltage to Current Conversion factor TPS1HTC30EVM
+const float EXT_ADC_VREF = 2.5f;            // Reference ADC Voltage
+const float EXT_ADC_RESOLUTION = 4095.0f;   // 12 bit resolution
+const float CURRENT_SCALE_HSS_MB = 0.108f;  // Voltage to Current Conversion factor HSS MB
+const float CURRENT_SCALE_TPS = 0.383f;     // Voltage to Current Conversion factor TPS1HTC30EVM
 
 ADS_ADC ext_adc0 = {
   .spi_handle = NULL,
