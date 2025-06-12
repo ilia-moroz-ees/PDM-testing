@@ -182,12 +182,22 @@ void conduct_test(uint8_t test_number)
                   expected.ideal_diode1.imon, actual.ideal_diode1.imon);
         test_passed = false;
     }
+    else
+    {
+        DebugP_log("  IDEAL DIODE1 IMON: SUCCESS (Expected %.2fA, Got %.2fA)\r\n", 
+                  expected.ideal_diode1.imon, actual.ideal_diode1.imon);
+    }
 
     if (fabs(actual.ideal_diode1.vfb - expected.ideal_diode1.vfb) > VOLTAGE_TOLERANCE)
     {
         DebugP_log("  IDEAL DIODE1 VFB: FAIL (Expected %.2fV, Got %.2fV)\r\n", 
                   expected.ideal_diode1.vfb, actual.ideal_diode1.vfb);
         test_passed = false;
+    }
+    else
+    {
+        DebugP_log("  IDEAL DIODE1 VFB: SUCCESS (Expected %.2fA, Got %.2fA)\r\n", 
+                  expected.ideal_diode1.vfb, actual.ideal_diode1.vfb);
     }
 
     // Ideal Diode 2
@@ -197,12 +207,22 @@ void conduct_test(uint8_t test_number)
                   expected.ideal_diode2.imon, actual.ideal_diode2.imon);
         test_passed = false;
     }
+    else
+    {
+        DebugP_log("  IDEAL DIODE2 IMON: SUCCESS (Expected %.2fA, Got %.2fA)\r\n", 
+                  expected.ideal_diode2.imon, actual.ideal_diode2.imon);
+    }
 
     if (fabs(actual.ideal_diode2.vfb - expected.ideal_diode2.vfb) > VOLTAGE_TOLERANCE)
     {
         DebugP_log("  IDEAL DIODE2 VFB: FAIL (Expected %.2fV, Got %.2fV)\r\n", 
                   expected.ideal_diode2.vfb, actual.ideal_diode2.vfb);
         test_passed = false;
+    }
+    else
+    {
+        DebugP_log("  IDEAL DIODE2 VFB: SUCCESS (Expected %.2fA, Got %.2fA)\r\n", 
+                  expected.ideal_diode2.vfb, actual.ideal_diode2.vfb);
     }
 
     // Ideal Diode 3
@@ -212,12 +232,22 @@ void conduct_test(uint8_t test_number)
                   expected.ideal_diode3.imon, actual.ideal_diode3.imon);
         test_passed = false;
     }
+    else
+    {
+        DebugP_log("  IDEAL DIODE3 IMON: SUCCESS (Expected %.2fA, Got %.2fA)\r\n", 
+                  expected.ideal_diode3.imon, actual.ideal_diode3.imon);
+    }
 
     if (fabs(actual.ideal_diode3.vfb - expected.ideal_diode3.vfb) > VOLTAGE_TOLERANCE)
     {
         DebugP_log("  IDEAL DIODE3 VFB: FAIL (Expected %.2fV, Got %.2fV)\r\n", 
                   expected.ideal_diode3.vfb, actual.ideal_diode3.vfb);
         test_passed = false;
+    }
+    else
+    {
+        DebugP_log("  IDEAL DIODE3 VFB: SUCCESS (Expected %.2fA, Got %.2fA)\r\n", 
+                  expected.ideal_diode3.vfb, actual.ideal_diode3.vfb);
     }
 
     // HSS MB
@@ -226,6 +256,11 @@ void conduct_test(uint8_t test_number)
         DebugP_log("  HSS MB I_SNS: FAIL (Expected %.2fA, Got %.2fA)\r\n",
                   expected.hss_mb.i_sns, actual.hss_mb.i_sns);
         test_passed = false;
+    }
+    else
+    {
+        DebugP_log("  HSS MB I_SNS: SUCCESS (Expected %.2fA, Got %.2fA)\r\n",
+                  expected.hss_mb.i_sns, actual.hss_mb.i_sns);
     }
 
     // Will be measured with multimeter
@@ -242,6 +277,11 @@ void conduct_test(uint8_t test_number)
         DebugP_log("  TPS1HTC30 I_SNS: FAIL (Expected %.2fA, Got %.2fA)\r\n",
                   expected.tps1htc30.i_sns, actual.tps1htc30.i_sns);
         test_passed = false;
+    }
+    else
+    {
+        DebugP_log("  TPS1HTC30 I_SNS: SUCCESS (Expected %.2fA, Got %.2fA)\r\n",
+                  expected.tps1htc30.i_sns, actual.tps1htc30.i_sns);
     }
 
     // will be measured with multimeter

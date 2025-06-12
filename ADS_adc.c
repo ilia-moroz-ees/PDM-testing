@@ -2,9 +2,7 @@
 
 #define SLEEP_TIME 1000 * 200
 
-#define ADS7953_CMD(channel)                                                   \
-  (0x1000 | ((channel & 0x0F)                                                  \
-             << 7)) // MACRO for generating a command for ADC in Manual Mode
+#define ADS7953_CMD(channel) (0x1000 | ((channel & 0x0F) << 7)) // MACRO for generating a command for ADC in Manual Mode
 
 const float EXT_ADC_VREF = 2.5f;            // Reference ADC Voltage
 const float EXT_ADC_RESOLUTION = 4095.0f;   // 12 bit resolution
@@ -32,7 +30,6 @@ ADS_ADC ext_adc1 = {
 }; // SPI1
 
 uint16_t SPI_ReadWrite(ADS_ADC *adc, uint16_t data) {
-//   adc->spi_handle = gMcspiHandle[adc->spi_instance];
   MCSPI_Transaction spiTransaction;
   uint16_t txData = data;
   uint16_t rxData = 0;
@@ -48,7 +45,7 @@ uint16_t SPI_ReadWrite(ADS_ADC *adc, uint16_t data) {
 
   GPIO_pinWriteLow(adc->cs_base, adc->cs_pin);
 
-  if (MCSPI_transfer(adc->spi_handle, &spiTransaction) != SystemP_SUCCESS) {
+  if (MCSPI_transfer(gMcspiHandle[SPI1], &spiTransaction) != SystemP_SUCCESS) {
     DebugP_log("SPI transfer failed!\r\n");
     return 0xFFFF; // Error value
   }

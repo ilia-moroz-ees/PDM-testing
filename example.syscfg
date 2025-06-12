@@ -158,12 +158,14 @@ gpio16.$name          = "SPI1_CS";
 gpio16.pinDir         = "OUTPUT";
 gpio16.GPIO_n.$assign = "SPI1_CS0";
 
-mcspi1.$name                     = "SPI0";
-mcspi1.mcspiChannel[0].$name     = "CONFIG_MCSPI_CH0";
-mcspi1.mcspiChannel[0].CSn.$used = false;
-mcspi1.child.$name               = "drivers_mcspi_v1_mcspi_v1_template0";
+mcspi1.$name                       = "SPI0";
+mcspi1.mcspiChannel[0].$name       = "CONFIG_MCSPI_CH0";
+mcspi1.mcspiChannel[0].CSn.$assign = "SPI0_CS0";
+mcspi1.mcspiChannel[0].CSn.$used   = false;
+mcspi1.child.$name                 = "drivers_mcspi_v1_mcspi_v1_template0";
 
 mcspi2.$name                     = "SPI1";
+mcspi2.dpe1                      = "ENABLE";
 mcspi2.SPI.$assign               = "SPI1";
 mcspi2.mcspiChannel[0].$name     = "CONFIG_MCSPI_CH1";
 mcspi2.mcspiChannel[0].CSn.$used = false;

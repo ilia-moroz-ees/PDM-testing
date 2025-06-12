@@ -39,8 +39,10 @@ void PDM_testing(void *args)
     
     while(true)
     {
+        // DebugP_log("%d\r\n", read_ext_ADC(&ext_adc1, 0));
         DebugP_log("Enter test number: \r\n");
         DebugP_scanf("%d", &user_input_test_number);
+
         switch (user_input_test_number)
         {
             // A few commands to interact with logs
