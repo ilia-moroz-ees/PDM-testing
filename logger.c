@@ -53,12 +53,12 @@ void print_log(uint16_t log_number)
     const char* pin_str = "UNKNOWN_PIN";
     switch (log.pin)
     {
-        case GPIO43:   pin_str = "GPIO43"; break;
-        case GPIO44:   pin_str = "GPIO44"; break;
-        case GPIO45:   pin_str = "GPIO45"; break;
-        case GPIO46:   pin_str = "GPIO46"; break;
-        case GPIO51:   pin_str = "GPIO51"; break;
-        case GPIO52:   pin_str = "GPIO52"; break;
+        case GPIO43:   pin_str = "GPIO43 (Ideal Diode 1 nFLT)"; break;
+        case GPIO44:   pin_str = "GPIO44 (Ideal Diode 2 nFLT)"; break;
+        case GPIO45:   pin_str = "GPIO45 (Ideal Diode 3 nFLT)"; break;
+        case GPIO46:   pin_str = "GPIO46 (HSS MB Fault)"; break;
+        case GPIO51:   pin_str = "GPIO51 (TPS1HTC30 1 Fault)"; break;
+        case GPIO52:   pin_str = "GPIO52 (TPS1HTC30 1 Fault)"; break;
         case GPIO53:   pin_str = "GPIO53"; break;
         case GPIO54:   pin_str = "GPIO54"; break;
         case GPIO123:  pin_str = "GPIO123"; break;
