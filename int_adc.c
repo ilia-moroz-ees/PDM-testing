@@ -21,7 +21,7 @@ uint16_t read_int_ADC(uint8_t adc_number) {
             while (ADC_getInterruptStatus(ADC1_BASE_ADDR, ADC_INT_NUMBER1) == false) {
             /* Wait for the SOC conversion to complete */
             }
-            conversion_result = ADC_readResult(ADC1_RESULT_BASE_ADDR, ADC_SOC_NUMBER1);
+            conversion_result = ADC_readResult(ADC1_RESULT_BASE_ADDR, ADC_SOC_NUMBER0);
             break;
 
         case 1:
