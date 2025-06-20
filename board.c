@@ -25,9 +25,7 @@ void GPIO_bankIsrFxn(void *args)
     switch (bankNum)
     {
         case 2:
-            if (intr_status & GPIO_GET_BANK_BIT_MASK(intr_pins.gpio43.pin_num)) {
-                add_log(FAULT, GPIO48);
-            }
+            
             if (intr_status & GPIO_GET_BANK_BIT_MASK(intr_pins.gpio44.pin_num)) {
                 add_log(FAULT, GPIO44);
             }
@@ -39,6 +37,9 @@ void GPIO_bankIsrFxn(void *args)
             }
             break;
         case 3:
+            if (intr_status & GPIO_GET_BANK_BIT_MASK(intr_pins.gpio48.pin_num)) {
+                add_log(FAULT, GPIO48);
+            }
             if (intr_status & GPIO_GET_BANK_BIT_MASK(intr_pins.gpio51.pin_num)) {
                 add_log(FAULT, GPIO51);
             }
@@ -89,8 +90,8 @@ void init_gpio()
 
 void init_global_interrupts(Intr_objects *objects)
 {
-    init_interrupt(&objects->Gpio43HwiObject, &intr_pins.gpio43);
-    DebugP_log("Initialized gpio43 interrupt\r\n");
+    init_interrupt(&objects->Gpio48HwiObject, &intr_pins.gpio48);
+    DebugP_log("Initialized gpio48 interrupt\r\n");
 
     init_interrupt(&objects->Gpio44HwiObject, &intr_pins.gpio44);
     DebugP_log("Initialized gpio44 interrupt\r\n");

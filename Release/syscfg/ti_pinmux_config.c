@@ -53,7 +53,7 @@ static Pinmux_PerCfg_t gPinMuxMainDomainCfg[] = {
                 /* GPIO48 -> EPWM2_B (C1) */
     {
         PIN_EPWM2_B,
-        ( PIN_MODE(7) | PIN_PULL_UP | PIN_SLEW_RATE_LOW | PIN_GPIO_R5SS0_0 )
+        ( PIN_MODE(7) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW | PIN_GPIO_R5SS0_0 )
     },
                 /* GPIO44 -> EPWM0_B (B1) */
     {

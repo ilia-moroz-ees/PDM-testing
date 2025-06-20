@@ -96,7 +96,6 @@ adc1.ADC.AIN5.pu_pd      = "pd";
 
 gpio1.trigType       = "FALL_EDGE";
 gpio1.enableIntr     = true;
-gpio1.pu_pd          = "pu";
 gpio1.$name          = "GPIO48";
 gpio1.GPIO_n.$assign = "EPWM2_B";
 

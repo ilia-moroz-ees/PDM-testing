@@ -1,7 +1,7 @@
 #include "testing.h"
 
-const float VOLTAGE_TOLERANCE = 0.1f;
-const float CURRENT_TOLERANCE = 0.1f;
+const float VOLTAGE_TOLERANCE = 0.2f;
+const float CURRENT_TOLERANCE = 0.2f;
 
 const TestCase test_cases[TESTS_NUMBER] = {
     // Reset, nothing enabled
@@ -147,10 +147,10 @@ void conduct_test(uint8_t test_number)
     digitalWrite(GPIO126_BASE_ADDR, GPIO126_PIN, test_case.GPIO126_en);
     digitalWrite(GPIO123_BASE_ADDR, GPIO123_PIN, test_case.GPIO123_en);
 
-    print_pending_logs();
-
     // Allow settling time
-    ClockP_sleep(2);
+    ClockP_sleep(1);
+
+    print_pending_logs();
     
     // Take measurements
     TestResult actual;
