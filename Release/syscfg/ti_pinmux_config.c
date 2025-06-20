@@ -37,10 +37,23 @@
 #include <drivers/pinmux.h>
 
 static Pinmux_PerCfg_t gPinMuxMainDomainCfg[] = {
-                /* GPIO43 -> EPWM0_A (B2) */
+            /* I2C2 pin config */
+    /* I2C2_SCL -> UART0_RTSn (C7) */
     {
-        PIN_EPWM0_A,
-        ( PIN_MODE(7) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW | PIN_GPIO_R5SS0_0 )
+        PIN_UART0_RTSN,
+        ( PIN_MODE(1) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW )
+    },
+    /* I2C2 pin config */
+    /* I2C2_SDA -> UART0_CTSn (B7) */
+    {
+        PIN_UART0_CTSN,
+        ( PIN_MODE(1) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW )
+    },
+
+                /* GPIO48 -> EPWM2_B (C1) */
+    {
+        PIN_EPWM2_B,
+        ( PIN_MODE(7) | PIN_PULL_UP | PIN_SLEW_RATE_LOW | PIN_GPIO_R5SS0_0 )
     },
                 /* GPIO44 -> EPWM0_B (B1) */
     {

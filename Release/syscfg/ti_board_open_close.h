@@ -49,6 +49,57 @@ extern "C" {
 int32_t Board_driversOpen(void);
 void Board_driversClose(void);
 
+/*
+ * IOEXP TCA6424ARGJR
+ */
+#include <board/ioexp/ioexp_tca6424.h>
+/* Port Number : 0, Pin Number : 0. Line Number : (Port Number * 8) + Pin Number */
+#define IO_EXP_GPIO_OSPI_RSTn_LINE      (0)
+/* Port Number : 0, Pin Number : 1. Line Number : (Port Number * 8) + Pin Number */
+#define IO_EXP_CLK_BUF_EN_LINE      (1)
+/* Port Number : 0, Pin Number : 2. Line Number : (Port Number * 8) + Pin Number */
+#define IO_EXP_ICSSM1_MUX_SEL_LINE      (2)
+/* Port Number : 0, Pin Number : 3. Line Number : (Port Number * 8) + Pin Number */
+#define IO_EXP_ICSSM2_MUX_SEL_LINE      (3)
+/* Port Number : 0, Pin Number : 4. Line Number : (Port Number * 8) + Pin Number */
+#define IO_EXP_FSI_MUX_SEL_LINE      (4)
+/* Port Number : 0, Pin Number : 5. Line Number : (Port Number * 8) + Pin Number */
+#define IO_EXP_ADC3_MUX_SEL_LINE      (5)
+/* Port Number : 0, Pin Number : 6. Line Number : (Port Number * 8) + Pin Number */
+#define IO_EXP_ADC4_MUX_SEL_LINE      (6)
+/* Port Number : 0, Pin Number : 7. Line Number : (Port Number * 8) + Pin Number */
+#define IO_EXP_GPIO_uSD_PWR_EN_LINE      (7)
+/* Port Number : 1, Pin Number : 0. Line Number : (Port Number * 8) + Pin Number */
+#define IO_EXP_ADC5_MUX_SEL_LINE      (8)
+/* Port Number : 1, Pin Number : 1. Line Number : (Port Number * 8) + Pin Number */
+#define IO_EXP_I2C0_MUX_SEL_LINE      (9)
+/* Port Number : 1, Pin Number : 2. Line Number : (Port Number * 8) + Pin Number */
+#define IO_EXP_SPI1_MUX_SEL_LINE      (10)
+#define IO_EXP_SPI1_MUX_SEL_STATE     (TCA6424_OUT_STATE_HIGH)
+/* Port Number : 1, Pin Number : 3. Line Number : (Port Number * 8) + Pin Number */
+#define IO_EXP_UART2_MUX_SEL_LINE      (11)
+/* Port Number : 1, Pin Number : 4. Line Number : (Port Number * 8) + Pin Number */
+#define IO_EXP_VPP_LDO_EN_LINE      (12)
+/* Port Number : 1, Pin Number : 5. Line Number : (Port Number * 8) + Pin Number */
+#define IO_EXP_LIN_MUX_SEL_LINE      (13)
+/* Port Number : 1, Pin Number : 6. Line Number : (Port Number * 8) + Pin Number */
+#define IO_EXP_ADC1_MUX_SEL_LINE      (14)
+/* Port Number : 1, Pin Number : 7. Line Number : (Port Number * 8) + Pin Number */
+#define IO_EXP_ADC2_MUX_SEL_LINE      (15)
+/* Port Number : 2, Pin Number : 0. Line Number : (Port Number * 8) + Pin Number */
+#define IO_EXP_HSEC_GPIO_LINE      (16)
+/* Port Number : 2, Pin Number : 1. Line Number : (Port Number * 8) + Pin Number */
+#define IO_EXP_MCAN1_STB_LINE      (17)
+/* Port Number : 2, Pin Number : 2. Line Number : (Port Number * 8) + Pin Number */
+#define IO_EXP_MDIO_MDC_MUX_SEL1_LINE      (18)
+/* Port Number : 2, Pin Number : 3. Line Number : (Port Number * 8) + Pin Number */
+#define IO_EXP_MDIO_MDC_MUX_SEL2_LINE      (19)
+/* Port Number : 2, Pin Number : 4. Line Number : (Port Number * 8) + Pin Number */
+#define IO_EXP_ICSSM0_MUX_SEL_LINE      (20)
+
+/* IOEXP Driver open/close - can be used by application when Board_driversOpen() */
+int32_t Board_ioexpOpen(void);
+
 
 #ifdef __cplusplus
 }

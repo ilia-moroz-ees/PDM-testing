@@ -40,12 +40,12 @@ void print_log(uint16_t log_number)
     // Determine event type string
     switch (log.event_type)
     {
-        case FAULT:      event_str = "FAULT"; break;
+        case FAULT:     event_str = "FAULT"; break;
         case PIN_HIGH:  event_str = "HIGH"; break;
         case PIN_LOW:   event_str = "LOW"; break;
         default:        event_str = "UNKNOWN"; break;
     }
-    if (log.pin >= GPIO43 && log.pin <= GPIO52 && log.event_type == FAULT)
+    if (log.pin >= GPIO48 && log.pin <= GPIO52 && log.event_type == FAULT)
     {
         fault_str = " [FAULT TRIGGER]";
     }
@@ -53,18 +53,18 @@ void print_log(uint16_t log_number)
     const char* pin_str = "UNKNOWN_PIN";
     switch (log.pin)
     {
-        case GPIO43:   pin_str = "GPIO43 (Ideal Diode 1 nFLT)"; break;
+        case GPIO48:   pin_str = "GPIO48 (Ideal Diode 1 nFLT)"; break;
         case GPIO44:   pin_str = "GPIO44 (Ideal Diode 2 nFLT)"; break;
         case GPIO45:   pin_str = "GPIO45 (Ideal Diode 3 nFLT)"; break;
         case GPIO46:   pin_str = "GPIO46 (HSS MB Fault)"; break;
         case GPIO51:   pin_str = "GPIO51 (TPS1HTC30 1 Fault)"; break;
         case GPIO52:   pin_str = "GPIO52 (TPS1HTC30 1 Fault)"; break;
-        case GPIO53:   pin_str = "GPIO53"; break;
-        case GPIO54:   pin_str = "GPIO54"; break;
-        case GPIO123:  pin_str = "GPIO123"; break;
-        case GPIO136:  pin_str = "GPIO136"; break;
-        case GPIO126:  pin_str = "GPIO126"; break;
-        case GPIO127:  pin_str = "GPIO127"; break;
+        case GPIO53:   pin_str = "GPIO53 (Ideal Diode 1)"; break;
+        case GPIO54:   pin_str = "GPIO54 (Ideal Diode 2)"; break;
+        case GPIO123:  pin_str = "GPIO123 (TPS1HTC30 1)"; break;
+        case GPIO136:  pin_str = "GPIO136(TPS1HTC30 2)"; break;
+        case GPIO126:  pin_str = "GPIO126 (HSS MB)"; break;
+        case GPIO127:  pin_str = "GPIO127 (Ideal Diode 3)"; break;
     }
 
     DebugP_log("[%llu] %s: %s -> %s%s\r\n", 

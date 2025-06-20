@@ -39,6 +39,15 @@
 int32_t Board_driversOpen(void)
 {
     int32_t status = SystemP_SUCCESS;
+    if(status==SystemP_SUCCESS)
+    {
+        status = Board_ioexpOpen();
+        if(status == SystemP_FAILURE)
+        {
+            DebugP_log("IO Expander Configuration Failed!!\r\n");
+        }
+    }
+
 
     return status;
 }
@@ -46,5 +55,47 @@ int32_t Board_driversOpen(void)
 void Board_driversClose(void)
 {
 
+}
+
+/*
+ * IOEXP
+ */
+int32_t Board_ioexpOpen()
+{
+    int32_t  status = SystemP_SUCCESS;
+    static TCA6424_Config  gTCA6424_Config;
+    TCA6424_Params      TCA6424Params;
+    TCA6424_Params_init(&TCA6424Params);
+
+    TCA6424Params.i2cInstance  =  CONFIG_I2C0;
+    TCA6424Params.i2cAddress  = 0x22U;
+    status = TCA6424_open(&gTCA6424_Config, &TCA6424Params);
+    
+    /* Configure State */
+    status = TCA6424_setOutput(
+                    &gTCA6424_Config,
+                    IO_EXP_SPI1_MUX_SEL_LINE,
+                    IO_EXP_SPI1_MUX_SEL_STATE);
+
+    /* Configure as output  */
+    status += TCA6424_config(
+                    &gTCA6424_Config,
+                    IO_EXP_SPI1_MUX_SEL_LINE,
+                    TCA6424_MODE_OUTPUT);
+    
+    if(status != SystemP_SUCCESS)
+    {
+        DebugP_log("Failure to Set IO Expander lines\r\n");
+        TCA6424_close(&gTCA6424_Config);
+    }
+
+
+
+    if(SystemP_FAILURE == status)
+    {
+        /* Exit gracefully */
+    }
+
+    return status;
 }
 

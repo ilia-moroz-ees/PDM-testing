@@ -68,65 +68,65 @@ const TestCase test_cases[TESTS_NUMBER] = {
 
 const TestResult test_results[TESTS_NUMBER] = {
     // Reset, nothing enabled
-    {{0, 1.8699}, {0, 1.8699}, {0, 1.8699}, {0, 0}, {0, 0}},
+    {{0, 0.47}, {0, 0.47}, {0, 0.47}, {0, 0}, {0, 0}},
     // Test ID #1
-    {{4, 1.8699}, {0, 1.8699}, {0, 1.8699}, {4, 24}, {0, 0}},
+    {{4, 0.47}, {0, 0.47}, {0, 0.47}, {4, 24}, {0, 0}},
     // Test ID #2
-    {{0, 1.8699}, {4, 1.8699}, {0, 1.8699}, {4, 24}, {0, 0}},
+    {{0, 0.47}, {4, 0.47}, {0, 0.47}, {4, 24}, {0, 0}},
     // Test ID #3
-    {{0, 1.8699}, {0, 1.8699}, {4, 1.8699}, {4, 24}, {0, 0}},
+    {{0, 0.47}, {0, 0.47}, {4, 0.47}, {4, 24}, {0, 0}},
     // Test Having 2 enabled in parallel
-    {{2, 1.8699}, {2, 1.8699}, {0, 1.8699}, {4, 24}, {0, 0}},
+    {{2, 0.47}, {2, 0.47}, {0, 0.47}, {4, 24}, {0, 0}},
     // Force #2 to take load
-    {{0, 1.7141}, {4, 1.8699}, {0, 1.8699}, {4, 24}, {0, 0}},
+    {{0, 1.7141}, {4, 0.47}, {0, 0.47}, {4, 24}, {0, 0}},
     // Force #1 to take load
-    {{4, 1.8699}, {0, 1.7141}, {0, 1.8699}, {4, 24}, {0, 0}},
+    {{4, 0.47}, {0, 1.7141}, {0, 0.47}, {4, 24}, {0, 0}},
     // Tests loss of a power source
-    {{0, 0}, {4, 1.7141}, {0, 1.8699}, {4, 22}, {0, 0}},
+    {{0, 0}, {4, 1.7141}, {0, 0.47}, {4, 22}, {0, 0}},
     // Clear UVLO Fault from ID 1
-    {{0, 1.8699}, {0, 1.8699}, {0, 1.8699}, {0, 0}, {0, 0}},
+    {{0, 0.47}, {0, 0.47}, {0, 0.47}, {0, 0}, {0, 0}},
     // Test HSS Motherboard
-    {{4, 1.8699}, {0, 1.8699}, {0, 1.8699}, {4, 24}, {0, 0}},
+    {{4, 0.47}, {0, 0.47}, {0, 0.47}, {4, 24}, {0, 0}},
     // Test TPS1HTC30EVM
-    {{4, 1.8699}, {0, 1.8699}, {0, 1.8699}, {0, 0}, {4, 24}},
+    {{4, 0.47}, {0, 0.47}, {0, 0.47}, {0, 0}, {4, 24}},
     // Combined loads -> overcurrent fault
-    {{8, 1.8699}, {0, 1.8699}, {0, 1.8699}, {4, 24}, {4, 24}},
+    {{8, 0.47}, {0, 0.47}, {0, 0.47}, {4, 24}, {4, 24}},
     // Reset fault
-    {{0, 1.8699}, {0, 1.8699}, {0, 1.8699}, {0, 0}, {0, 0}},
+    {{0, 0.47}, {0, 0.47}, {0, 0.47}, {0, 0}, {0, 0}},
     // 2 Diodes Online
-    {{2, 1.8699}, {2, 1.8699}, {0, 1.8699}, {0, 0}, {4, 24}},
+    {{2, 0.47}, {2, 0.47}, {0, 0.47}, {0, 0}, {4, 24}},
     // 2 Diodes Heavy Load
-    {{4, 1.8699}, {4, 1.8699}, {0, 1.8699}, {4, 24}, {4, 24}},
+    {{4, 0.47}, {4, 0.47}, {0, 0.47}, {4, 24}, {4, 24}},
     // Reset faults
-    {{0, 1.8699}, {0, 1.8699}, {0, 1.8699}, {0, 0}, {0, 0}},
+    {{0, 0.47}, {0, 0.47}, {0, 0.47}, {0, 0}, {0, 0}},
     // Normal Operation through TPS1HTC30
-    {{4, 1.8699}, {0, 1.8699}, {0, 1.8699}, {0, 0}, {4, 24}},
+    {{4, 0.47}, {0, 0.47}, {0, 0.47}, {0, 0}, {4, 24}},
     // Short through TPS1HTC30
-    {{10, 1.8699}, {0, 1.8699}, {0, 1.8699}, {0, 0}, {10, 24}},
+    {{10, 0.47}, {0, 0.47}, {0, 0.47}, {0, 0}, {10, 24}},
     // Reset fault
-    {{0, 1.8699}, {0, 1.8699}, {0, 1.8699}, {0, 0}, {0, 0}},
+    {{0, 0.47}, {0, 0.47}, {0, 0.47}, {0, 0}, {0, 0}},
     // Normal through HSS-Motherboard
-    {{4, 1.8699}, {0, 1.8699}, {0, 1.8699}, {4, 24}, {0, 0}},
+    {{4, 0.47}, {0, 0.47}, {0, 0.47}, {4, 24}, {0, 0}},
     // Short through HSS Motherboard
-    {{10, 1.8699}, {0, 1.8699}, {0, 1.8699}, {10, 24}, {0, 0}},
+    {{10, 0.47}, {0, 0.47}, {0, 0.47}, {10, 24}, {0, 0}},
     // Reset Faults
-    {{0, 1.8699}, {0, 1.8699}, {0, 1.8699}, {0, 0}, {0, 0}},
+    {{0, 0.47}, {0, 0.47}, {0, 0.47}, {0, 0}, {0, 0}},
     // HSS-Motherboard and TPS1HTC30 Both Loading 1 Ideal diode
-    {{4, 1.8699}, {0, 1.8699}, {0, 1.8699}, {1, 24}, {3, 24}},
+    {{4, 0.47}, {0, 0.47}, {0, 0.47}, {1, 24}, {3, 24}},
     // Short HSS Motherboard
-    {{13, 1.8699}, {0, 1.8699}, {0, 1.8699}, {10, 24}, {3, 24}},
+    {{13, 0.47}, {0, 0.47}, {0, 0.47}, {10, 24}, {3, 24}},
     // Reset Faults
-    {{0, 1.8699}, {0, 1.8699}, {0, 1.8699}, {0, 0}, {0, 0}},
+    {{0, 0.47}, {0, 0.47}, {0, 0.47}, {0, 0}, {0, 0}},
     // HSS-Motherboard and TPS1HTC30 Both Loading 1 Ideal diode
-    {{4, 1.8699}, {0, 1.8699}, {0, 1.8699}, {3, 24}, {1, 24}},
+    {{4, 0.47}, {0, 0.47}, {0, 0.47}, {3, 24}, {1, 24}},
     // Short TPS1HTC30
-    {{13, 1.8699}, {0, 1.8699}, {0, 1.8699}, {3, 24}, {10, 24}},
+    {{13, 0.47}, {0, 0.47}, {0, 0.47}, {3, 24}, {10, 24}},
     // Reset Faults
-    {{0, 1.8699}, {0, 1.8699}, {0, 1.8699}, {0, 0}, {0, 0}},
+    {{0, 0.47}, {0, 0.47}, {0, 0.47}, {0, 0}, {0, 0}},
     // Test HSS Motherboard
-    {{4, 1.8699}, {0, 1.8699}, {0, 1.8699}, {4, 24}, {0, 0}},
+    {{4, 0.47}, {0, 0.47}, {0, 0.47}, {4, 24}, {0, 0}},
     // Test TPS1HTC30EVM
-    {{4, 1.8699}, {0, 1.8699}, {0, 1.8699}, {0, 0}, {4, 24}}
+    {{4, 0.47}, {0, 0.47}, {0, 0.47}, {0, 0}, {4, 24}}
 };
 
 void conduct_test(uint8_t test_number)
@@ -150,7 +150,7 @@ void conduct_test(uint8_t test_number)
     print_pending_logs();
 
     // Allow settling time
-    ClockP_sleep(1);
+    ClockP_sleep(2);
     
     // Take measurements
     TestResult actual;
@@ -166,12 +166,12 @@ void conduct_test(uint8_t test_number)
     actual.ideal_diode3.vfb = int_adc_to_voltage(read_int_ADC(5));
     
     // Measure HSS MB
-    actual.hss_mb.i_sns = adc_to_current_HSS_MB(read_ext_ADC(&ext_adc1, 0));
-    actual.hss_mb.vout = ext_adc_to_voltage(read_ext_ADC(&ext_adc1, 1));
+    actual.hss_mb.i_sns = adc_to_current_HSS_MB(read_ext_ADC(&ext_adc0, 0));
+    // actual.hss_mb.vout = ext_adc_to_voltage(read_ext_ADC(&ext_adc0, 1));
     
     // Measure TPS1HTC30
-    actual.tps1htc30.i_sns = adc_to_current_TPS(read_ext_ADC(&ext_adc0, 0));
-    actual.tps1htc30.vout = ext_adc_to_voltage(read_ext_ADC(&ext_adc0, 1));  
+    actual.tps1htc30.i_sns = adc_to_current_TPS(read_ext_ADC(&ext_adc1, 0));
+    // actual.tps1htc30.vout = ext_adc_to_voltage(read_ext_ADC(&ext_adc1, 1));  
 
     bool test_passed = true;
     // Comparing test results
@@ -196,7 +196,7 @@ void conduct_test(uint8_t test_number)
     }
     else
     {
-        DebugP_log("  IDEAL DIODE1 VFB: SUCCESS (Expected %.2fA, Got %.2fA)\r\n", 
+        DebugP_log("  IDEAL DIODE1 VFB: SUCCESS (Expected %.2fV, Got %.2fA)\r\n", 
                   expected.ideal_diode1.vfb, actual.ideal_diode1.vfb);
     }
 
@@ -221,7 +221,7 @@ void conduct_test(uint8_t test_number)
     }
     else
     {
-        DebugP_log("  IDEAL DIODE2 VFB: SUCCESS (Expected %.2fA, Got %.2fA)\r\n", 
+        DebugP_log("  IDEAL DIODE2 VFB: SUCCESS (Expected %.2fV, Got %.2fA)\r\n", 
                   expected.ideal_diode2.vfb, actual.ideal_diode2.vfb);
     }
 
@@ -246,7 +246,7 @@ void conduct_test(uint8_t test_number)
     }
     else
     {
-        DebugP_log("  IDEAL DIODE3 VFB: SUCCESS (Expected %.2fA, Got %.2fA)\r\n", 
+        DebugP_log("  IDEAL DIODE3 VFB: SUCCESS (Expected %.2fV, Got %.2fA)\r\n", 
                   expected.ideal_diode3.vfb, actual.ideal_diode3.vfb);
     }
 

@@ -25,6 +25,9 @@ C_SRCS += \
 ./syscfg/ti_enet_lwipif.c \
 ./syscfg/ti_sdl_config.c \
 ../int_adc.c \
+../ioexp_tca6408.c \
+../ioexp_tca6416.c \
+../ioexp_tca6424.c \
 ../logger.c \
 ../main.c \
 ../testing.c 
@@ -67,6 +70,9 @@ C_DEPS += \
 ./syscfg/ti_enet_lwipif.d \
 ./syscfg/ti_sdl_config.d \
 ./int_adc.d \
+./ioexp_tca6408.d \
+./ioexp_tca6416.d \
+./ioexp_tca6424.d \
 ./logger.d \
 ./main.d \
 ./testing.d 
@@ -88,6 +94,9 @@ OBJS += \
 ./syscfg/ti_enet_lwipif.o \
 ./syscfg/ti_sdl_config.o \
 ./int_adc.o \
+./ioexp_tca6408.o \
+./ioexp_tca6416.o \
+./ioexp_tca6424.o \
 ./logger.o \
 ./main.o \
 ./testing.o 
@@ -125,6 +134,9 @@ OBJS__QUOTED += \
 "syscfg\ti_enet_lwipif.o" \
 "syscfg\ti_sdl_config.o" \
 "int_adc.o" \
+"ioexp_tca6408.o" \
+"ioexp_tca6416.o" \
+"ioexp_tca6424.o" \
 "logger.o" \
 "main.o" \
 "testing.o" 
@@ -159,6 +171,9 @@ C_DEPS__QUOTED += \
 "syscfg\ti_enet_lwipif.d" \
 "syscfg\ti_sdl_config.d" \
 "int_adc.d" \
+"ioexp_tca6408.d" \
+"ioexp_tca6416.d" \
+"ioexp_tca6424.d" \
 "logger.d" \
 "main.d" \
 "testing.d" 
@@ -195,6 +210,9 @@ C_SRCS__QUOTED += \
 "./syscfg/ti_enet_lwipif.c" \
 "./syscfg/ti_sdl_config.c" \
 "../int_adc.c" \
+"../ioexp_tca6408.c" \
+"../ioexp_tca6416.c" \
+"../ioexp_tca6424.c" \
 "../logger.c" \
 "../main.c" \
 "../testing.c" 

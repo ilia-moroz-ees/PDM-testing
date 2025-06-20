@@ -7,6 +7,8 @@
 #include <drivers/gpio.h>
 #include <drivers/hw_include/tistdtypes.h>
 #include <drivers/mcspi.h>
+#include <ioexp_tca6424.h>
+#include <board/ioexp/ioexp_tca6424.h>
 #include "ti_drivers_config.h"
 #include "ti_drivers_open_close.h"
 #include "ti_board_open_close.h"
@@ -39,7 +41,6 @@ void PDM_testing(void *args)
     
     while(true)
     {
-        // DebugP_log("%d\r\n", read_ext_ADC(&ext_adc1, 0));
         DebugP_log("Enter test number: \r\n");
         DebugP_scanf("%d", &user_input_test_number);
 

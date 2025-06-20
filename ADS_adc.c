@@ -45,7 +45,7 @@ uint16_t SPI_ReadWrite(ADS_ADC *adc, uint16_t data) {
 
   GPIO_pinWriteLow(adc->cs_base, adc->cs_pin);
 
-  if (MCSPI_transfer(gMcspiHandle[SPI1], &spiTransaction) != SystemP_SUCCESS) {
+  if (MCSPI_transfer(gMcspiHandle[adc->spi_instance], &spiTransaction) != SystemP_SUCCESS) {
     DebugP_log("SPI transfer failed!\r\n");
     return 0xFFFF; // Error value
   }
@@ -53,10 +53,13 @@ uint16_t SPI_ReadWrite(ADS_ADC *adc, uint16_t data) {
   GPIO_pinWriteHigh(adc->cs_base, adc->cs_pin);
 
   return rxData & 0x0FFF; // Getting the value from the package
+  // DebugP_log("%d\r\n", rxData);
+  // return rxData;
 }
 
 uint16_t read_ext_ADC(ADS_ADC *adc, uint8_t channel) {
   uint16_t command = ADS7953_CMD(channel);
+  // uint16_t command = 200;
 
   SPI_ReadWrite(adc, command); // Since response comes only in the third package,
                                // doing 2 empty reads
@@ -65,13 +68,16 @@ uint16_t read_ext_ADC(ADS_ADC *adc, uint8_t channel) {
 }
 
 float ext_adc_to_voltage(uint16_t raw_adc) {
+  // DebugP_log("%d\r\n", raw_adc);
   return ((float)raw_adc / EXT_ADC_RESOLUTION) * EXT_ADC_VREF;
 }
 
 float adc_to_current_HSS_MB(uint16_t raw_adc) {
+  // DebugP_log("%d\r\n", raw_adc);
   return ext_adc_to_voltage((float)raw_adc) / CURRENT_SCALE_HSS_MB;
 }
 
 float adc_to_current_TPS(uint16_t raw_adc) {
+  // DebugP_log("%d\r\n", raw_adc);
   return ext_adc_to_voltage((float)raw_adc) / CURRENT_SCALE_TPS;
 }

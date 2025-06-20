@@ -40,6 +40,7 @@
 void Drivers_open(void)
 {
     Drivers_edmaOpen();
+    Drivers_i2cOpen();
     {
         /* ADC */
 
@@ -78,11 +79,77 @@ void Drivers_open(void)
 
 void Drivers_close(void)
 {
+    Drivers_i2cClose();
     Drivers_mcspiClose();
     Drivers_uartClose();
     Drivers_edmaClose();
 }
 
+/*
+ * I2C
+ */
+
+
+
+/* I2C Driver handles */
+I2C_Handle gI2cHandle[CONFIG_I2C_HLD_NUM_INSTANCES];
+
+/* I2C Driver Parameters */
+I2C_Params gI2cParams[CONFIG_I2C_HLD_NUM_INSTANCES] =
+{
+    {
+        .transferMode        = I2C_MODE_BLOCKING,
+        .transferCallbackFxn = NULL,
+        .bitRate             = I2C_400KHZ,
+    },
+};
+
+void Drivers_i2cOpen(void)
+{
+    int32_t  status = SystemP_SUCCESS;
+    uint32_t instCnt;
+
+
+
+    for(instCnt = 0U; instCnt < CONFIG_I2C_HLD_NUM_INSTANCES; instCnt++)
+    {
+        gI2cHandle[instCnt] = NULL;   /* Init to NULL so that we can exit gracefully */
+    }
+
+    /* Open all instances */
+    for(instCnt = 0U; instCnt < CONFIG_I2C_HLD_NUM_INSTANCES; instCnt++)
+    {
+        gI2cHandle[instCnt] = I2C_open(instCnt, &gI2cParams[instCnt]);
+        if(NULL == gI2cHandle[instCnt])
+        {
+            DebugP_logError("I2C open failed for HLD instance %d !!!\r\n", instCnt);
+            status = SystemP_FAILURE;
+            break;
+        }
+    }
+
+    if(SystemP_SUCCESS != status)
+    {
+        Drivers_i2cClose();   /* Exit gracefully */
+    }
+    return;
+}
+
+void Drivers_i2cClose(void)
+{
+    uint32_t instCnt;
+
+    /* Close all instances that are open */
+    for(instCnt = 0U; instCnt < CONFIG_I2C_HLD_NUM_INSTANCES; instCnt++)
+    {
+        if(gI2cHandle[instCnt] != NULL)
+        {
+            I2C_close(gI2cHandle[instCnt]);
+            gI2cHandle[instCnt] = NULL;
+        }
+    }
+    return;
+}
 void Drivers_adcOpen()
 {
 	/* ADC1 initialization */
@@ -218,7 +285,7 @@ void Drivers_adcOpen()
 	/* Disables an ADC interrupt source. */
 	ADC_disableInterrupt(ADC1_BASE_ADDR, 1);
 	/* Sets the source EOC for an analog-to-digital converter interrupt. */
-	ADC_setInterruptSource(ADC1_BASE_ADDR, 1, ADC_SOC_NUMBER3);
+	ADC_setInterruptSource(ADC1_BASE_ADDR, 1, ADC_SOC_NUMBER0);
 	/* Disables continuous mode for an ADC interrupt. */
 	ADC_disableContinuousMode(ADC1_BASE_ADDR, 1);
 
@@ -393,13 +460,13 @@ MCSPI_ChConfig gSpi1ChCfg[SPI1_NUM_CH] =
         .trMode             = MCSPI_TR_MODE_TX_RX,
         .inputSelect        = MCSPI_IS_D1,
         .dpe0               = MCSPI_DPE_ENABLE,
-        .dpe1               = MCSPI_DPE_ENABLE,
+        .dpe1               = MCSPI_DPE_DISABLE,
         .slvCsSelect        = MCSPI_SLV_CS_SELECT_0,
         .startBitEnable     = FALSE,
         .startBitPolarity   = MCSPI_SB_POL_LOW,
         .csIdleTime         = MCSPI_TCS0_0_CLK,
         .turboEnable        = FALSE,
-        .defaultTxData      = 0x0U,
+        .defaultTxData      = 0xFU,
         .txFifoTrigLvl      = 16U,
         .rxFifoTrigLvl      = 16U,
     },

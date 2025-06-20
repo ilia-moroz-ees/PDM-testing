@@ -53,6 +53,20 @@ extern "C" {
 void System_init(void);
 void System_deinit(void);
 
+
+/*
+ * I2C
+ */
+
+/* I2C Instance Macros */
+#define CONFIG_I2C0 (0U)
+
+/* I2C Includes */
+#include <drivers/i2c.h>
+#include <kernel/dpl/ClockP.h>
+
+#define CONFIG_I2C_HLD_NUM_INSTANCES (1U)
+
 /*
  * ADC
  */
@@ -71,12 +85,12 @@ void System_deinit(void);
 #include <kernel/dpl/AddrTranslateP.h>
 
 /* GPIO PIN Macros */
-#define GPIO43_BASE_ADDR (CSL_GPIO0_U_BASE)
-#define GPIO43_PIN (43)
-#define GPIO43_DIR (GPIO_DIRECTION_INPUT)
-#define GPIO43_TRIG_TYPE (GPIO_TRIG_TYPE_FALL_EDGE)
+#define GPIO48_BASE_ADDR (CSL_GPIO0_U_BASE)
+#define GPIO48_PIN (48)
+#define GPIO48_DIR (GPIO_DIRECTION_INPUT)
+#define GPIO48_TRIG_TYPE (GPIO_TRIG_TYPE_FALL_EDGE)
 
-#define GPIO43_INTR_NUM      (CSLR__GPIOMUX_INTROUTER0_OUTP_)
+#define GPIO48_INTR_NUM      (CSLR__GPIOMUX_INTROUTER0_OUTP_)
 
 #define GPIO44_BASE_ADDR (CSL_GPIO0_U_BASE)
 #define GPIO44_PIN (44)

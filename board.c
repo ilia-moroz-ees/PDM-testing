@@ -4,7 +4,7 @@ volatile int test = 0;
 Intr_objects intr_objects;
 
 Pins intr_pins = {
-    {GPIO43_PIN, GPIO43_BASE_ADDR, GPIO43_DIR, GPIO43_INT_NUM},
+    {GPIO48_PIN, GPIO48_BASE_ADDR, GPIO48_DIR, GPIO48_INT_NUM},
     {GPIO44_PIN, GPIO44_BASE_ADDR, GPIO44_DIR, GPIO44_INT_NUM},
     {GPIO45_PIN, GPIO45_BASE_ADDR, GPIO45_DIR, GPIO45_INT_NUM},
     {GPIO46_PIN, GPIO46_BASE_ADDR, GPIO46_DIR, GPIO46_INT_NUM},
@@ -26,7 +26,7 @@ void GPIO_bankIsrFxn(void *args)
     {
         case 2:
             if (intr_status & GPIO_GET_BANK_BIT_MASK(intr_pins.gpio43.pin_num)) {
-                add_log(FAULT, GPIO43);
+                add_log(FAULT, GPIO48);
             }
             if (intr_status & GPIO_GET_BANK_BIT_MASK(intr_pins.gpio44.pin_num)) {
                 add_log(FAULT, GPIO44);
@@ -110,6 +110,8 @@ void init_global_interrupts(Intr_objects *objects)
 
 void init_interrupt(HwiP_Object *intr_object, Pin_parameters *pin)
 {
+    GPIO_setDirMode(pin->base_address, pin->pin_num, pin->dir);
+
     HwiP_Params hwiPrms;
     HwiP_Params_init(&hwiPrms);
     int32_t retVal;
@@ -160,3 +162,5 @@ void digitalWrite(uint32_t base_address, uint32_t pin, bool value)
         GPIO_pinWriteLow(base_address, pin);
     }
 }
+
+

@@ -46,6 +46,17 @@ extern "C" {
 void Board_init(void);
 void Board_deinit(void);
 
+/*
+ * IOEXP
+ */
+#include <board/ioexp/ioexp_tca6424.h>
+
+/* IOEXP Instance Macros */
+#define CONFIG_IOEXP0 (0U)
+#define CONFIG_IOEXP_NUM_INSTANCES (1U)
+
+void  Board_ioexpInit();
+
 
 #ifdef __cplusplus
 }

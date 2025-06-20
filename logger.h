@@ -36,7 +36,7 @@ enum EVENT_TYPE
 
 enum PIN
 {
-    GPIO43,
+    GPIO48,
     GPIO44,
     GPIO45,
     GPIO46,

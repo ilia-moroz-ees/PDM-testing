@@ -36,6 +36,37 @@
 #include "ti_drivers_config.h"
 
 /*
+ * I2C
+ */
+
+/* I2C Attributes */
+static I2C_HwAttrs gI2cHwAttrs[CONFIG_I2C_HLD_NUM_INSTANCES] =
+{
+    {
+        .baseAddr       = CSL_I2C2_U_BASE,
+        .intNum         = 46,
+        .eventId        = 0,
+        .funcClk        = 96000000U,
+        .enableIntr     = 1,
+        .ownTargetAddr   = 0x1C,
+    },
+};
+
+/* I2C Objects - Initialized by the Driver */
+static I2C_Object gI2cObjects[CONFIG_I2C_HLD_NUM_INSTANCES];
+
+/* I2C driver configuration */
+I2C_Config gI2cConfig[CONFIG_I2C_HLD_NUM_INSTANCES] =
+{
+    {
+        .object = &gI2cObjects[CONFIG_I2C0],
+        .hwAttrs = &gI2cHwAttrs[CONFIG_I2C0]
+    },
+};
+
+uint32_t gI2cConfigNum = CONFIG_I2C_HLD_NUM_INSTANCES;
+
+/*
  * GPIO
  */
 
@@ -47,11 +78,11 @@ void GPIO_init()
 
     /* Instance 0 */
     /* Get address after translation translate */
-    baseAddr = (uint32_t) AddrTranslateP_getLocalAddr(GPIO43_BASE_ADDR);
+    baseAddr = (uint32_t) AddrTranslateP_getLocalAddr(GPIO48_BASE_ADDR);
 
-    GPIO_setDirMode(baseAddr, GPIO43_PIN, GPIO43_DIR);
-    GPIO_setTrigType(baseAddr, GPIO43_PIN, GPIO43_TRIG_TYPE);
-    GPIO_bankIntrEnable(baseAddr, GPIO_GET_BANK_INDEX(GPIO43_PIN));
+    GPIO_setDirMode(baseAddr, GPIO48_PIN, GPIO48_DIR);
+    GPIO_setTrigType(baseAddr, GPIO48_PIN, GPIO48_TRIG_TYPE);
+    GPIO_bankIntrEnable(baseAddr, GPIO_GET_BANK_INDEX(GPIO48_PIN));
     /* Instance 1 */
     /* Get address after translation translate */
     baseAddr = (uint32_t) AddrTranslateP_getLocalAddr(GPIO44_BASE_ADDR);
@@ -156,10 +187,10 @@ void GPIO_deinit()
     uint32_t    baseAddr;
 
     /* Unregister interrupt Instance 0*/
-    baseAddr = (uint32_t) AddrTranslateP_getLocalAddr(GPIO43_BASE_ADDR);
-    GPIO_bankIntrDisable(baseAddr, GPIO_GET_BANK_INDEX(GPIO43_PIN));
-    GPIO_setTrigType(baseAddr, GPIO43_PIN, GPIO_TRIG_TYPE_NONE);
-    GPIO_clearIntrStatus(baseAddr, GPIO43_PIN);
+    baseAddr = (uint32_t) AddrTranslateP_getLocalAddr(GPIO48_BASE_ADDR);
+    GPIO_bankIntrDisable(baseAddr, GPIO_GET_BANK_INDEX(GPIO48_PIN));
+    GPIO_setTrigType(baseAddr, GPIO48_PIN, GPIO_TRIG_TYPE_NONE);
+    GPIO_clearIntrStatus(baseAddr, GPIO48_PIN);
     /* Unregister interrupt Instance 1*/
     baseAddr = (uint32_t) AddrTranslateP_getLocalAddr(GPIO44_BASE_ADDR);
     GPIO_bankIntrDisable(baseAddr, GPIO_GET_BANK_INDEX(GPIO44_PIN));
@@ -391,6 +422,10 @@ void System_init(void)
     Pinmux_init();
     /* finally we initialize all peripheral drivers */
 
+
+    I2C_init();
+
+
     GPIO_init();
     MCSPI_init();
     EDMA_init();
@@ -399,6 +434,10 @@ void System_init(void)
 
 void System_deinit(void)
 {
+
+
+    I2C_deinit();
+
     GPIO_deinit();
     MCSPI_deinit();
     EDMA_deinit();

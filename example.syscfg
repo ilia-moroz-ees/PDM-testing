@@ -9,6 +9,8 @@
 /**
  * Import the modules used in this configuration.
  */
+const ioexp           = scripting.addModule("/board/ioexp/ioexp", {}, false);
+const ioexp1          = ioexp.addInstance();
 const adc             = scripting.addModule("/drivers/adc/adc", {}, false);
 const adc1            = adc.addInstance();
 const gpio            = scripting.addModule("/drivers/gpio/gpio", {}, false);
@@ -28,6 +30,8 @@ const gpio13          = gpio.addInstance();
 const gpio14          = gpio.addInstance();
 const gpio15          = gpio.addInstance();
 const gpio16          = gpio.addInstance();
+const i2c             = scripting.addModule("/drivers/i2c/i2c", {}, false);
+const i2c1            = i2c.addInstance();
 const mcspi           = scripting.addModule("/drivers/mcspi/mcspi", {}, false);
 const mcspi1          = mcspi.addInstance();
 const mcspi2          = mcspi.addInstance();
@@ -66,6 +70,10 @@ const gpio_int_xbar2  = gpio_int_xbar.addInstance();
 /**
  * Write custom configuration values to the imported modules.
  */
+ioexp1.$name                                    = "CONFIG_IOEXP0";
+ioexp1.TCA6424ARGJR_port1_pinSPI1_MUX_SEL_mode  = 0;
+ioexp1.TCA6424ARGJR_port1_pinSPI1_MUX_SEL_state = 1;
+
 adc1.$name               = "ADC1";
 adc1.adcClockPrescaler   = "ADC_CLK_DIV_4_0";
 adc1.enableConverter     = true;
@@ -75,7 +83,6 @@ adc1.soc3Channel         = "ADC_CH_ADCIN3";
 adc1.soc4Channel         = "ADC_CH_ADCIN4";
 adc1.soc5Channel         = "ADC_CH_ADCIN5";
 adc1.interrupt1SOCSource = "ADC_SOC_NUMBER2";
-adc1.interrupt2SOCSource = "ADC_SOC_NUMBER3";
 adc1.interrupt3SOCSource = "ADC_SOC_NUMBER4";
 adc1.interrupt4SOCSource = "ADC_SOC_NUMBER5";
 adc1.soc1Channel         = "ADC_CH_ADCIN1";
@@ -87,10 +94,11 @@ adc1.ADC.AIN3.pu_pd      = "pd";
 adc1.ADC.AIN4.pu_pd      = "pd";
 adc1.ADC.AIN5.pu_pd      = "pd";
 
-gpio1.$name          = "GPIO43";
 gpio1.trigType       = "FALL_EDGE";
 gpio1.enableIntr     = true;
-gpio1.GPIO_n.$assign = "EPWM0_A";
+gpio1.pu_pd          = "pu";
+gpio1.$name          = "GPIO48";
+gpio1.GPIO_n.$assign = "EPWM2_B";
 
 gpio2.$name          = "GPIO44";
 gpio2.defaultValue   = "1";
@@ -158,18 +166,26 @@ gpio16.$name          = "SPI1_CS";
 gpio16.pinDir         = "OUTPUT";
 gpio16.GPIO_n.$assign = "SPI1_CS0";
 
+i2c1.$name              = "CONFIG_I2C0";
+ioexp1.peripheralDriver = i2c1;
+i2c1.I2C.$assign        = "I2C2";
+i2c1.I2C.SCL.$assign    = "UART0_RTSn";
+i2c1.I2C.SDA.$assign    = "UART0_CTSn";
+i2c1.I2C_child.$name    = "drivers_i2c_v1_i2c_v1_template0";
+
 mcspi1.$name                       = "SPI0";
 mcspi1.mcspiChannel[0].$name       = "CONFIG_MCSPI_CH0";
 mcspi1.mcspiChannel[0].CSn.$assign = "SPI0_CS0";
 mcspi1.mcspiChannel[0].CSn.$used   = false;
 mcspi1.child.$name                 = "drivers_mcspi_v1_mcspi_v1_template0";
 
-mcspi2.$name                     = "SPI1";
-mcspi2.dpe1                      = "ENABLE";
-mcspi2.SPI.$assign               = "SPI1";
-mcspi2.mcspiChannel[0].$name     = "CONFIG_MCSPI_CH1";
-mcspi2.mcspiChannel[0].CSn.$used = false;
-mcspi2.child.$name               = "drivers_mcspi_v1_mcspi_v1_template1";
+mcspi2.$name                         = "SPI1";
+mcspi2.SPI.$assign                   = "SPI1";
+mcspi2.mcspiChannel[0].$name         = "CONFIG_MCSPI_CH1";
+mcspi2.mcspiChannel[0].advanced      = true;
+mcspi2.mcspiChannel[0].defaultTxData = 0xF;
+mcspi2.mcspiChannel[0].CSn.$used     = false;
+mcspi2.child.$name                   = "drivers_mcspi_v1_mcspi_v1_template1";
 
 const edma                  = scripting.addModule("/drivers/edma/edma", {}, false);
 const edma1                 = edma.addInstance({}, false);
