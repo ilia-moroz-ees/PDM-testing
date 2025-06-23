@@ -196,7 +196,7 @@ void conduct_test(uint8_t test_number)
     }
     else
     {
-        DebugP_log("  IDEAL DIODE1 VFB: SUCCESS (Expected %.2fV, Got %.2fA)\r\n", 
+        DebugP_log("  IDEAL DIODE1 VFB: SUCCESS (Expected %.2fV, Got %.2fV)\r\n", 
                   expected.ideal_diode1.vfb, actual.ideal_diode1.vfb);
     }
 
@@ -221,7 +221,7 @@ void conduct_test(uint8_t test_number)
     }
     else
     {
-        DebugP_log("  IDEAL DIODE2 VFB: SUCCESS (Expected %.2fV, Got %.2fA)\r\n", 
+        DebugP_log("  IDEAL DIODE2 VFB: SUCCESS (Expected %.2fV, Got %.2fV)\r\n", 
                   expected.ideal_diode2.vfb, actual.ideal_diode2.vfb);
     }
 
@@ -246,7 +246,7 @@ void conduct_test(uint8_t test_number)
     }
     else
     {
-        DebugP_log("  IDEAL DIODE3 VFB: SUCCESS (Expected %.2fV, Got %.2fA)\r\n", 
+        DebugP_log("  IDEAL DIODE3 VFB: SUCCESS (Expected %.2fV, Got %.2fV)\r\n", 
                   expected.ideal_diode3.vfb, actual.ideal_diode3.vfb);
     }
 
