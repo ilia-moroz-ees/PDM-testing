@@ -17,6 +17,7 @@
 #include "int_adc.h"
 #include "logger.h"
 #include "testing.h"
+#include "BQ25751.h"
 
 uint16_t log_counter = 0;
 
@@ -59,6 +60,15 @@ void PDM_testing(void *args)
             case 992:
                 DebugP_log("Current number of logs: %d/%d\r\n", logs_length, MAX_LOG_ENTRY_NUMBER);
                 break;
+
+            case 995: // test of reading part number of BQ25751
+            {
+                uint16_t part_number;
+                BQ25751_read_reg(BQ25751_PART_NUMBER_REG, 1, &part_number);
+                DebugP_log("Part number: %d\r\n", (part_number & 0x78) >> 3); // Extracting part number, should be 1
+                break;
+            }
+               
             
             default:
                 conduct_test(user_input_test_number);

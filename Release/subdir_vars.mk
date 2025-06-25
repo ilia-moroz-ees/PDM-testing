@@ -10,6 +10,7 @@ SYSCFG_SRCS += \
 
 C_SRCS += \
 ../ADS_adc.c \
+../BQ25751.c \
 ../PDMtesting.c \
 ../board.c \
 ./syscfg/ti_dpl_config.c \
@@ -55,6 +56,7 @@ GEN_MISC_DIRS += \
 
 C_DEPS += \
 ./ADS_adc.d \
+./BQ25751.d \
 ./PDMtesting.d \
 ./board.d \
 ./syscfg/ti_dpl_config.d \
@@ -79,6 +81,7 @@ C_DEPS += \
 
 OBJS += \
 ./ADS_adc.o \
+./BQ25751.o \
 ./PDMtesting.o \
 ./board.o \
 ./syscfg/ti_dpl_config.o \
@@ -119,6 +122,7 @@ GEN_MISC_DIRS__QUOTED += \
 
 OBJS__QUOTED += \
 "ADS_adc.o" \
+"BQ25751.o" \
 "PDMtesting.o" \
 "board.o" \
 "syscfg\ti_dpl_config.o" \
@@ -156,6 +160,7 @@ GEN_MISC_FILES__QUOTED += \
 
 C_DEPS__QUOTED += \
 "ADS_adc.d" \
+"BQ25751.d" \
 "PDMtesting.d" \
 "board.d" \
 "syscfg\ti_dpl_config.d" \
@@ -195,6 +200,7 @@ GEN_FILES__QUOTED += \
 
 C_SRCS__QUOTED += \
 "../ADS_adc.c" \
+"../BQ25751.c" \
 "../PDMtesting.c" \
 "../board.c" \
 "./syscfg/ti_dpl_config.c" \

@@ -73,6 +73,7 @@ void Board_driversClose(void);
 #define IO_EXP_ADC5_MUX_SEL_LINE      (8)
 /* Port Number : 1, Pin Number : 1. Line Number : (Port Number * 8) + Pin Number */
 #define IO_EXP_I2C0_MUX_SEL_LINE      (9)
+#define IO_EXP_I2C0_MUX_SEL_STATE     (TCA6424_OUT_STATE_HIGH)
 /* Port Number : 1, Pin Number : 2. Line Number : (Port Number * 8) + Pin Number */
 #define IO_EXP_SPI1_MUX_SEL_LINE      (10)
 #define IO_EXP_SPI1_MUX_SEL_STATE     (TCA6424_OUT_STATE_HIGH)

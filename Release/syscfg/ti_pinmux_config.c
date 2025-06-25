@@ -49,6 +49,18 @@ static Pinmux_PerCfg_t gPinMuxMainDomainCfg[] = {
         PIN_UART0_CTSN,
         ( PIN_MODE(1) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW )
     },
+            /* I2C0 pin config */
+    /* I2C0_SCL -> I2C0_SCL (A13) */
+    {
+        PIN_I2C0_SCL,
+        ( PIN_MODE(0) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW )
+    },
+    /* I2C0 pin config */
+    /* I2C0_SDA -> I2C0_SDA (B13) */
+    {
+        PIN_I2C0_SDA,
+        ( PIN_MODE(0) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW )
+    },
 
                 /* GPIO48 -> EPWM2_B (C1) */
     {

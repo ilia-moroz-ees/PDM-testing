@@ -1,4 +1,5 @@
 "./ADS_adc.o"
+"./BQ25751.o"
 "./PDMtesting.o"
 "./board.o"
 "./syscfg/ti_dpl_config.o"

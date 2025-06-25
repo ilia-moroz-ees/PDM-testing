@@ -50,6 +50,14 @@ static I2C_HwAttrs gI2cHwAttrs[CONFIG_I2C_HLD_NUM_INSTANCES] =
         .enableIntr     = 1,
         .ownTargetAddr   = 0x1C,
     },
+    {
+        .baseAddr       = CSL_I2C0_U_BASE,
+        .intNum         = 44,
+        .eventId        = 0,
+        .funcClk        = 96000000U,
+        .enableIntr     = 1,
+        .ownTargetAddr   = 0x1C,
+    },
 };
 
 /* I2C Objects - Initialized by the Driver */
@@ -61,6 +69,10 @@ I2C_Config gI2cConfig[CONFIG_I2C_HLD_NUM_INSTANCES] =
     {
         .object = &gI2cObjects[CONFIG_I2C0],
         .hwAttrs = &gI2cHwAttrs[CONFIG_I2C0]
+    },
+    {
+        .object = &gI2cObjects[I2C1],
+        .hwAttrs = &gI2cHwAttrs[I2C1]
     },
 };
 

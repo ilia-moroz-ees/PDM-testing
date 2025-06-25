@@ -102,6 +102,11 @@ I2C_Params gI2cParams[CONFIG_I2C_HLD_NUM_INSTANCES] =
         .transferCallbackFxn = NULL,
         .bitRate             = I2C_400KHZ,
     },
+    {
+        .transferMode        = I2C_MODE_BLOCKING,
+        .transferCallbackFxn = NULL,
+        .bitRate             = I2C_100KHZ,
+    },
 };
 
 void Drivers_i2cOpen(void)

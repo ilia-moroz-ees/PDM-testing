@@ -74,6 +74,24 @@ int32_t Board_ioexpOpen()
     /* Configure State */
     status = TCA6424_setOutput(
                     &gTCA6424_Config,
+                    IO_EXP_I2C0_MUX_SEL_LINE,
+                    IO_EXP_I2C0_MUX_SEL_STATE);
+
+    /* Configure as output  */
+    status += TCA6424_config(
+                    &gTCA6424_Config,
+                    IO_EXP_I2C0_MUX_SEL_LINE,
+                    TCA6424_MODE_OUTPUT);
+    
+    if(status != SystemP_SUCCESS)
+    {
+        DebugP_log("Failure to Set IO Expander lines\r\n");
+        TCA6424_close(&gTCA6424_Config);
+    }
+    
+    /* Configure State */
+    status = TCA6424_setOutput(
+                    &gTCA6424_Config,
                     IO_EXP_SPI1_MUX_SEL_LINE,
                     IO_EXP_SPI1_MUX_SEL_STATE);
 
