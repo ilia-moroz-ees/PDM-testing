@@ -42,6 +42,12 @@ void PDM_testing(void *args)
     
     while(true)
     {
+
+        // uint16_t fault24, fault27;
+        // BQ25751_read_reg(0x27, 1, &fault27);
+        // BQ25751_read_reg(0x24, 1, &fault24);
+        // DebugP_log("Fault24: %d, Fault27: %d\r\n", fault24, fault27); // Extracting part number, should be 1
+        
         DebugP_log("Enter test number: \r\n");
         DebugP_scanf("%d", &user_input_test_number);
 
@@ -63,12 +69,17 @@ void PDM_testing(void *args)
 
             case 995: // test of reading part number of BQ25751
             {
-                uint16_t part_number;
-                BQ25751_read_reg(BQ25751_PART_NUMBER_REG, 1, &part_number);
-                DebugP_log("Part number: %d\r\n", (part_number & 0x78) >> 3); // Extracting part number, should be 1
+                BQ25751_read_faults();
                 break;
             }
-               
+
+            case 996: // Write a register from BQ25751 with value manually
+                BQ25751_manual_register_write();
+                break;
+
+            case 997: // Read a register from BQ25751 manually
+               BQ25751_manual_register_read();
+               break;
             
             default:
                 conduct_test(user_input_test_number);
