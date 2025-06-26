@@ -2,6 +2,10 @@
 
 int32_t BQ25751_read_reg(uint8_t register_addr, uint8_t length, uint16_t* result)
 {
+    if (length != 1 && length != 2) // Making sure buffers don't overflow
+    {
+        return I2C_STS_ERR; // Invalid length
+    }
     I2C_Transaction i2cTransaction;
     I2C_Handle i2cHandle;
 
@@ -59,6 +63,10 @@ int32_t BQ25751_read_reg(uint8_t register_addr, uint8_t length, uint16_t* result
 
 int32_t BQ25751_write_reg(uint8_t register_addr, uint8_t length, uint16_t data)
 {
+    if (length != 1 && length != 2) // Making sure buffers don't overflow
+    {
+        return I2C_STS_ERR; // Invalid length
+    }
     I2C_Transaction i2cTransaction;
     I2C_Handle i2cHandle;
 
@@ -128,6 +136,11 @@ void BQ25751_read_faults()
     BQ25751_read_reg(0x27, 1, &fault27);
     BQ25751_read_reg(0x24, 1, &fault24);
 
+    if (!fault24 && !fault27)
+    {
+        DebugP_log("No faults detected\r\n");
+    }
+
     for (uint8_t i = 0; i < 8; i++)
     {
         if (fault24 & (1 << i) || fault27 & (1 << i))
@@ -158,9 +171,6 @@ void BQ25751_read_faults()
                     DebugP_log(" Device in Input under-voltage protectione\r\n");
                     break;
             }
-        }
-        else {
-            DebugP_log("No faults detected\r\n");
         }
     }
 }
@@ -283,6 +293,14 @@ void BQ25751_manual_register_write(void)
     else
     {
         DebugP_log("[SUCCESS] Register write complete\r\n");
+    }
+
+    // Double checking if register value was written successfully
+    uint16_t readback_value;
+    BQ25751_read_reg(reg_addr, length, &readback_value);
+    if (readback_value != data)
+    {
+        DebugP_log("[WARNING] Write verification failed (expected: 0x%04X, read: 0x%04X)\r\n", data, readback_value);
     }
     
     DebugP_log("[BQ25751] Manual Register Write - Completed\r\n");
