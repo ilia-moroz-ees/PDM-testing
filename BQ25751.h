@@ -73,6 +73,8 @@
 /* Reverse Mode Control */
 #define BQ25751_REVERSE_MODE_BAT_DISCHARGE_CURRENT_REG 0x62
 
+// Number of registers in BQ25751
+#define BQ25751_REG_NUM 44
 
 int32_t BQ25751_read_reg(uint8_t register_addr, uint8_t length, uint16_t* result);
 int32_t BQ25751_write_reg(uint8_t register_addr, uint8_t length, uint16_t data);
@@ -81,5 +83,15 @@ void i2c_read_error_handler(int32_t status);
 void BQ25751_read_faults();
 void BQ25751_manual_register_read(void);
 void BQ25751_manual_register_write(void);
+
+void BQ25751_print_register_dump(void);
+
+typedef struct
+{
+    uint32_t address;
+    uint8_t length;
+} BQ25751_Reg;
+
+extern const BQ25751_Reg bq25751_registers[BQ25751_REG_NUM];
 
 #endif

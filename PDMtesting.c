@@ -80,6 +80,10 @@ void PDM_testing(void *args)
             case 997: // Read a register from BQ25751 manually
                BQ25751_manual_register_read();
                break;
+
+            case 998: // Print a regusters dump
+                BQ25751_print_register_dump();
+                break;
             
             default:
                 conduct_test(user_input_test_number);

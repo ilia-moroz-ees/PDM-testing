@@ -1,5 +1,61 @@
 #include "BQ25751.h"
 
+const BQ25751_Reg bq25751_registers[BQ25751_REG_NUM] = {
+    /* Charge Voltage and Current Control */
+    {BQ25751_CHARGE_VOLTAGE_LIMIT_REG, 2},
+    {BQ25751_CHARGE_CURRENT_LIMIT_REG, 2},
+    {BQ25751_INPUT_CURRENT_DPM_LIMIT_REG, 2},
+    {BQ25751_INPUT_VOLTAGE_DPM_LIMIT_REG, 2},
+    {BQ25751_REVERSE_MODE_INPUT_CURRENT_LIMIT_REG, 2},
+    {BQ25751_REVERSE_MODE_SYSTEM_VOLTAGE_LIMIT_REG, 2},
+    {BQ25751_TERMINATION_CURRENT_LIMIT_REG, 2},
+    {BQ25751_TERMINATION_CONTROL_REG, 1},
+    {BQ25751_TIMER_CONTROL_REG, 1},
+    {BQ25751_THREE_STAGE_CHARGE_CONTROL_REG, 1},
+    {BQ25751_CHARGER_CONTROL_REG, 1},
+    {BQ25751_PIN_CONTROL_REG, 1},
+    {BQ25751_POWER_PATH_REVERSE_MODE_CONTROL_REG, 1},
+    {BQ25751_MPPT_CONTROL_REG, 1},
+    {BQ25751_TS_CHARGING_THRESHOLD_REG, 1},
+    {BQ25751_TS_CHARGING_BEHAVIOR_REG, 1},
+    {BQ25751_TS_REVERSE_MODE_THRESHOLD_REG, 1},
+    {BQ25751_REVERSE_UNDERVOLTAGE_CONTROL_REG, 1},
+    {BQ25751_VAC_MAX_POWER_POINT_REG, 2},
+
+    /* Status and Fault Registers */
+    {BQ25751_CHARGER_STATUS_1_REG, 1},
+    {BQ25751_CHARGER_STATUS_2_REG, 1},
+    {BQ25751_CHARGER_STATUS_3_REG, 1},
+    {BQ25751_FAULT_STATUS_REG, 1},
+    {BQ25751_CHARGER_FLAG_1_REG, 1},
+    {BQ25751_CHARGER_FLAG_2_REG, 1},
+    {BQ25751_FAULT_FLAG_REG, 1},
+    {BQ25751_CHARGER_MASK_1_REG, 1},
+    {BQ25751_CHARGER_MASK_2_REG, 1},
+    {BQ25751_FAULT_MASK_REG, 1},
+
+    /* ADC Monitoring Registers */
+    {BQ25751_ADC_CONTROL_REG, 1},
+    {BQ25751_ADC_CHANNEL_CONTROL_REG, 1},
+    {BQ25751_IAC_ADC_REG, 2},
+    {BQ25751_IBAT_ADC_REG, 2},
+    {BQ25751_VAC_ADC_REG, 2},
+    {BQ25751_VBAT_ADC_REG, 2},
+    {BQ25751_VSYS_ADC_REG, 2},
+    {BQ25751_TS_ADC_REG, 2},
+    {BQ25751_VFB_ADC_REG, 2},
+
+    /* Gate Driver Control */
+    {BQ25751_GATE_DRIVER_STRENGTH_REG, 1},
+    {BQ25751_GATE_DRIVER_DEAD_TIME_REG, 1},
+
+    /* Device Information */
+    {BQ25751_PART_INFORMATION_REG, 1},
+
+    /* Reverse Mode Control */
+    {BQ25751_REVERSE_MODE_BAT_DISCHARGE_CURRENT_REG, 1}
+};
+
 int32_t BQ25751_read_reg(uint8_t register_addr, uint8_t length, uint16_t* result)
 {
     if (length != 1 && length != 2) // Making sure buffers don't overflow
@@ -305,4 +361,15 @@ void BQ25751_manual_register_write(void)
     
     DebugP_log("[BQ25751] Manual Register Write - Completed\r\n");
     DebugP_log("-----------------------------------------\r\n");
+}
+
+void BQ25751_print_register_dump(void)
+{
+    for (uint8_t i = 0; i < BQ25751_REG_NUM; i++)
+    {
+        uint16_t result;
+        BQ25751_read_reg(bq25751_registers[i].address, bq25751_registers[i].length, &result);
+        DebugP_log("Register 0x%04X: 0x%04X\r\n", bq25751_registers[i].address, result);
+        ClockP_usleep(50*1000);
+    }
 }
