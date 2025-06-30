@@ -56,6 +56,10 @@ const BQ25751_Reg bq25751_registers[BQ25751_REG_NUM] = {
     {BQ25751_REVERSE_MODE_BAT_DISCHARGE_CURRENT_REG, 1}
 };
 
+volatile bool BQ25751_timer_en;
+uint64_t BQ25751_timer = 0;
+bool BQ25751_timer_init = false;
+
 int32_t BQ25751_read_reg(uint8_t register_addr, uint8_t length, uint16_t* result)
 {
     if (length != 1 && length != 2) // Making sure buffers don't overflow
@@ -371,5 +375,43 @@ void BQ25751_print_register_dump(void)
         BQ25751_read_reg(bq25751_registers[i].address, bq25751_registers[i].length, &result);
         DebugP_log("Register 0x%04X: 0x%04X\r\n", bq25751_registers[i].address, result);
         ClockP_usleep(50*1000);
+    }
+}
+
+void BQ25751_init(void)
+{
+    BQ25751_write_reg(BQ25751_TIMER_CONTROL_REG, 1, 0x00); // Disabling Watchdog
+    BQ25751_write_reg(BQ25751_FAULT_MASK_REG, 1, 0xFA); // Disabling fault interrupt sources 
+    BQ25751_write_reg(BQ25751_CHARGER_MASK_1_REG, 1, 0xFB); // Disabling interrupt sources 
+    BQ25751_write_reg(BQ25751_CHARGER_MASK_2_REG, 1, 0xF2); // Disabling interrupt sources 
+    BQ25751_write_reg(BQ25751_POWER_PATH_REVERSE_MODE_CONTROL_REG, 1, 0x03); // Enabling Auto Reverse Mode
+}
+
+void BQ25751_run_test_mode(void)
+{
+    BQ25751_write_reg(BQ25751_TIMER_CONTROL_REG, 1, 0x00); // Disabling Watchdog
+    BQ25751_write_reg(BQ25751_FAULT_MASK_REG, 1, 0xFA); // Disabling fault interrupt sources 
+    BQ25751_write_reg(BQ25751_CHARGER_MASK_1_REG, 1, 0xFB); // Disabling interrupt sources 
+    BQ25751_write_reg(BQ25751_CHARGER_MASK_2_REG, 1, 0xF2); // Disabling interrupt sources 
+    BQ25751_write_reg(BQ25751_POWER_PATH_REVERSE_MODE_CONTROL_REG, 1, 0x03); // Enabling Auto Reverse Mode
+    while (true)
+    {
+        if ((ClockP_getTimeUsec() - BQ25751_timer) > BQ25751_TEST_TIMEOUT && BQ25751_timer_en )
+        {
+            BQ25751_timer_en = false;
+
+            uint16_t result;
+            if(!BQ25751_read_reg(BQ25751_CHARGER_CONTROL_REG, 1, &result))
+            {
+                uint16_t hiZ_mask = 0b00000100;
+            
+                if(!BQ25751_write_reg(BQ25751_CHARGER_CONTROL_REG, 1, result ^ hiZ_mask)) // Enabling HiZ mode
+                {
+                    DebugP_log("going HiZ\r\n");
+                }
+            }
+
+            
+        }
     }
 }

@@ -8,6 +8,7 @@ Pins intr_pins = {
     {GPIO44_PIN, GPIO44_BASE_ADDR, GPIO44_DIR, GPIO44_INT_NUM},
     {GPIO45_PIN, GPIO45_BASE_ADDR, GPIO45_DIR, GPIO45_INT_NUM},
     {GPIO46_PIN, GPIO46_BASE_ADDR, GPIO46_DIR, GPIO46_INT_NUM},
+    {GPIO50_PIN, GPIO50_BASE_ADDR, GPIO50_DIR, GPIO50_INT_NUM},
     {GPIO51_PIN, GPIO51_BASE_ADDR, GPIO51_DIR, GPIO51_INT_NUM},
     {GPIO52_PIN, GPIO52_BASE_ADDR, GPIO52_DIR, GPIO52_INT_NUM}
 };
@@ -39,6 +40,10 @@ void GPIO_bankIsrFxn(void *args)
         case 3:
             if (intr_status & GPIO_GET_BANK_BIT_MASK(intr_pins.gpio48.pin_num)) {
                 add_log(FAULT, GPIO48);
+            }
+            if (intr_status & GPIO_GET_BANK_BIT_MASK(intr_pins.gpio50.pin_num)) {
+                BQ25751_timer = ClockP_getTimeUsec();
+                BQ25751_timer_en = true;
             }
             if (intr_status & GPIO_GET_BANK_BIT_MASK(intr_pins.gpio51.pin_num)) {
                 add_log(FAULT, GPIO51);
@@ -101,6 +106,9 @@ void init_global_interrupts(Intr_objects *objects)
 
     init_interrupt(&objects->Gpio46HwiObject, &intr_pins.gpio46);
     DebugP_log("Initialized gpio46 interrupt\r\n");
+
+    init_interrupt(&objects->Gpio50HwiObject, &intr_pins.gpio50);
+    DebugP_log("Initialized gpio50 interrupt\r\n");
 
     init_interrupt(&objects->Gpio51HwiObject, &intr_pins.gpio51);
     DebugP_log("Initialized gpio51 interrupt\r\n");

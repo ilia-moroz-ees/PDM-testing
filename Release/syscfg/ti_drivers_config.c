@@ -190,6 +190,13 @@ void GPIO_init()
     GPIO_pinWriteLow(baseAddr, SPI1_CS_PIN);
 
     GPIO_setDirMode(baseAddr, SPI1_CS_PIN, SPI1_CS_DIR);
+    /* Instance 16 */
+    /* Get address after translation translate */
+    baseAddr = (uint32_t) AddrTranslateP_getLocalAddr(GPIO50_BASE_ADDR);
+
+    GPIO_setDirMode(baseAddr, GPIO50_PIN, GPIO50_DIR);
+    GPIO_setTrigType(baseAddr, GPIO50_PIN, GPIO50_TRIG_TYPE);
+    GPIO_bankIntrEnable(baseAddr, GPIO_GET_BANK_INDEX(GPIO50_PIN));
 }
 
 
@@ -228,6 +235,11 @@ void GPIO_deinit()
     GPIO_bankIntrDisable(baseAddr, GPIO_GET_BANK_INDEX(GPIO52_PIN));
     GPIO_setTrigType(baseAddr, GPIO52_PIN, GPIO_TRIG_TYPE_NONE);
     GPIO_clearIntrStatus(baseAddr, GPIO52_PIN);
+    /* Unregister interrupt Instance 16*/
+    baseAddr = (uint32_t) AddrTranslateP_getLocalAddr(GPIO50_BASE_ADDR);
+    GPIO_bankIntrDisable(baseAddr, GPIO_GET_BANK_INDEX(GPIO50_PIN));
+    GPIO_setTrigType(baseAddr, GPIO50_PIN, GPIO_TRIG_TYPE_NONE);
+    GPIO_clearIntrStatus(baseAddr, GPIO50_PIN);
 }
 
 /*

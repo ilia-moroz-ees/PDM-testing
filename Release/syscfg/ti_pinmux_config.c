@@ -142,6 +142,11 @@ static Pinmux_PerCfg_t gPinMuxMainDomainCfg[] = {
         PIN_SPI1_CS0,
         ( PIN_MODE(7) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW | PIN_GPIO_R5SS0_0 )
     },
+                /* GPIO50 -> EPWM3_B (E3) */
+    {
+        PIN_EPWM3_B,
+        ( PIN_MODE(7) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW | PIN_GPIO_R5SS0_0 )
+    },
 
             /* SPI0 pin config */
     /* SPI0_CLK -> SPI0_CLK (A11) */

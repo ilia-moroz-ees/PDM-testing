@@ -30,6 +30,7 @@ const gpio13          = gpio.addInstance();
 const gpio14          = gpio.addInstance();
 const gpio15          = gpio.addInstance();
 const gpio16          = gpio.addInstance();
+const gpio17          = gpio.addInstance();
 const i2c             = scripting.addModule("/drivers/i2c/i2c", {}, false);
 const i2c1            = i2c.addInstance();
 const i2c2            = i2c.addInstance();
@@ -167,6 +168,11 @@ gpio15.GPIO_n.$assign = "SPI0_CS0";
 gpio16.$name          = "SPI1_CS";
 gpio16.pinDir         = "OUTPUT";
 gpio16.GPIO_n.$assign = "SPI1_CS0";
+
+gpio17.$name          = "GPIO50";
+gpio17.enableIntr     = true;
+gpio17.trigType       = "FALL_EDGE";
+gpio17.GPIO_n.$assign = "EPWM3_B";
 
 i2c1.$name              = "CONFIG_I2C0";
 ioexp1.peripheralDriver = i2c1;

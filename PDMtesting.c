@@ -30,6 +30,11 @@ void PDM_testing(void *args)
 
     DebugP_uartSetDrvIndex(CONFIG_UART0);
     init_gpio();
+    BQ25751_write_reg(BQ25751_TIMER_CONTROL_REG, 1, 0x00); // Enabling Auto Reverse Mode
+    BQ25751_write_reg(BQ25751_FAULT_MASK_REG, 1, 0xFA); // Disabling fault interrupt sources 
+    BQ25751_write_reg(BQ25751_CHARGER_MASK_1_REG, 1, 0xEB); // Disabling interrupt sources 
+    BQ25751_write_reg(BQ25751_CHARGER_MASK_2_REG, 1, 0xFA); // Disabling interrupt sources 
+    BQ25751_write_reg(BQ25751_POWER_PATH_REVERSE_MODE_CONTROL_REG, 1, 0x03); // Enabling Auto Reverse Mode
     init_global_interrupts(&intr_objects);
     ADC_enableConverter(ADC1_BASE_ADDR);
     ClockP_sleep(1);
@@ -42,12 +47,6 @@ void PDM_testing(void *args)
     
     while(true)
     {
-
-        // uint16_t fault24, fault27;
-        // BQ25751_read_reg(0x27, 1, &fault27);
-        // BQ25751_read_reg(0x24, 1, &fault24);
-        // DebugP_log("Fault24: %d, Fault27: %d\r\n", fault24, fault27); // Extracting part number, should be 1
-        
         DebugP_log("Enter test number: \r\n");
         DebugP_scanf("%d", &user_input_test_number);
 
@@ -65,6 +64,10 @@ void PDM_testing(void *args)
             
             case 992:
                 DebugP_log("Current number of logs: %d/%d\r\n", logs_length, MAX_LOG_ENTRY_NUMBER);
+                break;
+
+            case 994: // BQ25751 test mode
+                BQ25751_run_test_mode();
                 break;
 
             case 995: // test of reading part number of BQ25751

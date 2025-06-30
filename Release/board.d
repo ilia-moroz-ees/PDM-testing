@@ -123,7 +123,7 @@ board.o: ../board.c ../board.h \
  syscfg/ti_board_open_close.h \
  syscfg/ti_board_config.h \
  C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/board/ioexp/ioexp_tca6424.h \
- ../ADS_adc.h ../int_adc.h
+ ../ADS_adc.h ../int_adc.h ../BQ25751.h
 ../board.h:
 C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/kernel/dpl/AddrTranslateP.h:
 C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/kernel/dpl/SystemP.h:
@@ -249,3 +249,4 @@ syscfg/ti_board_config.h:
 C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/board/ioexp/ioexp_tca6424.h:
 ../ADS_adc.h:
 ../int_adc.h:
+../BQ25751.h:

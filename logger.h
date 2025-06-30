@@ -40,6 +40,7 @@ enum PIN
     GPIO44,
     GPIO45,
     GPIO46,
+    GPIO50,
     GPIO51,
     GPIO52,
     GPIO53,
