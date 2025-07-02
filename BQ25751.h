@@ -76,7 +76,7 @@
 // Number of registers in BQ25751
 #define BQ25751_REG_NUM 44
 
-#define BQ25751_TEST_TIMEOUT (500 * 1000)
+#define BQ25751_TEST_TIMEOUT (500) // microseconds
 
 int32_t BQ25751_read_reg(uint8_t register_addr, uint8_t length, uint16_t* result);
 int32_t BQ25751_write_reg(uint8_t register_addr, uint8_t length, uint16_t data);

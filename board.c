@@ -44,6 +44,7 @@ void GPIO_bankIsrFxn(void *args)
             if (intr_status & GPIO_GET_BANK_BIT_MASK(intr_pins.gpio50.pin_num)) {
                 BQ25751_timer = ClockP_getTimeUsec();
                 BQ25751_timer_en = true;
+                add_log(FAULT, GPIO50);
             }
             if (intr_status & GPIO_GET_BANK_BIT_MASK(intr_pins.gpio51.pin_num)) {
                 add_log(FAULT, GPIO51);

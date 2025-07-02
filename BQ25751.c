@@ -382,18 +382,25 @@ void BQ25751_init(void)
 {
     BQ25751_write_reg(BQ25751_TIMER_CONTROL_REG, 1, 0x00); // Disabling Watchdog
     BQ25751_write_reg(BQ25751_FAULT_MASK_REG, 1, 0xFA); // Disabling fault interrupt sources 
-    BQ25751_write_reg(BQ25751_CHARGER_MASK_1_REG, 1, 0xFB); // Disabling interrupt sources 
+    BQ25751_write_reg(BQ25751_CHARGER_MASK_1_REG, 1, 0xEB); // Disabling interrupt sources 
     BQ25751_write_reg(BQ25751_CHARGER_MASK_2_REG, 1, 0xF2); // Disabling interrupt sources 
     BQ25751_write_reg(BQ25751_POWER_PATH_REVERSE_MODE_CONTROL_REG, 1, 0x03); // Enabling Auto Reverse Mode
 }
 
 void BQ25751_run_test_mode(void)
 {
-    BQ25751_write_reg(BQ25751_TIMER_CONTROL_REG, 1, 0x00); // Disabling Watchdog
-    BQ25751_write_reg(BQ25751_FAULT_MASK_REG, 1, 0xFA); // Disabling fault interrupt sources 
-    BQ25751_write_reg(BQ25751_CHARGER_MASK_1_REG, 1, 0xFB); // Disabling interrupt sources 
-    BQ25751_write_reg(BQ25751_CHARGER_MASK_2_REG, 1, 0xF2); // Disabling interrupt sources 
-    BQ25751_write_reg(BQ25751_POWER_PATH_REVERSE_MODE_CONTROL_REG, 1, 0x03); // Enabling Auto Reverse Mode
+    static bool is_first = true;
+    if (is_first)
+    {
+        is_first = false;
+        BQ25751_write_reg(BQ25751_TIMER_CONTROL_REG, 1, 0x00); // Disabling Watchdog
+        BQ25751_write_reg(BQ25751_REVERSE_MODE_SYSTEM_VOLTAGE_LIMIT_REG, 2, 0x12C0); // Set limit to 24V
+        BQ25751_write_reg(BQ25751_FAULT_MASK_REG, 1, 0xFA); // Disabling fault interrupt sources 
+        BQ25751_write_reg(BQ25751_CHARGER_MASK_1_REG, 1, 0xEB); // Disabling interrupt sources 
+        BQ25751_write_reg(BQ25751_CHARGER_MASK_2_REG, 1, 0xF2); // Disabling interrupt sources 
+        BQ25751_write_reg(BQ25751_POWER_PATH_REVERSE_MODE_CONTROL_REG, 1, 0x03); // Enabling Auto Reverse Mode
+    }
+    
     while (true)
     {
         if ((ClockP_getTimeUsec() - BQ25751_timer) > BQ25751_TEST_TIMEOUT && BQ25751_timer_en )
@@ -401,15 +408,26 @@ void BQ25751_run_test_mode(void)
             BQ25751_timer_en = false;
 
             uint16_t result;
-            if(!BQ25751_read_reg(BQ25751_CHARGER_CONTROL_REG, 1, &result))
+            uint16_t is_reverse;
+            if (!BQ25751_read_reg(BQ25751_CHARGER_STATUS_3_REG, 1, &is_reverse))
             {
-                uint16_t hiZ_mask = 0b00000100;
-            
-                if(!BQ25751_write_reg(BQ25751_CHARGER_CONTROL_REG, 1, result ^ hiZ_mask)) // Enabling HiZ mode
+                DebugP_log("Interrupt triggered\r\n");
+                if (is_reverse & 0b00000100)
                 {
-                    DebugP_log("going HiZ\r\n");
+                    DebugP_log("Reverse mode detected\r\n");
+                    if(!BQ25751_read_reg(BQ25751_CHARGER_CONTROL_REG, 1, &result))
+                    {
+                        DebugP_log("value of charger_control_reg is 0x%2C\r\n", result);
+                        uint16_t hiZ_mask = 0b00000100;
+                    
+                        if(!BQ25751_write_reg(BQ25751_CHARGER_CONTROL_REG, 1, result | hiZ_mask)) // Enabling HiZ mode
+                        {
+                            DebugP_log("going HiZ\r\n");
+                        }
+                    }
                 }
             }
+            
 
             
         }

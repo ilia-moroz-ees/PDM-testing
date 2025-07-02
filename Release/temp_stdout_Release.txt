@@ -1,36 +1,36 @@
 [C:/Users/carim/workspace_ccstheia/second_stage_PDM_testing/Release/second_stage_PDM_testing.rprc_tmp] Parsing file ...
 Found section 0 with adddress 0x00000000, size 0x00000040 bytes
-Found section 1 with adddress 0x70040000, size 0x0000e9a0 bytes
-Found section 2 with adddress 0x7004e9a0, size 0x000026d0 bytes
-Found section 3 with adddress 0x7005f930, size 0x000008d8 bytes
-Found section 4 with adddress 0x70060208, size 0x00000430 bytes
-Found section 5 with adddress 0x70060638, size 0x00000290 bytes
-Found section 6 with adddress 0x700608c8, size 0x00000190 bytes
-Found section 7 with adddress 0x70060a58, size 0x00000008 bytes
-Found section 8 with adddress 0x70060a60, size 0x00000860 bytes
+Found section 1 with adddress 0x70040000, size 0x0000ea20 bytes
+Found section 2 with adddress 0x7004ea20, size 0x00002720 bytes
+Found section 3 with adddress 0x7005fa00, size 0x000008d8 bytes
+Found section 4 with adddress 0x700602d8, size 0x00000430 bytes
+Found section 5 with adddress 0x70060708, size 0x00000290 bytes
+Found section 6 with adddress 0x70060998, size 0x00000190 bytes
+Found section 7 with adddress 0x70060b28, size 0x00000008 bytes
+Found section 8 with adddress 0x70060b30, size 0x00000860 bytes
 [C:/Users/carim/workspace_ccstheia/second_stage_PDM_testing/Release/second_stage_PDM_testing.rprc_tmp] Found 9 sections. 9 are non-XIP sections, 0 are XIP sections, NON-XIP entryPoint = 0x00000000
-Merging section @ 0x7004e9a0 of size 0x000026d0, with section @ 0x70040000 of size 0x0000e9a0
-Merging section @ 0x70060208 of size 0x00000430, with section @ 0x7005f930 of size 0x000008d8
-Merging section @ 0x70060638 of size 0x00000290, with section @ 0x7005f930 of size 0x00000d08
-Merging section @ 0x700608c8 of size 0x00000190, with section @ 0x7005f930 of size 0x00000f98
-Merging section @ 0x70060a58 of size 0x00000008, with section @ 0x7005f930 of size 0x00001128
-Merging section @ 0x70060a60 of size 0x00000860, with section @ 0x7005f930 of size 0x00001130
+Merging section @ 0x7004ea20 of size 0x00002720, with section @ 0x70040000 of size 0x0000ea20
+Merging section @ 0x700602d8 of size 0x00000430, with section @ 0x7005fa00 of size 0x000008d8
+Merging section @ 0x70060708 of size 0x00000290, with section @ 0x7005fa00 of size 0x00000d08
+Merging section @ 0x70060998 of size 0x00000190, with section @ 0x7005fa00 of size 0x00000f98
+Merging section @ 0x70060b28 of size 0x00000008, with section @ 0x7005fa00 of size 0x00001128
+Merging section @ 0x70060b30 of size 0x00000860, with section @ 0x7005fa00 of size 0x00001130
 Writing section header  #0, adddress 0x00000000, size 0x00000040 bytes to file [C:/Users/carim/workspace_ccstheia/second_stage_PDM_testing/Release/second_stage_PDM_testing.rprc]
 Writing section data with adddress 0x00000000, size 0x00000040 bytes to file [C:/Users/carim/workspace_ccstheia/second_stage_PDM_testing/Release/second_stage_PDM_testing.rprc]
-Writing section header  #1, adddress 0x70040000, size 0x00011070 bytes to file [C:/Users/carim/workspace_ccstheia/second_stage_PDM_testing/Release/second_stage_PDM_testing.rprc]
-Writing section data with adddress 0x70040000, size 0x0000e9a0 bytes to file [C:/Users/carim/workspace_ccstheia/second_stage_PDM_testing/Release/second_stage_PDM_testing.rprc]
-Writing section data with adddress 0x7004e9a0, size 0x000026d0 bytes to file [C:/Users/carim/workspace_ccstheia/second_stage_PDM_testing/Release/second_stage_PDM_testing.rprc]
-Writing section header  #2, adddress 0x7005f930, size 0x00001990 bytes to file [C:/Users/carim/workspace_ccstheia/second_stage_PDM_testing/Release/second_stage_PDM_testing.rprc]
-Writing section data with adddress 0x7005f930, size 0x000008d8 bytes to file [C:/Users/carim/workspace_ccstheia/second_stage_PDM_testing/Release/second_stage_PDM_testing.rprc]
-Writing section data with adddress 0x70060208, size 0x00000430 bytes to file [C:/Users/carim/workspace_ccstheia/second_stage_PDM_testing/Release/second_stage_PDM_testing.rprc]
-Writing section data with adddress 0x70060638, size 0x00000290 bytes to file [C:/Users/carim/workspace_ccstheia/second_stage_PDM_testing/Release/second_stage_PDM_testing.rprc]
-Writing section data with adddress 0x700608c8, size 0x00000190 bytes to file [C:/Users/carim/workspace_ccstheia/second_stage_PDM_testing/Release/second_stage_PDM_testing.rprc]
-Writing section data with adddress 0x70060a58, size 0x00000008 bytes to file [C:/Users/carim/workspace_ccstheia/second_stage_PDM_testing/Release/second_stage_PDM_testing.rprc]
-Writing section data with adddress 0x70060a60, size 0x00000860 bytes to file [C:/Users/carim/workspace_ccstheia/second_stage_PDM_testing/Release/second_stage_PDM_testing.rprc]
+Writing section header  #1, adddress 0x70040000, size 0x00011140 bytes to file [C:/Users/carim/workspace_ccstheia/second_stage_PDM_testing/Release/second_stage_PDM_testing.rprc]
+Writing section data with adddress 0x70040000, size 0x0000ea20 bytes to file [C:/Users/carim/workspace_ccstheia/second_stage_PDM_testing/Release/second_stage_PDM_testing.rprc]
+Writing section data with adddress 0x7004ea20, size 0x00002720 bytes to file [C:/Users/carim/workspace_ccstheia/second_stage_PDM_testing/Release/second_stage_PDM_testing.rprc]
+Writing section header  #2, adddress 0x7005fa00, size 0x00001990 bytes to file [C:/Users/carim/workspace_ccstheia/second_stage_PDM_testing/Release/second_stage_PDM_testing.rprc]
+Writing section data with adddress 0x7005fa00, size 0x000008d8 bytes to file [C:/Users/carim/workspace_ccstheia/second_stage_PDM_testing/Release/second_stage_PDM_testing.rprc]
+Writing section data with adddress 0x700602d8, size 0x00000430 bytes to file [C:/Users/carim/workspace_ccstheia/second_stage_PDM_testing/Release/second_stage_PDM_testing.rprc]
+Writing section data with adddress 0x70060708, size 0x00000290 bytes to file [C:/Users/carim/workspace_ccstheia/second_stage_PDM_testing/Release/second_stage_PDM_testing.rprc]
+Writing section data with adddress 0x70060998, size 0x00000190 bytes to file [C:/Users/carim/workspace_ccstheia/second_stage_PDM_testing/Release/second_stage_PDM_testing.rprc]
+Writing section data with adddress 0x70060b28, size 0x00000008 bytes to file [C:/Users/carim/workspace_ccstheia/second_stage_PDM_testing/Release/second_stage_PDM_testing.rprc]
+Writing section data with adddress 0x70060b30, size 0x00000860 bytes to file [C:/Users/carim/workspace_ccstheia/second_stage_PDM_testing/Release/second_stage_PDM_testing.rprc]
 [C:/Users/carim/workspace_ccstheia/second_stage_PDM_testing/Release/second_stage_PDM_testing.rprc] Parsing file ...
 Found section 0 with adddress 0x00000000, size 0x00000040 bytes
-Found section 1 with adddress 0x70040000, size 0x00011070 bytes
-Found section 2 with adddress 0x7005f930, size 0x00001990 bytes
+Found section 1 with adddress 0x70040000, size 0x00011140 bytes
+Found section 2 with adddress 0x7005fa00, size 0x00001990 bytes
 [C:/Users/carim/workspace_ccstheia/second_stage_PDM_testing/Release/second_stage_PDM_testing.rprc] Found 3 sections. 3 are non-XIP sections, 0 are XIP sections, NON-XIP entryPoint = 0x00000000
 [C:/Users/carim/workspace_ccstheia/second_stage_PDM_testing/Release/second_stage_PDM_testing.rprc_xip] Parsing file ...
 [C:/Users/carim/workspace_ccstheia/second_stage_PDM_testing/Release/second_stage_PDM_testing.rprc_xip] Found 0 sections. 0 are non-XIP sections, 0 are XIP sections, NON-XIP entryPoint = 0x00000000
