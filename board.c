@@ -8,6 +8,7 @@ Pins intr_pins = {
     {GPIO44_PIN, GPIO44_BASE_ADDR, GPIO44_DIR, GPIO44_INT_NUM},
     {GPIO45_PIN, GPIO45_BASE_ADDR, GPIO45_DIR, GPIO45_INT_NUM},
     {GPIO46_PIN, GPIO46_BASE_ADDR, GPIO46_DIR, GPIO46_INT_NUM},
+    {GPIO49_PIN, GPIO49_BASE_ADDR, GPIO49_DIR, GPIO49_INT_NUM},
     {GPIO50_PIN, GPIO50_BASE_ADDR, GPIO50_DIR, GPIO50_INT_NUM},
     {GPIO51_PIN, GPIO51_BASE_ADDR, GPIO51_DIR, GPIO51_INT_NUM},
     {GPIO52_PIN, GPIO52_BASE_ADDR, GPIO52_DIR, GPIO52_INT_NUM}
@@ -41,6 +42,12 @@ void GPIO_bankIsrFxn(void *args)
             if (intr_status & GPIO_GET_BANK_BIT_MASK(intr_pins.gpio48.pin_num)) {
                 add_log(FAULT, GPIO48);
             }
+
+            if (intr_status & GPIO_GET_BANK_BIT_MASK(intr_pins.gpio49.pin_num))
+            {
+                add_log(FAULT, GPIO49);
+                // Add more stuff here later
+            }
             if (intr_status & GPIO_GET_BANK_BIT_MASK(intr_pins.gpio50.pin_num)) {
                 BQ25751_timer = ClockP_getTimeUsec();
                 BQ25751_timer_en = true;
@@ -63,12 +70,6 @@ void GPIO_bankIsrFxn(void *args)
 
 void init_gpio()
 {
-    GPIO_setDirMode(GPIO24_BASE_ADDR, GPIO24_PIN, GPIO24_DIR);
-    DebugP_log("GPIO24 configured as output\r\n");
-
-    GPIO_setDirMode(GPIO23_BASE_ADDR, GPIO23_PIN, GPIO23_DIR);
-    DebugP_log("GPIO23 configured as output\r\n");
-
     GPIO_setDirMode(GPIO53_BASE_ADDR, GPIO53_PIN, GPIO53_DIR);
     DebugP_log("GPIO53 configured as output\r\n");
 
@@ -106,6 +107,9 @@ void init_global_interrupts(Intr_objects *objects)
     DebugP_log("Initialized gpio45 interrupt\r\n");
 
     init_interrupt(&objects->Gpio46HwiObject, &intr_pins.gpio46);
+    DebugP_log("Initialized gpio46 interrupt\r\n");
+
+    init_interrupt(&objects->Gpio49HwiObject, &intr_pins.gpio49);
     DebugP_log("Initialized gpio46 interrupt\r\n");
 
     init_interrupt(&objects->Gpio50HwiObject, &intr_pins.gpio50);

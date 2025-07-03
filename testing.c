@@ -176,6 +176,7 @@ void conduct_test(uint8_t test_number)
     bool test_passed = true;
     // Comparing test results
     // Ideal diode 1
+    // TODO: Replace fabs() with ti_arm_abs(). It's faster
     if (fabs(actual.ideal_diode1.imon - expected.ideal_diode1.imon) > CURRENT_TOLERANCE)
     {
         DebugP_log("  IDEAL DIODE1 IMON: FAIL (Expected %.2fA, Got %.2fA)\r\n", 

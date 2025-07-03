@@ -18,6 +18,7 @@
 #include "logger.h"
 #include "testing.h"
 #include "BQ25751.h"
+#include "BQ25856.h"
 
 uint16_t log_counter = 0;
 
@@ -30,12 +31,8 @@ void PDM_testing(void *args)
 
     DebugP_uartSetDrvIndex(CONFIG_UART0);
     init_gpio();
-    BQ25751_write_reg(BQ25751_TIMER_CONTROL_REG, 1, 0x00); // Enabling Auto Reverse Mode
-    BQ25751_write_reg(BQ25751_REVERSE_MODE_SYSTEM_VOLTAGE_LIMIT_REG, 2, 0x12C0); // Set limit to 24V
-    BQ25751_write_reg(BQ25751_FAULT_MASK_REG, 1, 0xFA); // Disabling fault interrupt sources 
-    BQ25751_write_reg(BQ25751_CHARGER_MASK_1_REG, 1, 0xEB); // Disabling interrupt sources 
-    BQ25751_write_reg(BQ25751_CHARGER_MASK_2_REG, 1, 0xF2); // Disabling interrupt sources 
-    BQ25751_write_reg(BQ25751_POWER_PATH_REVERSE_MODE_CONTROL_REG, 1, 0x03); // Enabling Auto Reverse Mode
+    BQ25751_init();
+    BQ25856_init();
     init_global_interrupts(&intr_objects);
     ADC_enableConverter(ADC1_BASE_ADDR);
     ClockP_sleep(1);

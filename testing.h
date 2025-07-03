@@ -16,6 +16,8 @@
 #include "ADS_adc.h"
 #include "int_adc.h"
 #include "logger.h"
+#include <mathlib/trig/ti_arm_trig.h>
+#include "math.h"
 
 #define TESTS_NUMBER 30
 

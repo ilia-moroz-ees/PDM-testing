@@ -14,6 +14,7 @@
 #define GPIO44_INT_NUM CSLR_R5FSS0_CORE0_INTR_GPIO_INTRXBAR_OUT_14
 #define GPIO45_INT_NUM CSLR_R5FSS0_CORE0_INTR_GPIO_INTRXBAR_OUT_14
 #define GPIO46_INT_NUM CSLR_R5FSS0_CORE0_INTR_GPIO_INTRXBAR_OUT_14
+#define GPIO49_INT_NUM CSLR_R5FSS0_CORE0_INTR_GPIO_INTRXBAR_OUT_15
 #define GPIO50_INT_NUM CSLR_R5FSS0_CORE0_INTR_GPIO_INTRXBAR_OUT_15
 #define GPIO51_INT_NUM CSLR_R5FSS0_CORE0_INTR_GPIO_INTRXBAR_OUT_15
 #define GPIO52_INT_NUM CSLR_R5FSS0_CORE0_INTR_GPIO_INTRXBAR_OUT_15
@@ -26,6 +27,7 @@ typedef struct
     HwiP_Object Gpio44HwiObject;
     HwiP_Object Gpio45HwiObject;
     HwiP_Object Gpio46HwiObject;
+    HwiP_Object Gpio49HwiObject;
     HwiP_Object Gpio50HwiObject;
     HwiP_Object Gpio51HwiObject;
     HwiP_Object Gpio52HwiObject;
@@ -45,6 +47,7 @@ typedef struct
     Pin_parameters gpio44;
     Pin_parameters gpio45;
     Pin_parameters gpio46;
+    Pin_parameters gpio49;
     Pin_parameters gpio50;
     Pin_parameters gpio51;
     Pin_parameters gpio52;

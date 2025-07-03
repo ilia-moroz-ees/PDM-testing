@@ -61,6 +61,18 @@ static Pinmux_PerCfg_t gPinMuxMainDomainCfg[] = {
         PIN_I2C0_SDA,
         ( PIN_MODE(0) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW )
     },
+            /* I2C1 pin config */
+    /* I2C1_SCL -> I2C1_SCL (D7) */
+    {
+        PIN_I2C1_SCL,
+        ( PIN_MODE(0) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW )
+    },
+    /* I2C1 pin config */
+    /* I2C1_SDA -> I2C1_SDA (C8) */
+    {
+        PIN_I2C1_SDA,
+        ( PIN_MODE(0) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW )
+    },
 
                 /* GPIO48 -> EPWM2_B (C1) */
     {
@@ -102,16 +114,6 @@ static Pinmux_PerCfg_t gPinMuxMainDomainCfg[] = {
         PIN_EPWM5_B,
         ( PIN_MODE(7) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW | PIN_GPIO_R5SS0_0 )
     },
-                /* GPIO24 -> I2C1_SDA (C8) */
-    {
-        PIN_I2C1_SDA,
-        ( PIN_MODE(7) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW | PIN_GPIO_R5SS0_0 )
-    },
-                /* GPIO23 -> I2C1_SCL (D7) */
-    {
-        PIN_I2C1_SCL,
-        ( PIN_MODE(7) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW | PIN_GPIO_R5SS0_0 )
-    },
                 /* GPIO123 -> SDFM0_D0 (D14) */
     {
         PIN_SDFM0_D0,
@@ -145,6 +147,11 @@ static Pinmux_PerCfg_t gPinMuxMainDomainCfg[] = {
                 /* GPIO50 -> EPWM3_B (E3) */
     {
         PIN_EPWM3_B,
+        ( PIN_MODE(7) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW | PIN_GPIO_R5SS0_0 )
+    },
+                /* GPIO49 -> EPWM3_A (E2) */
+    {
+        PIN_EPWM3_A,
         ( PIN_MODE(7) | PIN_PULL_DISABLE | PIN_SLEW_RATE_LOW | PIN_GPIO_R5SS0_0 )
     },
 

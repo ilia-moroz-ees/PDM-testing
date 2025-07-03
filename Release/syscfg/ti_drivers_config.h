@@ -60,13 +60,14 @@ void System_deinit(void);
 
 /* I2C Instance Macros */
 #define CONFIG_I2C0 (0U)
-#define I2C1 (1U)
+#define I2C0 (1U)
+#define I2C1 (2U)
 
 /* I2C Includes */
 #include <drivers/i2c.h>
 #include <kernel/dpl/ClockP.h>
 
-#define CONFIG_I2C_HLD_NUM_INSTANCES (2U)
+#define CONFIG_I2C_HLD_NUM_INSTANCES (3U)
 
 /*
  * ADC
@@ -136,14 +137,6 @@ void System_deinit(void);
 #define GPIO54_PIN (54)
 #define GPIO54_DIR (GPIO_DIRECTION_OUTPUT)
 #define GPIO54_TRIG_TYPE (GPIO_TRIG_TYPE_NONE)
-#define GPIO24_BASE_ADDR (CSL_GPIO0_U_BASE)
-#define GPIO24_PIN (24)
-#define GPIO24_DIR (GPIO_DIRECTION_OUTPUT)
-#define GPIO24_TRIG_TYPE (GPIO_TRIG_TYPE_NONE)
-#define GPIO23_BASE_ADDR (CSL_GPIO0_U_BASE)
-#define GPIO23_PIN (23)
-#define GPIO23_DIR (GPIO_DIRECTION_OUTPUT)
-#define GPIO23_TRIG_TYPE (GPIO_TRIG_TYPE_NONE)
 #define GPIO123_BASE_ADDR (CSL_GPIO0_U_BASE)
 #define GPIO123_PIN (123)
 #define GPIO123_DIR (GPIO_DIRECTION_OUTPUT)
@@ -175,7 +168,14 @@ void System_deinit(void);
 
 #define GPIO50_INTR_NUM      (CSLR__GPIOMUX_INTROUTER0_OUTP_)
 
-#define CONFIG_GPIO_NUM_INSTANCES (17U)
+#define GPIO49_BASE_ADDR (CSL_GPIO0_U_BASE)
+#define GPIO49_PIN (49)
+#define GPIO49_DIR (GPIO_DIRECTION_INPUT)
+#define GPIO49_TRIG_TYPE (GPIO_TRIG_TYPE_FALL_EDGE)
+
+#define GPIO49_INTR_NUM      (CSLR__GPIOMUX_INTROUTER0_OUTP_)
+
+#define CONFIG_GPIO_NUM_INSTANCES (16U)
 /*
  * MCSPI
  */

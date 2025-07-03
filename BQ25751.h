@@ -12,6 +12,7 @@
 #include <kernel/dpl/AddrTranslateP.h>
 #include <kernel/dpl/ClockP.h>
 #include <kernel/dpl/DebugP.h>
+#include "i2c_helper.h"
 #include <math.h>
 #include <stdio.h>
 
@@ -80,7 +81,6 @@
 
 int32_t BQ25751_read_reg(uint8_t register_addr, uint8_t length, uint16_t* result);
 int32_t BQ25751_write_reg(uint8_t register_addr, uint8_t length, uint16_t data);
-void i2c_read_error_handler(int32_t status);
 
 void BQ25751_read_faults();
 void BQ25751_manual_register_read(void);

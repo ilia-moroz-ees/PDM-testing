@@ -12,6 +12,7 @@ GEN_CMDS__FLAG := -Wl,-l"syscfg/linker.cmd"
 ORDERED_OBJS += \
 "./ADS_adc.o" \
 "./BQ25751.o" \
+"./BQ25856.o" \
 "./PDMtesting.o" \
 "./board.o" \
 "./syscfg/ti_dpl_config.o" \
@@ -26,6 +27,7 @@ ORDERED_OBJS += \
 "./syscfg/ti_enet_soc.o" \
 "./syscfg/ti_enet_lwipif.o" \
 "./syscfg/ti_sdl_config.o" \
+"./i2c_helper.o" \
 "./int_adc.o" \
 "./ioexp_tca6408.o" \
 "./ioexp_tca6416.o" \
@@ -166,8 +168,8 @@ second_stage_PDM_testing.out: $(OBJS) $(GEN_CMDS)
 # Other Targets
 clean:
 	-$(RM) $(GEN_MISC_FILES__QUOTED)$(GEN_FILES__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "ADS_adc.o" "BQ25751.o" "PDMtesting.o" "board.o" "syscfg\ti_dpl_config.o" "syscfg\ti_drivers_config.o" "syscfg\ti_drivers_open_close.o" "syscfg\ti_pinmux_config.o" "syscfg\ti_power_clock_config.o" "syscfg\ti_board_config.o" "syscfg\ti_board_open_close.o" "syscfg\ti_enet_config.o" "syscfg\ti_enet_open_close.o" "syscfg\ti_enet_soc.o" "syscfg\ti_enet_lwipif.o" "syscfg\ti_sdl_config.o" "int_adc.o" "ioexp_tca6408.o" "ioexp_tca6416.o" "ioexp_tca6424.o" "logger.o" "main.o" "testing.o" 
-	-$(RM) "ADS_adc.d" "BQ25751.d" "PDMtesting.d" "board.d" "syscfg\ti_dpl_config.d" "syscfg\ti_drivers_config.d" "syscfg\ti_drivers_open_close.d" "syscfg\ti_pinmux_config.d" "syscfg\ti_power_clock_config.d" "syscfg\ti_board_config.d" "syscfg\ti_board_open_close.d" "syscfg\ti_enet_config.d" "syscfg\ti_enet_open_close.d" "syscfg\ti_enet_soc.d" "syscfg\ti_enet_lwipif.d" "syscfg\ti_sdl_config.d" "int_adc.d" "ioexp_tca6408.d" "ioexp_tca6416.d" "ioexp_tca6424.d" "logger.d" "main.d" "testing.d" 
+	-$(RM) "ADS_adc.o" "BQ25751.o" "BQ25856.o" "PDMtesting.o" "board.o" "syscfg\ti_dpl_config.o" "syscfg\ti_drivers_config.o" "syscfg\ti_drivers_open_close.o" "syscfg\ti_pinmux_config.o" "syscfg\ti_power_clock_config.o" "syscfg\ti_board_config.o" "syscfg\ti_board_open_close.o" "syscfg\ti_enet_config.o" "syscfg\ti_enet_open_close.o" "syscfg\ti_enet_soc.o" "syscfg\ti_enet_lwipif.o" "syscfg\ti_sdl_config.o" "i2c_helper.o" "int_adc.o" "ioexp_tca6408.o" "ioexp_tca6416.o" "ioexp_tca6424.o" "logger.o" "main.o" "testing.o" 
+	-$(RM) "ADS_adc.d" "BQ25751.d" "BQ25856.d" "PDMtesting.d" "board.d" "syscfg\ti_dpl_config.d" "syscfg\ti_drivers_config.d" "syscfg\ti_drivers_open_close.d" "syscfg\ti_pinmux_config.d" "syscfg\ti_power_clock_config.d" "syscfg\ti_board_config.d" "syscfg\ti_board_open_close.d" "syscfg\ti_enet_config.d" "syscfg\ti_enet_open_close.d" "syscfg\ti_enet_soc.d" "syscfg\ti_enet_lwipif.d" "syscfg\ti_sdl_config.d" "i2c_helper.d" "int_adc.d" "ioexp_tca6408.d" "ioexp_tca6416.d" "ioexp_tca6424.d" "logger.d" "main.d" "testing.d" 
 	-$(RMDIR) $(GEN_MISC_DIRS__QUOTED)
 	-@echo 'Finished clean'
 	-@echo ' '

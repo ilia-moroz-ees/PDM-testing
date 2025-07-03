@@ -11,6 +11,7 @@ SYSCFG_SRCS += \
 C_SRCS += \
 ../ADS_adc.c \
 ../BQ25751.c \
+../BQ25856.c \
 ../PDMtesting.c \
 ../board.c \
 ./syscfg/ti_dpl_config.c \
@@ -25,6 +26,7 @@ C_SRCS += \
 ./syscfg/ti_enet_soc.c \
 ./syscfg/ti_enet_lwipif.c \
 ./syscfg/ti_sdl_config.c \
+../i2c_helper.c \
 ../int_adc.c \
 ../ioexp_tca6408.c \
 ../ioexp_tca6416.c \
@@ -57,6 +59,7 @@ GEN_MISC_DIRS += \
 C_DEPS += \
 ./ADS_adc.d \
 ./BQ25751.d \
+./BQ25856.d \
 ./PDMtesting.d \
 ./board.d \
 ./syscfg/ti_dpl_config.d \
@@ -71,6 +74,7 @@ C_DEPS += \
 ./syscfg/ti_enet_soc.d \
 ./syscfg/ti_enet_lwipif.d \
 ./syscfg/ti_sdl_config.d \
+./i2c_helper.d \
 ./int_adc.d \
 ./ioexp_tca6408.d \
 ./ioexp_tca6416.d \
@@ -82,6 +86,7 @@ C_DEPS += \
 OBJS += \
 ./ADS_adc.o \
 ./BQ25751.o \
+./BQ25856.o \
 ./PDMtesting.o \
 ./board.o \
 ./syscfg/ti_dpl_config.o \
@@ -96,6 +101,7 @@ OBJS += \
 ./syscfg/ti_enet_soc.o \
 ./syscfg/ti_enet_lwipif.o \
 ./syscfg/ti_sdl_config.o \
+./i2c_helper.o \
 ./int_adc.o \
 ./ioexp_tca6408.o \
 ./ioexp_tca6416.o \
@@ -123,6 +129,7 @@ GEN_MISC_DIRS__QUOTED += \
 OBJS__QUOTED += \
 "ADS_adc.o" \
 "BQ25751.o" \
+"BQ25856.o" \
 "PDMtesting.o" \
 "board.o" \
 "syscfg\ti_dpl_config.o" \
@@ -137,6 +144,7 @@ OBJS__QUOTED += \
 "syscfg\ti_enet_soc.o" \
 "syscfg\ti_enet_lwipif.o" \
 "syscfg\ti_sdl_config.o" \
+"i2c_helper.o" \
 "int_adc.o" \
 "ioexp_tca6408.o" \
 "ioexp_tca6416.o" \
@@ -161,6 +169,7 @@ GEN_MISC_FILES__QUOTED += \
 C_DEPS__QUOTED += \
 "ADS_adc.d" \
 "BQ25751.d" \
+"BQ25856.d" \
 "PDMtesting.d" \
 "board.d" \
 "syscfg\ti_dpl_config.d" \
@@ -175,6 +184,7 @@ C_DEPS__QUOTED += \
 "syscfg\ti_enet_soc.d" \
 "syscfg\ti_enet_lwipif.d" \
 "syscfg\ti_sdl_config.d" \
+"i2c_helper.d" \
 "int_adc.d" \
 "ioexp_tca6408.d" \
 "ioexp_tca6416.d" \
@@ -201,6 +211,7 @@ GEN_FILES__QUOTED += \
 C_SRCS__QUOTED += \
 "../ADS_adc.c" \
 "../BQ25751.c" \
+"../BQ25856.c" \
 "../PDMtesting.c" \
 "../board.c" \
 "./syscfg/ti_dpl_config.c" \
@@ -215,6 +226,7 @@ C_SRCS__QUOTED += \
 "./syscfg/ti_enet_soc.c" \
 "./syscfg/ti_enet_lwipif.c" \
 "./syscfg/ti_sdl_config.c" \
+"../i2c_helper.c" \
 "../int_adc.c" \
 "../ioexp_tca6408.c" \
 "../ioexp_tca6416.c" \
