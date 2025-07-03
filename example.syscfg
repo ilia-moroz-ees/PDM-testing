@@ -171,8 +171,8 @@ gpio16.trigType       = "FALL_EDGE";
 gpio16.enableIntr     = true;
 gpio16.GPIO_n.$assign = "EPWM3_A";
 
-i2c1.$name              = "CONFIG_I2C0";
 ioexp1.peripheralDriver = i2c1;
+i2c1.$name              = "I2C2";
 i2c1.I2C.$assign        = "I2C2";
 i2c1.I2C.SCL.$assign    = "UART0_RTSn";
 i2c1.I2C.SDA.$assign    = "UART0_CTSn";

@@ -75,8 +75,8 @@ static I2C_Object gI2cObjects[CONFIG_I2C_HLD_NUM_INSTANCES];
 I2C_Config gI2cConfig[CONFIG_I2C_HLD_NUM_INSTANCES] =
 {
     {
-        .object = &gI2cObjects[CONFIG_I2C0],
-        .hwAttrs = &gI2cHwAttrs[CONFIG_I2C0]
+        .object = &gI2cObjects[I2C2],
+        .hwAttrs = &gI2cHwAttrs[I2C2]
     },
     {
         .object = &gI2cObjects[I2C0],

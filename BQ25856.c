@@ -359,4 +359,7 @@ void BQ25856_init(void)
     BQ25856_write_reg(BQ25856_TIMER_CONTROL_REG, 1, 0x05); // Disabling watchdog, enable EN_CHG_TMR 
     BQ25856_write_reg(BQ25856_POWER_PATH_REVERSE_MODE_CONTROL_REG, 1, 0x03); // Enabling Auto Reverse Mode
     BQ25856_write_reg(BQ25856_REVERSE_UNDERVOLTAGE_CONTROL_REG, 1, 0x03); // Set minimum voltage of the capacitor to 3.3V
+    BQ25856_write_reg(BQ25856_CHARGER_MASK_1_REG, 1, 0x75); // Disable interrupts in charger mask 1
+    BQ25856_write_reg(BQ25856_CHARGER_MASK_2_REG, 1, 0x92); // Disable interrupts in charger mask 2
+    BQ25856_write_reg(BQ25856_FAULT_MASK_REG, 1, 0xFE); // Disable fault interrupts
 }

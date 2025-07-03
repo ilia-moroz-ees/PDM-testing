@@ -59,7 +59,7 @@ void System_deinit(void);
  */
 
 /* I2C Instance Macros */
-#define CONFIG_I2C0 (0U)
+#define I2C2 (0U)
 #define I2C0 (1U)
 #define I2C1 (2U)
 

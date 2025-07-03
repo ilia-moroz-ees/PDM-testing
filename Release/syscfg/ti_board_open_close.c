@@ -67,7 +67,7 @@ int32_t Board_ioexpOpen()
     TCA6424_Params      TCA6424Params;
     TCA6424_Params_init(&TCA6424Params);
 
-    TCA6424Params.i2cInstance  =  CONFIG_I2C0;
+    TCA6424Params.i2cInstance  =  I2C2;
     TCA6424Params.i2cAddress  = 0x22U;
     status = TCA6424_open(&gTCA6424_Config, &TCA6424Params);
     

@@ -64,26 +64,34 @@ void PDM_testing(void *args)
                 DebugP_log("Current number of logs: %d/%d\r\n", logs_length, MAX_LOG_ENTRY_NUMBER);
                 break;
 
-            case 994: // BQ25751 test mode
+            case 993: // BQ25751 test mode
                 BQ25751_run_test_mode();
                 break;
 
-            case 995: // test of reading part number of BQ25751
+            case 994: // test of reading part number of BQ25751
             {
                 BQ25751_read_faults();
                 break;
             }
 
-            case 996: // Write a register from BQ25751 with value manually
+            case 995: // Manually write a register to BQ25751
                 BQ25751_manual_register_write();
                 break;
 
-            case 997: // Read a register from BQ25751 manually
+            case 996: // Manually read a register from BQ25751
                BQ25751_manual_register_read();
                break;
 
-            case 998: // Print a regusters dump
+            case 997: // Print a regusters dump
                 BQ25751_print_register_dump();
+                break;
+
+            case 998: // Manually write a register to BQ25856
+                BQ25856_manual_register_write();
+                break;
+
+            case 999: // Manually read a register from BQ25856
+                BQ25856_manual_register_read();
                 break;
             
             default:
