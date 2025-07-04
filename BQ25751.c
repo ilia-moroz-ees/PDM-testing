@@ -386,22 +386,29 @@ void BQ25751_run_test_mode(void)
 
             uint16_t result;
             uint16_t is_reverse;
-            if (!BQ25751_read_reg(BQ25751_CHARGER_STATUS_3_REG, 1, &is_reverse))
+            if (BQ25751_read_reg(BQ25751_CHARGER_STATUS_3_REG, 1, &is_reverse))
             {
-                DebugP_log("Interrupt triggered\r\n");
-                if (is_reverse & 0b00000100)
+                DebugP_log("Reading reverse mode failed failed\r\n");
+                continue;
+            }
+
+            DebugP_log("Interrupt triggered\r\n");
+
+            if (is_reverse & 0b00000100)
+            {
+                DebugP_log("Reverse mode detected\r\n");
+                if(BQ25751_read_reg(BQ25751_CHARGER_CONTROL_REG, 1, &result))
                 {
-                    DebugP_log("Reverse mode detected\r\n");
-                    if(!BQ25751_read_reg(BQ25751_CHARGER_CONTROL_REG, 1, &result))
-                    {
-                        DebugP_log("value of charger_control_reg is 0x%2C\r\n", result);
-                        uint16_t hiZ_mask = 0b00000100;
-                    
-                        if(!BQ25751_write_reg(BQ25751_CHARGER_CONTROL_REG, 1, result | hiZ_mask)) // Enabling HiZ mode
-                        {
-                            DebugP_log("going HiZ\r\n");
-                        }
-                    }
+                    DebugP_log("Reading HiZ mode state failed\r\n");
+                    continue;
+                }
+
+                DebugP_log("value of charger_control_reg is 0x%2C\r\n", result);
+                uint16_t hiZ_mask = 0b00000100;
+            
+                if(!BQ25751_write_reg(BQ25751_CHARGER_CONTROL_REG, 1, result | hiZ_mask)) // Enabling HiZ mode
+                {
+                    DebugP_log("going HiZ\r\n");
                 }
             }
             
