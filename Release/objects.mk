@@ -4,5 +4,5 @@
 
 USER_OBJS :=
 
-LIBS := -Wl,-lnortos.am263px.r5f.ti-arm-clang.release.lib -Wl,-ldrivers.am263px.r5f.ti-arm-clang.release.lib -Wl,-llibc.a -Wl,-llibsysbm.a
+LIBS := -Wl,-lnortos.am263px.r5f.ti-arm-clang.release.lib -Wl,-ldrivers.am263px.r5f.ti-arm-clang.release.lib -Wl,-llibc.a -Wl,-llibsysbm.a -Wl,-lpmic_blackbird.am263px.r5f.ti-arm-clang.release.lib
 

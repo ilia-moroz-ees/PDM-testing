@@ -31,7 +31,7 @@ C_SRCS += \
 ../ioexp_tca6424.c \
 ../logger.c \
 ../main.c \
-../pmic.c \
+../pmic_test.c \
 ../testing.c 
 
 GEN_CMDS += \
@@ -78,7 +78,7 @@ C_DEPS += \
 ./ioexp_tca6424.d \
 ./logger.d \
 ./main.d \
-./pmic.d \
+./pmic_test.d \
 ./testing.d 
 
 OBJS += \
@@ -104,7 +104,7 @@ OBJS += \
 ./ioexp_tca6424.o \
 ./logger.o \
 ./main.o \
-./pmic.o \
+./pmic_test.o \
 ./testing.o 
 
 GEN_MISC_FILES += \
@@ -146,7 +146,7 @@ OBJS__QUOTED += \
 "ioexp_tca6424.o" \
 "logger.o" \
 "main.o" \
-"pmic.o" \
+"pmic_test.o" \
 "testing.o" 
 
 GEN_MISC_FILES__QUOTED += \
@@ -185,7 +185,7 @@ C_DEPS__QUOTED += \
 "ioexp_tca6424.d" \
 "logger.d" \
 "main.d" \
-"pmic.d" \
+"pmic_test.d" \
 "testing.d" 
 
 GEN_FILES__QUOTED += \
@@ -226,7 +226,7 @@ C_SRCS__QUOTED += \
 "../ioexp_tca6424.c" \
 "../logger.c" \
 "../main.c" \
-"../pmic.c" \
+"../pmic_test.c" \
 "../testing.c" 
 
 SYSCFG_SRCS__QUOTED += \

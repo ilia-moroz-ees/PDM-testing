@@ -32,13 +32,14 @@ ORDERED_OBJS += \
 "./ioexp_tca6424.o" \
 "./logger.o" \
 "./main.o" \
-"./pmic.o" \
+"./pmic_test.o" \
 "./testing.o" \
 $(GEN_CMDS__FLAG) \
 -Wl,-lnortos.am263px.r5f.ti-arm-clang.release.lib \
 -Wl,-ldrivers.am263px.r5f.ti-arm-clang.release.lib \
 -Wl,-llibc.a \
 -Wl,-llibsysbm.a \
+-Wl,-lpmic_blackbird.am263px.r5f.ti-arm-clang.release.lib \
 
 -include ../makefile.init
 
@@ -159,7 +160,7 @@ all: $(OBJS) $(GEN_CMDS)
 second_stage_PDM_testing.out: $(OBJS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: Arm Linker'
-	"C:/ti/ccs2011/ccs/tools/compiler/ti-cgt-armllvm_4.0.2.LTS/bin/tiarmclang.exe" -mcpu=cortex-r5 -mfloat-abi=hard -mfpu=vfpv3-d16 -mlittle-endian -mthumb -Os -DSOC_AM263PX -g -Wall -Wno-gnu-variable-sized-type-not-at-end -Wno-unused-function -Wl,-m"empty.Release.map" -Wl,-i"C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/kernel/nortos/lib" -Wl,-i"C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/board/lib" -Wl,-i"C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/drivers/lib" -Wl,-i"C:/ti/ccs2011/ccs/tools/compiler/ti-cgt-armllvm_4.0.2.LTS/lib" -Wl,--reread_libs -Wl,--diag_suppress=10063 -Wl,--diag_wrap=off -Wl,--display_error_number -Wl,--warn_sections -Wl,--gen_xml_func_hash -Wl,--xml_link_info="second_stage_PDM_testing_linkInfo.xml" -Wl,--ram_model -o "second_stage_PDM_testing.out" $(ORDERED_OBJS)
+	"C:/ti/ccs2011/ccs/tools/compiler/ti-cgt-armllvm_4.0.2.LTS/bin/tiarmclang.exe" -mcpu=cortex-r5 -mfloat-abi=hard -mfpu=vfpv3-d16 -mlittle-endian -mthumb -Os -DSOC_AM263PX -g -Wall -Wno-gnu-variable-sized-type-not-at-end -Wno-unused-function -Wl,-m"pmic_user_reg_cfg.Release.map" -Wl,-i"C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/kernel/nortos/lib" -Wl,-i"C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/drivers/lib" -Wl,-i"C:/ti/ccs2011/ccs/tools/compiler/ti-cgt-armllvm_4.0.2.LTS/lib" -Wl,-i"C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/board/lib" -Wl,-i"C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/board/pmic/pmic_lld/blackbird/include" -Wl,-i"C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/board/pmic/lib" -Wl,--reread_libs -Wl,--diag_suppress=10063 -Wl,--diag_wrap=off -Wl,--display_error_number -Wl,--warn_sections -Wl,--gen_xml_func_hash -Wl,--xml_link_info="second_stage_PDM_testing_linkInfo.xml" -Wl,--ram_model -o "second_stage_PDM_testing.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 	@$(MAKE) --no-print-directory post-build
@@ -167,8 +168,8 @@ second_stage_PDM_testing.out: $(OBJS) $(GEN_CMDS)
 # Other Targets
 clean:
 	-$(RM) $(GEN_MISC_FILES__QUOTED)$(GEN_FILES__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "ADS_adc.o" "BQ25751.o" "BQ25856.o" "PDMtesting.o" "board.o" "syscfg\ti_dpl_config.o" "syscfg\ti_drivers_config.o" "syscfg\ti_drivers_open_close.o" "syscfg\ti_pinmux_config.o" "syscfg\ti_power_clock_config.o" "syscfg\ti_board_config.o" "syscfg\ti_board_open_close.o" "syscfg\ti_enet_config.o" "syscfg\ti_enet_open_close.o" "syscfg\ti_enet_soc.o" "syscfg\ti_enet_lwipif.o" "syscfg\ti_sdl_config.o" "i2c_helper.o" "int_adc.o" "ioexp_tca6424.o" "logger.o" "main.o" "pmic.o" "testing.o" 
-	-$(RM) "ADS_adc.d" "BQ25751.d" "BQ25856.d" "PDMtesting.d" "board.d" "syscfg\ti_dpl_config.d" "syscfg\ti_drivers_config.d" "syscfg\ti_drivers_open_close.d" "syscfg\ti_pinmux_config.d" "syscfg\ti_power_clock_config.d" "syscfg\ti_board_config.d" "syscfg\ti_board_open_close.d" "syscfg\ti_enet_config.d" "syscfg\ti_enet_open_close.d" "syscfg\ti_enet_soc.d" "syscfg\ti_enet_lwipif.d" "syscfg\ti_sdl_config.d" "i2c_helper.d" "int_adc.d" "ioexp_tca6424.d" "logger.d" "main.d" "pmic.d" "testing.d" 
+	-$(RM) "ADS_adc.o" "BQ25751.o" "BQ25856.o" "PDMtesting.o" "board.o" "syscfg\ti_dpl_config.o" "syscfg\ti_drivers_config.o" "syscfg\ti_drivers_open_close.o" "syscfg\ti_pinmux_config.o" "syscfg\ti_power_clock_config.o" "syscfg\ti_board_config.o" "syscfg\ti_board_open_close.o" "syscfg\ti_enet_config.o" "syscfg\ti_enet_open_close.o" "syscfg\ti_enet_soc.o" "syscfg\ti_enet_lwipif.o" "syscfg\ti_sdl_config.o" "i2c_helper.o" "int_adc.o" "ioexp_tca6424.o" "logger.o" "main.o" "pmic_test.o" "testing.o" 
+	-$(RM) "ADS_adc.d" "BQ25751.d" "BQ25856.d" "PDMtesting.d" "board.d" "syscfg\ti_dpl_config.d" "syscfg\ti_drivers_config.d" "syscfg\ti_drivers_open_close.d" "syscfg\ti_pinmux_config.d" "syscfg\ti_power_clock_config.d" "syscfg\ti_board_config.d" "syscfg\ti_board_open_close.d" "syscfg\ti_enet_config.d" "syscfg\ti_enet_open_close.d" "syscfg\ti_enet_soc.d" "syscfg\ti_enet_lwipif.d" "syscfg\ti_sdl_config.d" "i2c_helper.d" "int_adc.d" "ioexp_tca6424.d" "logger.d" "main.d" "pmic_test.d" "testing.d" 
 	-$(RMDIR) $(GEN_MISC_DIRS__QUOTED)
 	-@echo 'Finished clean'
 	-@echo ' '

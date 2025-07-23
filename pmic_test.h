@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <drivers/hw_include/cslr_soc.h>
 #include "board/pmic/pmic_lld/blackbird/include/pmic_core.h"
+#include "board/pmic/pmic_lld/blackbird/include/pmic_io.h"
 
 #define SLEEP_TIME_U 100*1000
 

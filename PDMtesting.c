@@ -20,7 +20,7 @@
 #include "testing.h"
 #include "BQ25751.h"
 #include "BQ25856.h"
-#include "pmic.h"
+#include "pmic_test.h"
 
 void PDM_testing(void *args)
 {

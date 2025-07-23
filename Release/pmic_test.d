@@ -1,6 +1,6 @@
 # FIXED
 
-pmic.o: ../pmic.c ../pmic.h \
+pmic_test.o: ../pmic_test.c ../pmic_test.h \
  syscfg/ti_board_open_close.h \
  syscfg/ti_board_config.h \
  syscfg/ti_drivers_config.h \
@@ -134,7 +134,7 @@ pmic.o: ../pmic.c ../pmic.h \
  syscfg/ti_drivers_open_close.h \
  C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/drivers/mcspi/v0/lld/dma/mcspi_dma.h \
  C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/drivers/mcspi/v0/lld/dma/edma/mcspi_dma_edma.h
-../pmic.h:
+../pmic_test.h:
 syscfg/ti_board_open_close.h:
 syscfg/ti_board_config.h:
 syscfg/ti_drivers_config.h:

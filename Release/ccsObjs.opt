@@ -20,10 +20,11 @@
 "./ioexp_tca6424.o"
 "./logger.o"
 "./main.o"
-"./pmic.o"
+"./pmic_test.o"
 "./testing.o"
 -l"syscfg/linker.cmd"
 -lnortos.am263px.r5f.ti-arm-clang.release.lib
 -ldrivers.am263px.r5f.ti-arm-clang.release.lib
 -llibc.a
 -llibsysbm.a
+-lpmic_blackbird.am263px.r5f.ti-arm-clang.release.lib
