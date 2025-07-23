@@ -70,6 +70,27 @@ void System_deinit(void);
 #define CONFIG_I2C_HLD_NUM_INSTANCES (3U)
 
 /*
+ * MCSPI
+ */
+#include <drivers/mcspi.h>
+
+/* MCSPI Instance Macros */
+#define SPI0 (0U)
+#define SPI1 (1U)
+#define CONFIG_MCSPI_NUM_INSTANCES (2U)
+#define CONFIG_MCSPI_NUM_DMA_INSTANCES (0U)
+
+/*
+ * EDMA
+ */
+#include <drivers/edma.h>
+#include <drivers/soc.h>
+
+/* EDMA Instance Macros */
+#define CONFIG_EDMA0_BASE_ADDR (CSL_TPCC0_U_BASE)
+#define CONFIG_EDMA0 (0U)
+#define CONFIG_EDMA_NUM_INSTANCES (1U)
+/*
  * ADC
  */
 #include <drivers/adc.h>
@@ -175,28 +196,11 @@ void System_deinit(void);
 
 #define GPIO49_INTR_NUM      (CSLR__GPIOMUX_INTROUTER0_OUTP_)
 
-#define CONFIG_GPIO_NUM_INSTANCES (16U)
-/*
- * MCSPI
- */
-#include <drivers/mcspi.h>
-
-/* MCSPI Instance Macros */
-#define SPI0 (0U)
-#define SPI1 (1U)
-#define CONFIG_MCSPI_NUM_INSTANCES (2U)
-#define CONFIG_MCSPI_NUM_DMA_INSTANCES (0U)
-
-/*
- * EDMA
- */
-#include <drivers/edma.h>
-#include <drivers/soc.h>
-
-/* EDMA Instance Macros */
-#define CONFIG_EDMA0_BASE_ADDR (CSL_TPCC0_U_BASE)
-#define CONFIG_EDMA0 (0U)
-#define CONFIG_EDMA_NUM_INSTANCES (1U)
+#define GPIO47_BASE_ADDR (CSL_GPIO0_U_BASE)
+#define GPIO47_PIN (47)
+#define GPIO47_DIR (GPIO_DIRECTION_OUTPUT)
+#define GPIO47_TRIG_TYPE (GPIO_TRIG_TYPE_NONE)
+#define CONFIG_GPIO_NUM_INSTANCES (17U)
 
 
 /*

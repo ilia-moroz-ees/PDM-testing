@@ -17,11 +17,10 @@
 "./syscfg/ti_sdl_config.o"
 "./i2c_helper.o"
 "./int_adc.o"
-"./ioexp_tca6408.o"
-"./ioexp_tca6416.o"
 "./ioexp_tca6424.o"
 "./logger.o"
 "./main.o"
+"./pmic.o"
 "./testing.o"
 -l"syscfg/linker.cmd"
 -lnortos.am263px.r5f.ti-arm-clang.release.lib

@@ -88,6 +88,9 @@ void init_gpio()
     GPIO_setDirMode(GPIO126_BASE_ADDR, GPIO126_PIN, GPIO126_DIR);
     DebugP_log("GPIO126 configured as output\r\n");
 
+    GPIO_setDirMode(GPIO47_BASE_ADDR, GPIO47_PIN, GPIO47_DIR);
+    DebugP_log("GPIO47 configured as output\r\n");
+
     GPIO_setDirMode(SPI0_CS_BASE_ADDR, SPI0_CS_PIN, SPI0_CS_DIR);
     DebugP_log("SPI0_CS configured as output\r\n");
 

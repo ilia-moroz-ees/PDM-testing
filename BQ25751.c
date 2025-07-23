@@ -361,7 +361,9 @@ void BQ25751_init(void)
     BQ25751_write_reg(BQ25751_FAULT_MASK_REG, 1, 0xFA); // Disabling fault interrupt sources 
     BQ25751_write_reg(BQ25751_CHARGER_MASK_1_REG, 1, 0xEB); // Disabling interrupt sources 
     BQ25751_write_reg(BQ25751_CHARGER_MASK_2_REG, 1, 0xF2); // Disabling interrupt sources 
-    BQ25751_write_reg(BQ25751_POWER_PATH_REVERSE_MODE_CONTROL_REG, 1, 0x03); // Enabling Auto Reverse Mode
+    // BQ25751_write_reg(BQ25751_POWER_PATH_REVERSE_MODE_CONTROL_REG, 1, 0x03); // Enabling Auto Reverse Mode
+    BQ25751_write_reg(BQ25751_REVERSE_MODE_SYSTEM_VOLTAGE_LIMIT_REG, 2, 0x12C0); // Set limit to 24V
+
 }
 
 void BQ25751_run_test_mode(void)
@@ -371,7 +373,6 @@ void BQ25751_run_test_mode(void)
     {
         is_first = false;
         BQ25751_write_reg(BQ25751_TIMER_CONTROL_REG, 1, 0x00); // Disabling Watchdog
-        BQ25751_write_reg(BQ25751_REVERSE_MODE_SYSTEM_VOLTAGE_LIMIT_REG, 2, 0x12C0); // Set limit to 24V
         BQ25751_write_reg(BQ25751_FAULT_MASK_REG, 1, 0xFA); // Disabling fault interrupt sources 
         BQ25751_write_reg(BQ25751_CHARGER_MASK_1_REG, 1, 0xEB); // Disabling interrupt sources 
         BQ25751_write_reg(BQ25751_CHARGER_MASK_2_REG, 1, 0xF2); // Disabling interrupt sources 

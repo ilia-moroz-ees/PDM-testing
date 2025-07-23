@@ -74,10 +74,12 @@ extern I2C_Params gI2cParams[CONFIG_I2C_HLD_NUM_INSTANCES];
 void Drivers_i2cOpen(void);
 void Drivers_i2cClose(void);
 
-#include <drivers/adc.h>
-#include <kernel/dpl/ClockP.h>
 
-void Drivers_adcOpen(void);
+
+
+/* Include ti_drivers_open_close.h to call MCSPI open*/
+void Drivers_pmicOpen();
+
 /*
  * MCSPI
  */
@@ -126,6 +128,10 @@ extern EDMA_Params gEdmaParams[CONFIG_EDMA_NUM_INSTANCES];
 void Drivers_edmaOpen(void);
 void Drivers_edmaClose(void);
 
+#include <drivers/adc.h>
+#include <kernel/dpl/ClockP.h>
+
+void Drivers_adcOpen(void);
 #include <drivers/soc/am263px/soc_xbar.h>
 void Drivers_gpioIntXbarOpen(void);
 /*

@@ -12,6 +12,7 @@
 #include "ti_drivers_config.h"
 #include "ti_drivers_open_close.h"
 #include "ti_board_open_close.h"
+
 #include "board.h"
 #include "ADS_adc.h"
 #include "int_adc.h"
@@ -19,8 +20,7 @@
 #include "testing.h"
 #include "BQ25751.h"
 #include "BQ25856.h"
-
-uint16_t log_counter = 0;
+#include "pmic.h"
 
 void PDM_testing(void *args)
 {
@@ -92,6 +92,18 @@ void PDM_testing(void *args)
 
             case 999: // Manually read a register from BQ25856
                 BQ25856_manual_register_read();
+                break;
+
+            case 1000: // Print a register dump from supercapacitor controller (BQ25856)
+                BQ25856_print_register_dump();
+                break;
+
+            case 1001: // Request PMIC Standby mode
+                digitalWrite(GPIO47_BASE_ADDR, GPIO47_PIN, 0); // Pull WAKE1 pin low
+                // Maybe pull WAKE2 low too
+
+                pmic_write_reg(PMIC_STBY_CFG_REG_ADDR, 0b00010111); // STBY_EN = 1
+                pmic_write_reg(PMIC_STATE_CTRL_REG_ADDR, 0x04); // STATE_REQ = 4h
                 break;
             
             default:

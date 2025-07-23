@@ -49,11 +49,14 @@ int32_t Board_driversOpen(void)
     }
 
 
+
     return status;
 }
 
 void Board_driversClose(void)
 {
+
+    Board_pmicClose();
 
 }
 
@@ -115,5 +118,100 @@ int32_t Board_ioexpOpen()
     }
 
     return status;
+}
+
+/*
+ * PMIC
+ */
+/* PMIC specific includes */
+#include <board/pmic/pmic_tps653860xx.h>
+
+/* PMIC Object - initalized during PMIC_open() */
+PMIC_Object gPmicObject[CONFIG_PMIC_NUM_INSTANCES];
+/* PMIC Driver handles - opened during Board_pmicOpen() */
+PMIC_Handle gPmicHandle[CONFIG_PMIC_NUM_INSTANCES];
+
+/* PMIC Config */
+PMIC_Config gPmicConfig[CONFIG_PMIC_NUM_INSTANCES] =
+{
+    {
+        .fxns = &gPmicFxns_TPS653860xx,
+        .object = (void *)&gPmicObject[0],
+    },
+};
+uint32_t gPmicConfigNum = CONFIG_PMIC_NUM_INSTANCES;
+
+/* PMIC params */
+PMIC_Params gPmicParams[CONFIG_PMIC_NUM_INSTANCES] =
+{
+    {
+        .deviceType  = PMIC_DEV_BB_TPS65386X,
+        .commMode    = PMIC_INTF_SPI,
+        .instType    = PMIC_MAIN_INST,
+        .instance    = SPI1,
+    },
+};
+
+int32_t Board_pmicOpen()
+{
+    uint32_t instCnt;
+    int32_t  status = SystemP_SUCCESS;
+
+    for(instCnt = 0U; instCnt < CONFIG_PMIC_NUM_INSTANCES; instCnt++)
+    {
+        gPmicHandle[instCnt] = NULL;   /* Init to NULL so that we can exit gracefully */
+    }
+
+    /* Open all instances */
+    for(instCnt = 0U; instCnt < CONFIG_PMIC_NUM_INSTANCES; instCnt++)
+    {
+        gPmicHandle[instCnt] = PMIC_open(instCnt, &gPmicParams[instCnt]);
+        if(NULL == gPmicHandle[instCnt])
+        {
+            DebugP_logError("PMIC open failed for instance %d !!!\r\n", instCnt);
+            status = SystemP_FAILURE;
+            break;
+        }
+
+        status = PMIC_configure(gPmicHandle[instCnt]);
+
+        if(status == SystemP_FAILURE)
+        {
+            DebugP_logError("PMIC configure failed for instance %d !!!\r\n", instCnt);
+            break;
+        }
+    }
+    if(SystemP_FAILURE == status)
+    {
+        Board_pmicClose();   /* Exit gracefully */
+    }
+
+    return status;
+}
+
+void Board_pmicClose(void)
+{
+    uint32_t instCnt;
+
+    /* Close all instances that are open */
+    for(instCnt = 0U; instCnt < CONFIG_PMIC_NUM_INSTANCES; instCnt++)
+    {
+        if(gPmicHandle[instCnt] != NULL)
+        {
+            PMIC_close(gPmicHandle[instCnt]);
+            gPmicHandle[instCnt] = NULL;
+        }
+    }
+
+    return;
+}
+
+void Drivers_pmicOpen()
+{
+    Drivers_mcspiOpen();
+    Board_pmicOpen();
+    Drivers_mcspiClose();
+    /*Wait 5ms for LDO rail to get initilized*/
+    ClockP_usleep(5000);
 }
 

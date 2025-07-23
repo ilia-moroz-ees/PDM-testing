@@ -57,6 +57,16 @@ void Board_deinit(void);
 
 void  Board_ioexpInit();
 
+/*
+ * PMIC
+ */
+#define BLACKBIRD
+#include <board/pmic.h>
+/* PMIC Instance Macros */
+#define CONFIG_PMIC0 (0U)
+#define CONFIG_PMIC_NUM_INSTANCES (1U)
+
+
 
 #ifdef __cplusplus
 }

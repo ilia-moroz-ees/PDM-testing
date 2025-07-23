@@ -11,6 +11,8 @@
  */
 const ioexp           = scripting.addModule("/board/ioexp/ioexp", {}, false);
 const ioexp1          = ioexp.addInstance();
+const pmic            = scripting.addModule("/board/pmic/pmic", {}, false);
+const pmic1           = pmic.addInstance();
 const adc             = scripting.addModule("/drivers/adc/adc", {}, false);
 const adc1            = adc.addInstance();
 const gpio            = scripting.addModule("/drivers/gpio/gpio", {}, false);
@@ -30,6 +32,7 @@ const gpio13          = gpio.addInstance();
 const gpio14          = gpio.addInstance();
 const gpio15          = gpio.addInstance();
 const gpio16          = gpio.addInstance();
+const gpio17          = gpio.addInstance();
 const i2c             = scripting.addModule("/drivers/i2c/i2c", {}, false);
 const i2c1            = i2c.addInstance();
 const i2c2            = i2c.addInstance();
@@ -77,6 +80,8 @@ ioexp1.TCA6424ARGJR_port1_pinSPI1_MUX_SEL_mode  = 0;
 ioexp1.TCA6424ARGJR_port1_pinSPI1_MUX_SEL_state = 1;
 ioexp1.TCA6424ARGJR_port1_pinI2C0_MUX_SEL_mode  = 0;
 ioexp1.TCA6424ARGJR_port1_pinI2C0_MUX_SEL_state = 1;
+
+pmic1.$name = "CONFIG_PMIC0";
 
 adc1.$name               = "ADC1";
 adc1.adcClockPrescaler   = "ADC_CLK_DIV_4_0";
@@ -171,6 +176,11 @@ gpio16.trigType       = "FALL_EDGE";
 gpio16.enableIntr     = true;
 gpio16.GPIO_n.$assign = "EPWM3_A";
 
+gpio17.$name          = "GPIO47";
+gpio17.pinDir         = "OUTPUT";
+gpio17.defaultValue   = "1";
+gpio17.GPIO_n.$assign = "EPWM2_A";
+
 ioexp1.peripheralDriver = i2c1;
 i2c1.$name              = "I2C2";
 i2c1.I2C.$assign        = "I2C2";
@@ -199,6 +209,7 @@ mcspi1.mcspiChannel[0].CSn.$used   = false;
 mcspi1.child.$name                 = "drivers_mcspi_v1_mcspi_v1_template0";
 
 mcspi2.$name                         = "SPI1";
+pmic1.peripheralDriver               = mcspi2;
 mcspi2.SPI.$assign                   = "SPI1";
 mcspi2.mcspiChannel[0].$name         = "CONFIG_MCSPI_CH1";
 mcspi2.mcspiChannel[0].advanced      = true;

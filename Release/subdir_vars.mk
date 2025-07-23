@@ -28,11 +28,10 @@ C_SRCS += \
 ./syscfg/ti_sdl_config.c \
 ../i2c_helper.c \
 ../int_adc.c \
-../ioexp_tca6408.c \
-../ioexp_tca6416.c \
 ../ioexp_tca6424.c \
 ../logger.c \
 ../main.c \
+../pmic.c \
 ../testing.c 
 
 GEN_CMDS += \
@@ -76,11 +75,10 @@ C_DEPS += \
 ./syscfg/ti_sdl_config.d \
 ./i2c_helper.d \
 ./int_adc.d \
-./ioexp_tca6408.d \
-./ioexp_tca6416.d \
 ./ioexp_tca6424.d \
 ./logger.d \
 ./main.d \
+./pmic.d \
 ./testing.d 
 
 OBJS += \
@@ -103,11 +101,10 @@ OBJS += \
 ./syscfg/ti_sdl_config.o \
 ./i2c_helper.o \
 ./int_adc.o \
-./ioexp_tca6408.o \
-./ioexp_tca6416.o \
 ./ioexp_tca6424.o \
 ./logger.o \
 ./main.o \
+./pmic.o \
 ./testing.o 
 
 GEN_MISC_FILES += \
@@ -146,11 +143,10 @@ OBJS__QUOTED += \
 "syscfg\ti_sdl_config.o" \
 "i2c_helper.o" \
 "int_adc.o" \
-"ioexp_tca6408.o" \
-"ioexp_tca6416.o" \
 "ioexp_tca6424.o" \
 "logger.o" \
 "main.o" \
+"pmic.o" \
 "testing.o" 
 
 GEN_MISC_FILES__QUOTED += \
@@ -186,11 +182,10 @@ C_DEPS__QUOTED += \
 "syscfg\ti_sdl_config.d" \
 "i2c_helper.d" \
 "int_adc.d" \
-"ioexp_tca6408.d" \
-"ioexp_tca6416.d" \
 "ioexp_tca6424.d" \
 "logger.d" \
 "main.d" \
+"pmic.d" \
 "testing.d" 
 
 GEN_FILES__QUOTED += \
@@ -228,11 +223,10 @@ C_SRCS__QUOTED += \
 "./syscfg/ti_sdl_config.c" \
 "../i2c_helper.c" \
 "../int_adc.c" \
-"../ioexp_tca6408.c" \
-"../ioexp_tca6416.c" \
 "../ioexp_tca6424.c" \
 "../logger.c" \
 "../main.c" \
+"../pmic.c" \
 "../testing.c" 
 
 SYSCFG_SRCS__QUOTED += \
