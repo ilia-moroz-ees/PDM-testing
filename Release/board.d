@@ -135,7 +135,7 @@ board.o: ../board.c ../board.h \
  C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/board/pmic/pmic_lld/blackbird/include/pmic_esm.h \
  C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/board/pmic/pmic_lld/blackbird/include/pmic_timer.h \
  C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/board/pmic/pmic_lld/blackbird/include/pmic_power.h \
- ../ADS_adc.h ../int_adc.h ../BQ25751.h ../i2c_helper.h
+ ../ADS_adc.h ../int_adc.h ../BQ25751.h ../i2c_helper.h ../BQ25856.h
 ../board.h:
 C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/kernel/dpl/AddrTranslateP.h:
 C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/kernel/dpl/SystemP.h:
@@ -275,3 +275,4 @@ C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263p
 ../int_adc.h:
 ../BQ25751.h:
 ../i2c_helper.h:
+../BQ25856.h:

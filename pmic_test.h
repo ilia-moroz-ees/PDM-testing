@@ -1,3 +1,5 @@
+#ifndef PMIC_TEST_H
+#define PMIC_TEST_H
 #include "ti_board_open_close.h"
 #include "ti_drivers_config.h"
 #include "ti_drivers_open_close.h"
@@ -26,3 +28,6 @@ Pmic_CoreHandle_t* handle;
 void pmic_init();
 int32_t pmic_write_reg(uint16_t regAddr, uint8_t txData);
 int32_t pmic_read_reg(uint16_t regAddr, uint8_t *rxBuffer);
+
+
+#endif

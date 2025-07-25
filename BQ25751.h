@@ -15,6 +15,7 @@
 #include "i2c_helper.h"
 #include <math.h>
 #include <stdio.h>
+#include "BQ25856.h"
 
 #define BQ25751_ADDR 0x6B
 #define BQ25751_REG_ADDR_LEN (1U)
@@ -79,6 +80,9 @@
 
 #define BQ25751_TEST_TIMEOUT (500) // microseconds
 
+#define HIZ_MASK 0b00000100
+#define EN_CHG_MASK 0b00000001
+
 int32_t BQ25751_read_reg(uint8_t register_addr, uint8_t length, uint16_t* result);
 int32_t BQ25751_write_reg(uint8_t register_addr, uint8_t length, uint16_t data);
 
@@ -93,7 +97,7 @@ extern uint64_t BQ25751_timer;
 extern volatile bool BQ25751_timer_en;
 extern bool BQ25751_timer_init;
 
-void BQ25751_run_test_mode(void);
+void PPMC_run_test_mode(void);
 
 typedef struct
 {

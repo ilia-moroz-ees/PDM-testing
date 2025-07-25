@@ -134,7 +134,7 @@ BQ25751.o: ../BQ25751.c ../BQ25751.h \
  syscfg/ti_drivers_open_close.h \
  C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/drivers/mcspi/v0/lld/dma/mcspi_dma.h \
  C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/drivers/mcspi/v0/lld/dma/edma/mcspi_dma_edma.h \
- ../i2c_helper.h
+ ../i2c_helper.h ../BQ25856.h
 ../BQ25751.h:
 syscfg/ti_board_open_close.h:
 syscfg/ti_board_config.h:
@@ -270,3 +270,4 @@ syscfg/ti_drivers_open_close.h:
 C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/drivers/mcspi/v0/lld/dma/mcspi_dma.h:
 C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/drivers/mcspi/v0/lld/dma/edma/mcspi_dma_edma.h:
 ../i2c_helper.h:
+../BQ25856.h:

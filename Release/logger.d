@@ -134,7 +134,8 @@ logger.o: ../logger.c ../logger.h \
  C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/board/pmic/pmic_lld/blackbird/include/pmic_esm.h \
  C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/board/pmic/pmic_lld/blackbird/include/pmic_timer.h \
  C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/board/pmic/pmic_lld/blackbird/include/pmic_power.h \
- ../board.h ../BQ25751.h ../i2c_helper.h ../ADS_adc.h ../int_adc.h
+ ../board.h ../BQ25751.h ../i2c_helper.h ../BQ25856.h ../ADS_adc.h \
+ ../int_adc.h
 ../logger.h:
 C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/kernel/dpl/DebugP.h:
 C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/kernel/dpl/ClockP.h:
@@ -272,5 +273,6 @@ C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263p
 ../board.h:
 ../BQ25751.h:
 ../i2c_helper.h:
+../BQ25856.h:
 ../ADS_adc.h:
 ../int_adc.h:

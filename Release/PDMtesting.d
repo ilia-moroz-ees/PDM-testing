@@ -135,9 +135,9 @@ PDMtesting.o: ../PDMtesting.c \
  C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/board/pmic/pmic_lld/blackbird/include/pmic_timer.h \
  C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/board/pmic/pmic_lld/blackbird/include/pmic_power.h \
  ../board.h ../logger.h ../ADS_adc.h ../int_adc.h ../BQ25751.h \
- ../i2c_helper.h ../testing.h \
+ ../i2c_helper.h ../BQ25856.h ../testing.h \
  C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/mathlib/trig/ti_arm_trig.h \
- ../BQ25856.h ../pmic_test.h
+ ../pmic_test.h
 C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/kernel/dpl/DebugP.h:
 C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/kernel/dpl/ClockP.h:
 C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/kernel/dpl/SystemP.h:
@@ -277,7 +277,7 @@ C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263p
 ../int_adc.h:
 ../BQ25751.h:
 ../i2c_helper.h:
+../BQ25856.h:
 ../testing.h:
 C:/Users/carim/Desktop/mcu_plus_sdk_am263px_10_02_00_15__all/mcu_plus_sdk_am263px_10_02_00_15/source/mathlib/trig/ti_arm_trig.h:
-../BQ25856.h:
 ../pmic_test.h:

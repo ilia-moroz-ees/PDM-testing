@@ -33,6 +33,7 @@ void PDM_testing(void *args)
     init_gpio();
     BQ25751_init();
     BQ25856_init();
+    pmic_init();
     init_global_interrupts(&intr_objects);
     ADC_enableConverter(ADC1_BASE_ADDR);
     ClockP_sleep(1);
@@ -65,7 +66,7 @@ void PDM_testing(void *args)
                 break;
 
             case 993: // BQ25751 test mode
-                BQ25751_run_test_mode();
+                PPMC_run_test_mode();
                 break;
 
             case 994: // test of reading part number of BQ25751

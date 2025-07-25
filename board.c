@@ -44,11 +44,12 @@ void GPIO_bankIsrFxn(void *args)
             }
 
             if (intr_status & GPIO_GET_BANK_BIT_MASK(intr_pins.gpio49.pin_num))
-            {
+            { // Interrupt line from BQ25856
                 add_log(FAULT, GPIO49);
                 // Add more stuff here later
             }
-            if (intr_status & GPIO_GET_BANK_BIT_MASK(intr_pins.gpio50.pin_num)) {
+            if (intr_status & GPIO_GET_BANK_BIT_MASK(intr_pins.gpio50.pin_num))
+            { // Interrupt line for BQ25751
                 BQ25751_timer = ClockP_getTimeUsec();
                 BQ25751_timer_en = true;
                 add_log(FAULT, GPIO50);
