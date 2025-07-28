@@ -371,7 +371,12 @@ void PPMC_run_test_mode(void)
     static bool is_first = true;
     if (is_first)
     {
+        DebugP_log("Enterring test mode \r\n");
         is_first = false;
+
+        // Reset all registers
+        BQ25751_write_reg(BQ25751_POWER_PATH_REVERSE_MODE_CONTROL_REG, 1, 0x80);
+        BQ25856_write_reg(BQ25856_POWER_PATH_REVERSE_MODE_CONTROL_REG, 1, 0x80);
 
         //BQ25751 setup
         BQ25751_write_reg(BQ25751_TIMER_CONTROL_REG, 1, 0x00); // Disabling Watchdog
@@ -385,7 +390,7 @@ void PPMC_run_test_mode(void)
         //BQ25856 setup
         BQ25856_write_reg(BQ25856_POWER_PATH_REVERSE_MODE_CONTROL_REG, 1, 0x02); // Enable Auto Reverse mode (Maybe need to set this at 0x03)
         BQ25856_write_reg(BQ25856_ADC_CONTROL_REG, 1, 0b10000000); // ADC into continuius conversion mode
-        BQ25856_write_reg(BQ25856_REVERSE_MODE_INPUT_VOLTAGE_LIMIT_REG, 2, 0x816); // Set VSYS_REV to 24V. TODO: Check this
+        BQ25856_write_reg(BQ25856_REVERSE_MODE_INPUT_VOLTAGE_LIMIT_REG, 2, 0x12C0); // Set VSYS_REV to 24V. TODO: Check this
         BQ25856_write_reg(BQ25856_CHARGE_CURRENT_LIMIT_REG, 2, 0x0D); // ICHG_REG current limit set to 650mA
         BQ25856_write_reg(BQ25856_PRECHARGE_TERMINATION_CONTROL_REG, 1, 0x06); // EN_TERM bit to 0 and EN_PRECHG bit to 0
         BQ25856_write_reg(BQ25856_TIMER_CONTROL_REG, 1, 0x05); // EN_CHG_TMR bit to 0 and disable watchdog timer
@@ -405,15 +410,10 @@ void PPMC_run_test_mode(void)
                 DebugP_log("Reading reverse mode failed failed\r\n");
                 continue;
             }
-            // uint16_t is_reverse;
-            // if (BQ25751_read_reg(BQ25751_CHARGER_STATUS_3_REG, 1, &is_reverse))
-            // {
-            //     DebugP_log("Reading reverse mode failed failed\r\n");
-            //     continue;
-            // }
 
             if (is_power_good)
             {
+                DebugP_log("power good detected\r\n");
                 BQ25856_write_reg(BQ25856_CHARGER_CONTROL_REG, 1, 0xC9); // disable HiZ, enable capacitor charging
                 BQ25856_write_reg(BQ25856_POWER_PATH_REVERSE_MODE_CONTROL_REG, 1, 0x00); // disable reverse and auto reverse on capacitor charge controller
 
@@ -425,6 +425,7 @@ void PPMC_run_test_mode(void)
             }
             else
             {
+                DebugP_log("power good not detected\r\n");
                 BQ25751_write_reg(BQ25751_CHARGER_CONTROL_REG, 1, 0x0C); // Disable charging of the battery and force HiZ mode
             }
 
