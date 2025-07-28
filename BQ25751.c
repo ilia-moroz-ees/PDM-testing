@@ -390,7 +390,7 @@ void PPMC_run_test_mode(void)
         //BQ25856 setup
         BQ25856_write_reg(BQ25856_POWER_PATH_REVERSE_MODE_CONTROL_REG, 1, 0x02); // Enable Auto Reverse mode (Maybe need to set this at 0x03)
         BQ25856_write_reg(BQ25856_ADC_CONTROL_REG, 1, 0b10000000); // ADC into continuius conversion mode
-        BQ25856_write_reg(BQ25856_REVERSE_MODE_INPUT_VOLTAGE_LIMIT_REG, 2, 0x12C0); // Set VSYS_REV to 24V. TODO: Check this
+        BQ25856_write_reg(BQ25856_REVERSE_MODE_INPUT_VOLTAGE_LIMIT_REG, 2, 0x12C0); // Set VSYS_REV to 24V
         BQ25856_write_reg(BQ25856_CHARGE_CURRENT_LIMIT_REG, 2, 0x0D); // ICHG_REG current limit set to 650mA
         BQ25856_write_reg(BQ25856_PRECHARGE_TERMINATION_CONTROL_REG, 1, 0x06); // EN_TERM bit to 0 and EN_PRECHG bit to 0
         BQ25856_write_reg(BQ25856_TIMER_CONTROL_REG, 1, 0x05); // EN_CHG_TMR bit to 0 and disable watchdog timer
