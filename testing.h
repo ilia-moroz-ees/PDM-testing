@@ -1,5 +1,8 @@
 #ifndef TESTING_H
 #define TESTING_H
+
+// This file contains all the functions and variables related to running test cases
+
 #include <stdio.h>
 #include <kernel/dpl/DebugP.h>
 #include <kernel/dpl/ClockP.h>

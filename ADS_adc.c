@@ -34,22 +34,25 @@ uint16_t SPI_ReadWrite(ADS_ADC *adc, uint16_t data) {
   uint16_t txData = data;
   uint16_t rxData = 0;
 
-  MCSPI_Transaction_init(&spiTransaction);
+  MCSPI_Transaction_init(&spiTransaction); // Initializing the transaction with default values
+  // Configuring the transaction
   spiTransaction.channel = adc->channel;
   spiTransaction.dataSize = 16;    // 16-bit for ADS7953
   spiTransaction.csDisable = true; // Manual Control CS
   spiTransaction.count = 1;
-  spiTransaction.txBuf = (void *)&txData;
-  spiTransaction.rxBuf = (void *)&rxData;
+  spiTransaction.txBuf = (void *)&txData; // pointer to the data MCU will send
+  spiTransaction.rxBuf = (void *)&rxData; // pointer to where to MCU will store the data read
   spiTransaction.args = NULL;
 
-  GPIO_pinWriteLow(adc->cs_base, adc->cs_pin);
+  GPIO_pinWriteLow(adc->cs_base, adc->cs_pin); // Starting the operation by pulling CS pin low
 
+  // Perform the transfer and handle the error
   if (MCSPI_transfer(gMcspiHandle[adc->spi_instance], &spiTransaction) != SystemP_SUCCESS) {
     DebugP_log("SPI transfer failed!\r\n");
     return 0xFFFF; // Error value
   }
 
+  // Finish the transfer by pulling CS pin high
   GPIO_pinWriteHigh(adc->cs_base, adc->cs_pin);
 
   return rxData & 0x0FFF; // Getting the value from the package
@@ -58,8 +61,7 @@ uint16_t SPI_ReadWrite(ADS_ADC *adc, uint16_t data) {
 }
 
 uint16_t read_ext_ADC(ADS_ADC *adc, uint8_t channel) {
-  uint16_t command = ADS7953_CMD(channel);
-  // uint16_t command = 200;
+  uint16_t command = ADS7953_CMD(channel); // generating the write command to send to the ADC to request the reading
 
   SPI_ReadWrite(adc, command); // Since response comes only in the third package,
                                // doing 2 empty reads
@@ -68,16 +70,13 @@ uint16_t read_ext_ADC(ADS_ADC *adc, uint8_t channel) {
 }
 
 float ext_adc_to_voltage(uint16_t raw_adc) {
-  // DebugP_log("%d\r\n", raw_adc);
   return ((float)raw_adc / EXT_ADC_RESOLUTION) * EXT_ADC_VREF;
 }
 
 float adc_to_current_HSS_MB(uint16_t raw_adc) {
-  // DebugP_log("%d\r\n", raw_adc);
   return ext_adc_to_voltage((float)raw_adc) / CURRENT_SCALE_HSS_MB;
 }
 
 float adc_to_current_TPS(uint16_t raw_adc) {
-  // DebugP_log("%d\r\n", raw_adc);
   return ext_adc_to_voltage((float)raw_adc) / CURRENT_SCALE_TPS;
 }

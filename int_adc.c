@@ -10,15 +10,18 @@ const float CURRENT_SCALE_LM74930 = 0.432f;  // Voltage to Current Conversion fa
 // SOC5 - INT4 - ADC1_AIN5
 
 uint16_t read_int_ADC(uint8_t adc_number) {
+    // Must clear the interrupt status, so that we don't think that ADC has already finished conversion
     ADC_clearInterruptStatus(ADC1_BASE_ADDR, ADC_INT_NUMBER1);
 
+    // Will store the conversion result here
     uint16_t conversion_result;
     
-    // Need to wait a little bit after starting conversion, otherwise Result doesn't update properly
     switch (adc_number) {
         case 0:
+            // Setting the SOC (Start of Conversion) number for every ADC pin
+            // This way we can use a single Interrupt for multiple ADC pins
             ADC_setInterruptSource(ADC1_BASE_ADDR, ADC_INT_NUMBER1, ADC_SOC_NUMBER0);
-            ADC_forceSOC(ADC1_BASE_ADDR, ADC_SOC_NUMBER0);
+            ADC_forceSOC(ADC1_BASE_ADDR, ADC_SOC_NUMBER0); // Starting the conversion
             ClockP_usleep(10);
             while (ADC_getInterruptStatus(ADC1_BASE_ADDR, ADC_INT_NUMBER1) == false) {
             /* Wait for the SOC conversion to complete */

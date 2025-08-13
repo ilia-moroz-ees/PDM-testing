@@ -13,6 +13,7 @@
 #include <kernel/dpl/ClockP.h>
 #include <kernel/dpl/DebugP.h>
 
+// Helper function for handling I2C errors
 void i2c_read_error_handler(int32_t status);
 
 #endif

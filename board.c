@@ -1,6 +1,5 @@
 #include "board.h"
 
-volatile int test = 0;
 Intr_objects intr_objects;
 
 Pins intr_pins = {
@@ -18,12 +17,12 @@ void GPIO_bankIsrFxn(void *args)
 {
     // Passing a struct with pin information
     if (!args) return; // Check for null pointer
-    Pin_parameters *pin_parameters = (Pin_parameters*)args;
+    Pin_parameters *pin_parameters = (Pin_parameters*)args; // The pointer we received points to Pin_parameters
 
     uint32_t baseAddr = pin_parameters->base_address;
-    uint32_t bankNum = GPIO_GET_BANK_INDEX(pin_parameters->pin_num);
+    uint32_t bankNum = GPIO_GET_BANK_INDEX(pin_parameters->pin_num); // This is the bank that caused the interrupt
     uint32_t intr_status = GPIO_getBankIntrStatus(baseAddr, bankNum);
-    GPIO_clearBankIntrStatus(baseAddr, bankNum, intr_status);
+    GPIO_clearBankIntrStatus(baseAddr, bankNum, intr_status); // Must clear the interrupt status, or will loop inside the ISR forever
     switch (bankNum)
     {
         case 2:
@@ -62,7 +61,6 @@ void GPIO_bankIsrFxn(void *args)
             }
             break;
         default:
-            test = 0;
             break;
     }
 
@@ -131,17 +129,20 @@ void init_interrupt(HwiP_Object *intr_object, Pin_parameters *pin)
     GPIO_setDirMode(pin->base_address, pin->pin_num, pin->dir);
 
     HwiP_Params hwiPrms;
-    HwiP_Params_init(&hwiPrms);
+    HwiP_Params_init(&hwiPrms); // Initializing interrupt parameters with default values
     int32_t retVal;
 
+    // Configuring the intrrupt
     hwiPrms.intNum = pin->int_num;
     hwiPrms.callback = &GPIO_bankIsrFxn;
     hwiPrms.args = pin;
     hwiPrms.isPulse = FALSE;
+    // Constructing the interrupt object
     retVal = HwiP_construct(intr_object, &hwiPrms);
     DebugP_assert(retVal == SystemP_SUCCESS);
 }
 
+// Instead of calling GPIO_pinWriteHigh and GPIO_pinWriteLow separately, just call this function
 void digitalWrite(uint32_t base_address, uint32_t pin, bool value)
 {
     switch (pin)

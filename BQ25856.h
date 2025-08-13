@@ -16,6 +16,10 @@
 #include <math.h>
 #include <stdio.h>
 
+// This file contains the functions and variables related to BQ25856 capacitor charging module
+// Most of the functions serve the same purpose as the ones in BQ25751 module
+// Find more detailed comments and explanations there
+
 #define BQ25856_ADDR 0x6B
 #define BQ25856_REG_ADDR_LEN (1U)
 #define BQ25856_REG_VALUE_LEN (2U)

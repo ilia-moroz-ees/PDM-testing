@@ -1,6 +1,8 @@
 #ifndef BQ25751_H
 #define BQ25751_H
 
+// This file contains most of the functions and variables for BQ25751 battery charge controller
+
 #include "ti_board_open_close.h"
 #include "ti_drivers_config.h"
 #include "ti_drivers_open_close.h"
@@ -17,7 +19,7 @@
 #include <stdio.h>
 #include "BQ25856.h"
 
-#define BQ25751_ADDR 0x6B
+#define BQ25751_ADDR 0x6B // Address of the controller
 #define BQ25751_REG_ADDR_LEN (1U)
 #define BQ25751_REG_VALUE_LEN (2U)
 
@@ -80,23 +82,45 @@
 
 #define BQ25751_TEST_TIMEOUT (500) // microseconds
 
-#define HIZ_MASK 0b00000100
+#define HIZ_MASK 0b00000100 // Bit mask for enabling HiZ mode
 #define EN_CHG_MASK 0b00000001
 
+// Fucntion for reading register from the module
+// Pass the register address, length of the register data (1-2 bytes),
+// Pointer to the place where to store the reading result
+// Returns status (I2C_STS_SUCCESS means reading went well)
 int32_t BQ25751_read_reg(uint8_t register_addr, uint8_t length, uint16_t* result);
+
+// Fucntion for writing to the register of the module
+// Pass the register address, length of the register data (1-2 bytes),
+// data that needs to be written to the register
+// Returns status (I2C_STS_SUCCESS means writing went well)
 int32_t BQ25751_write_reg(uint8_t register_addr, uint8_t length, uint16_t data);
 
+// Reads the fault registers and prints the faults on the screen
 void BQ25751_read_faults();
+
+// Sequence for reading the register through the console
+// Prompts the user to enter the address and length
+// Prints the value of the register on the screen
 void BQ25751_manual_register_read(void);
+
+// Sequence for writing the register through the console
+// Prompts the user to enter the address, length and the data to write
 void BQ25751_manual_register_write(void);
+
+// Sets certain register values for more convenient dealing with the module
 void BQ25751_init(void);
 
+// Prints the value of every register on the screen
 void BQ25751_print_register_dump(void);
 
 extern uint64_t BQ25751_timer;
 extern volatile bool BQ25751_timer_en;
 extern bool BQ25751_timer_init;
 
+// Blocking function, runs the sequence to handle weird behavior of the charge controller,
+// and manually put it in HiZ mode when power disconnected
 void PPMC_run_test_mode(void);
 
 typedef struct
@@ -105,6 +129,7 @@ typedef struct
     uint8_t length;
 } BQ25751_Reg;
 
+// Array that contains all the registers of the BQ25751
 extern const BQ25751_Reg bq25751_registers[BQ25751_REG_NUM];
 
 
